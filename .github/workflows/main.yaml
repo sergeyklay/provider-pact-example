@@ -37,3 +37,4 @@ jobs:
           ls -al /opt/hostedtoolcache/specmatic || true
           ls -al /opt/hostedtoolcache/specmatic/0.59.0 || true
           ls -al /opt/hostedtoolcache/specmatic/0.59.0/x64 || true
+          java -jar /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic.jar --version
