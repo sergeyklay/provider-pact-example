@@ -31,3 +31,9 @@ jobs:
         uses: airslate-oss/setup-specmatic@v0.0.2
         with:
           specmatic-version: '0.59.0'
+
+      - name: Test
+        run: |
+          ls -al /home/runner/work
+          ls -al /home/runner/work/_temp
+          ls -al /home/runner/work/_temp/specmatic
