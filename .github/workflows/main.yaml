@@ -28,7 +28,7 @@ jobs:
 
       - name: Setup specmatic
         id: specmatic
-        uses: airslate-oss/setup-specmatic@v0.0.16
+        uses: airslate-oss/setup-specmatic@v0.0.17
         with:
           specmatic-version: '0.59.0'
 
@@ -43,3 +43,8 @@ jobs:
           if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic.jar ]; then
             java -jar /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic.jar --version
           fi
+
+          type -a specmatic
+          command -v specmatic
+
+          specmatic --version
