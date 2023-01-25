@@ -28,9 +28,9 @@ jobs:
 
       - name: Setup specmatic
         id: specmatic
-        uses: airslate-oss/setup-specmatic@v0.0.18
+        uses: airslate-oss/setup-specmatic@v0.0.19
         with:
-          specmatic-version: '0.59.0'
+          specmatic-version: 0.59.0
 
       - name: Test
         run: |
