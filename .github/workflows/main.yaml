@@ -34,14 +34,8 @@ jobs:
 
       - name: Test
         run: |
-          ls -al /opt/hostedtoolcache/specmatic || true
-          ls -al /opt/hostedtoolcache/specmatic/0.59.0 || true
-          ls -al /opt/hostedtoolcache/specmatic/0.59.0/x64 || true
-
-          echo $PATH
-
-          if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic.jar ]; then
-            java -jar /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic.jar --version
+          if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
+            cat /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic
           fi
 
           type -a specmatic
