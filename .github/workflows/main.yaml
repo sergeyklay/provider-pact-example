@@ -40,6 +40,7 @@ jobs:
             cat /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic
           fi
 
+          type -a java
           type -a specmatic
           command -v specmatic
 
