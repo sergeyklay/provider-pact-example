@@ -11,15 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
- 
-      - name: Hello world action step
-        id: hello
-        uses: sergeyklay/hello-world-javascript-action@v1.5
-        with:
-          who-to-greet: 'Mona the Octocat'
-
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
 
       - name: Setup specmatic
         id: specmatic
@@ -27,13 +18,17 @@ jobs:
         with:
           specmatic-version: 0.59.0
 
-      - name: Test
+      - name: Check cache
         run: |
           if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
             cat /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic
           fi
 
-          type -a java
-          type -a specmatic
+      - name: Find Java
+        run: type -a java
 
-          specmatic --version
+      - name: Find specmatic
+        run: type -a specmatic
+
+      - name: Check specmatic version
+        run: specmatic --version
