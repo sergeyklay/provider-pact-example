@@ -13,9 +13,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup specmatic
-        uses: airslate-oss/setup-specmatic@v1
+        uses: airslate-oss/setup-specmatic@4b2c4abfeb2bbcdc9f51b76e495419c3c3c27f30
         with:
-          specmatic-version: 0.59.0
+          specmatic-version: stable
 
       - name: Check cache
         run: |
