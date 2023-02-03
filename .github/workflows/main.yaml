@@ -2,11 +2,26 @@ name: Test
 
 on: [push]
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   hello_world_job:
 
     runs-on: ubuntu-latest
     name: A job to test custom actions
+
+    strategy:
+      # When set to true, GitHub cancels
+      # all in-progress jobs if any matrix job fails.
+      fail-fast: false
+
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
 
     steps:
       - name: Checkout
@@ -19,7 +34,7 @@ jobs:
           fi
 
       - name: Setup specmatic
-        uses: airslate-oss/setup-specmatic@v1
+        uses: airslate-oss/setup-specmatic@dc49c26cebcd0698c8b53e19cfad50363fc05392
         with:
           specmatic-version: stable
 
