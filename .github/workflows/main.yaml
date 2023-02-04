@@ -27,55 +27,60 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Check cache before install
+      - name: "Check cache before install ${{ matrix.os }}"
         if: matrix.os != 'windows-latest'
         run: |
           if [ -d /opt/hostedtoolcache ]; then
             ls -l /opt/hostedtoolcache
           fi
 
-      - name: Check cache before install
+      - name: "Check cache before install ${{ matrix.os }}"
         if: matrix.os == 'windows-latest'
         run: |
-          if exist "C:\hostedtoolcache" (
-            dir "C:\hostedtoolcache"
-          )
+          if (Test-Path -Path "C:\hostedtoolcache") {
+            Get-ChildItem "C:\hostedtoolcache"
+          }
 
       - name: Setup specmatic
         uses: airslate-oss/setup-specmatic@dc49c26cebcd0698c8b53e19cfad50363fc05392
         with:
           specmatic-version: stable
 
-      - name: Check cache after install
+      - name: "Check cache after install ${{ matrix.os }}"
         if: matrix.os != 'windows-latest'
         run: |
           if [ -d /opt/hostedtoolcache ]; then
             ls -l /opt/hostedtoolcache
           fi
 
+      - name: "Print wrapper contents ${{ matrix.os }}"
+        if: matrix.os != 'windows-latest'
+        run: |
           if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
             cat /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic
           fi
 
-      - name: Check cache after install
+      - name: "Check cache after install ${{ matrix.os }}"
         if: matrix.os == 'windows-latest'
         run: |
-          if exist "C:\hostedtoolcache" (
-            dir "C:\hostedtoolcache"
-          )
+          if (Test-Path -Path "C:\hostedtoolcache") {
+            Get-ChildItem "C:\hostedtoolcache"
+          }
 
-          if exist "C:\hostedtoolcache\windows\specmatic\0.59.0\x64" (
-            dir "C:\hostedtoolcache\windows\specmatic\0.59.0\x64"
-          )
+      - name: "Print wrapper contents ${{ matrix.os }}"
+        if: matrix.os == 'windows-latest'
+        run: |
+          if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic") {
+            Get-Content "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic"
+          }
 
-      - name: Find Java
+      - name: "Find Java ${{ matrix.os }}"
         if: matrix.os != 'windows-latest'
         run: type -a java
 
-      - name: Find specmatic
+      - name: "Find specmatic ${{ matrix.os }}"
         if: matrix.os != 'windows-latest'
         run: type -a specmatic
 
       - name: Check specmatic version
-        if: always()
         run: specmatic --version
