@@ -2,7 +2,7 @@
 openapi: 3.0.3
 
 info:
-  version: 1.0.0
+  version: '1.0'
   title: Products API
 
 servers:
@@ -10,6 +10,26 @@ servers:
     url: http://127.0.0.1:5000
 
 components:
+  parameters:
+    AcceptHeader:
+      in: header
+      name: Accept
+      description: Accept Header
+      schema:
+        type: string
+        enum: [application/json, '*/*']
+      example: application/json
+    IdParam:
+      in: path
+      name: id
+      description: Entity ID param
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+      required: true
+      example: 42
+
   schemas:
     Product:
       title: Product
@@ -73,6 +93,8 @@ paths:
       summary: List of all products.
       operationId: products.index
       tags: [products]
+      parameters:
+        - $ref: '#/components/parameters/AcceptHeader'
       responses:
         '200':
           description: List of products
@@ -89,12 +111,8 @@ paths:
       operationId: products.get
       tags: [products]
       parameters:
-        - schema:
-            type: integer
-          name: id
-          in: path
-          required: true
-          example: 1
+        - $ref: '#/components/parameters/AcceptHeader'
+        - $ref: '#/components/parameters/IdParam'
       responses:
         '200':
           description: Get product
