@@ -68,8 +68,6 @@ jobs:
         run: Start-Process -NoNewWindow flask -ArgumentList 'run --port 5000'
         env:
           FLASK_APP: server.py
-          FLASK_ENV: development
-
 
       - name: Setup specmatic
         uses: airslate-oss/setup-specmatic@v1
