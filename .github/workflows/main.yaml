@@ -38,7 +38,7 @@ jobs:
           }
 
       - name: Setup specmatic
-        uses: airslate-oss/setup-specmatic@dc49c26cebcd0698c8b53e19cfad50363fc05392
+        uses: airslate-oss/setup-specmatic@456ae382581cba34287c4b8080ab4f0c80a6ac5f
         with:
           specmatic-version: stable
 
@@ -66,9 +66,8 @@ jobs:
       - name: Print wrapper contents
         if: matrix.os == 'windows-latest'
         run: |
-          if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic") {
-            Get-Content "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic"
-            Rename-Item -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic" -NewName "specmatic.bat"
+          if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.bat") {
+            Get-Content "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.bat"
           }
 
       - name: Find Java
