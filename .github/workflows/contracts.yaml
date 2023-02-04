@@ -38,3 +38,11 @@ jobs:
         env:
           FLASK_APP: server.py
           FLASK_ENV: development
+
+      - name: Setup specmatic
+        uses: airslate-oss/setup-specmatic@v1
+        with:
+          specmatic-version: stable
+
+      - name: Test specification
+        run: specmatic test contracts/documentation.yaml --testBaseURL=http://127.0.0.1:5000
