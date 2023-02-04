@@ -72,6 +72,7 @@ paths:
     get:
       summary: List of all products.
       operationId: products.index
+      tags: [products]
       responses:
         '200':
           description: List of products
@@ -81,3 +82,40 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+
+  '/v1/products/{id}':
+    get:
+      summary: List of all products.
+      operationId: products.get
+      tags: [products]
+      parameters:
+        - schema:
+            type: integer
+          name: id
+          in: path
+          required: true
+          example: 1
+      responses:
+        '200':
+          description: Get product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 404
+                  description:
+                    type: string
+                    example: Resource not found
+                  name:
+                    type: string
+                    example: Not Found

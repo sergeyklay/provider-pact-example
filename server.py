@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import json
+from flask import abort, json, Flask
 
 
 app = Flask(__name__)
@@ -10,7 +9,19 @@ def get_products_list():
         return json.loads(f.read())
 
 
-@app.route('/v1/products')
+@app.errorhandler(404)
+def resource_not_found(e):
+    response = e.get_response()
+    response.data = json.dumps({
+        'code': e.code,
+        'name': e.name,
+        'description': e.description,
+    })
+    response.content_type = 'application/json'
+    return response
+
+
+@app.route('/v1/products', methods=['GET'])
 def index():
     data = get_products_list()
     response = app.response_class(
@@ -19,3 +30,17 @@ def index():
         mimetype='application/json'
     )
     return response
+
+
+@app.route('/v1/products/<int:id>', methods=['GET'])
+def get(id):
+    data = get_products_list()
+    products = [p for p in data if p['id'] == id]
+    if len(products):
+        response = app.response_class(
+            response=json.dumps(products[0]),
+            status=200,
+            mimetype='application/json'
+        )
+        return response
+    abort(404, description="Resource not found")
