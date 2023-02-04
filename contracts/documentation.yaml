@@ -102,6 +102,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 400
+                  description:
+                    type: string
+                    example: Invalid product ID data type
+                  name:
+                    type: string
+                    example: Bad Request
         '404':
           description: Not Found
           content:
@@ -115,7 +132,7 @@ paths:
                     example: 404
                   description:
                     type: string
-                    example: Resource not found
+                    example: Product not found
                   name:
                     type: string
                     example: Not Found

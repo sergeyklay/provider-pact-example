@@ -1,4 +1,5 @@
 from flask import abort, json, Flask
+from werkzeug.exceptions import HTTPException
 
 
 app = Flask(__name__)
@@ -9,7 +10,7 @@ def get_products_list():
         return json.loads(f.read())
 
 
-@app.errorhandler(404)
+@app.errorhandler(HTTPException)
 def resource_not_found(e):
     response = e.get_response()
     response.data = json.dumps({
@@ -32,8 +33,16 @@ def index():
     return response
 
 
-@app.route('/v1/products/<int:id>', methods=['GET'])
+@app.route('/v1/products/<id>', methods=['GET'])
 def get(id):
+    # This check is made on purpose to simulate 400 error
+    try:
+        if str(int(id)) != str(id):
+            raise ValueError()
+        id = int(id)
+    except ValueError:
+        abort(400, description='Invalid product ID data type')
+
     data = get_products_list()
     for product in data:
         if product['id'] == id:
@@ -44,4 +53,4 @@ def get(id):
             )
             return response
 
-    abort(404, description="Resource not found")
+    abort(404, description='Product not found')

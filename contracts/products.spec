@@ -3,6 +3,13 @@ Feature: Products API
   Background:
     Given openapi ./documentation.yaml
 
+  Scenario Outline: Get Product Success
+    When GET /v1/products/(id:number)
+    Then status 400
+    Examples:
+      | id  |
+      | 1.1 |
+
   Scenario Outline: Get Product Not Found Error
     When GET /v1/products/(id:number)
     Then status 404
@@ -16,6 +23,7 @@ Feature: Products API
     Examples:
       | id |
       | 1  |
+      | 4  |
 
   Scenario Outline: Products List Success
     When GET /v1/products
