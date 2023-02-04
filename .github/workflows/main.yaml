@@ -44,15 +44,23 @@ jobs:
             ls -l /opt/hostedtoolcache
           fi
 
+          if [ -d /c/hostedtoolcache ]; then
+            ls -l /c/hostedtoolcache
+          fi
+
           if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
             cat /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic
+          fi
+
+          if [ -f /c/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
+            cat /c/hostedtoolcache/specmatic/0.59.0/x64/specmatic
           fi
 
       - name: Find Java
         run: type -a java
 
-      - name: Find specmatic
-        run: type -a specmatic
+      # - name: Find specmatic
+      #   run: type -a specmatic
 
       - name: Check specmatic version
         run: specmatic --version
