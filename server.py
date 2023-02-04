@@ -35,12 +35,13 @@ def index():
 @app.route('/v1/products/<int:id>', methods=['GET'])
 def get(id):
     data = get_products_list()
-    products = [p for p in data if p['id'] == id]
-    if len(products):
-        response = app.response_class(
-            response=json.dumps(products[0]),
-            status=200,
-            mimetype='application/json'
-        )
-        return response
+    for product in data:
+        if product['id'] == id:
+            response = app.response_class(
+                response=json.dumps(product),
+                status=200,
+                mimetype='application/json'
+            )
+            return response
+
     abort(404, description="Resource not found")
