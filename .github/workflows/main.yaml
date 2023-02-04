@@ -38,7 +38,7 @@ jobs:
           }
 
       - name: Setup specmatic
-        uses: airslate-oss/setup-specmatic@2a213b9e14c85410572aaacaa68c002636e7cb7c
+        uses: airslate-oss/setup-specmatic@b67981952f1fe9688bbc3f5916c76bcd78afc968
         with:
           specmatic-version: stable
 
