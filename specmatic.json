@@ -1,10 +1,10 @@
 {
-    "sources": [
-      {
-        "provider": "git",
-        "test": [
-          "contracts/products.spec"
-        ]
-      }
-    ]
-  }
+  "sources": [
+    {
+      "provider": "git",
+      "test": [
+        "contracts/products.spec"
+      ]
+    }
+  ]
+}
