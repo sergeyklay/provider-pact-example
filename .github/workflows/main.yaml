@@ -19,48 +19,55 @@ jobs:
 
       matrix:
         os:
-          - ubuntu-latest
-          - macos-latest
+          # - ubuntu-latest
+          # - macos-latest
           - windows-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    #   - name: Checkout
+    #     uses: actions/checkout@v3
 
-      - name: Check cache before install
-        run: |
-          if [ -d /opt/hostedtoolcache ]; then
-            ls -l /opt/hostedtoolcache
-          fi
+    #   - name: Check cache before install
+    #     run: |
+    #       if [ -d /opt/hostedtoolcache ]; then
+    #         ls -l /opt/hostedtoolcache
+    #       fi
+
+    #       if [ -d /c/hostedtoolcache ]; then
+    #         ls -l /c/hostedtoolcache
+    #       fi
 
       - name: Setup specmatic
         uses: airslate-oss/setup-specmatic@dc49c26cebcd0698c8b53e19cfad50363fc05392
         with:
           specmatic-version: stable
 
-      - name: Check cache after install
-        run: |
-          if [ -d /opt/hostedtoolcache ]; then
-            ls -l /opt/hostedtoolcache
-          fi
+      # - name: Check cache after install
+      #   run: |
+      #     if [ -d /opt/hostedtoolcache ]; then
+      #       ls -l /opt/hostedtoolcache
+      #     fi
 
-          if [ -d /c/hostedtoolcache ]; then
-            ls -l /c/hostedtoolcache
-          fi
+      #     if [ -d /c/hostedtoolcache ]; then
+      #       ls -l /c/hostedtoolcache
+      #     fi
 
-          if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
-            cat /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic
-          fi
+      #     if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
+      #       cat /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic
+      #     fi
 
-          if [ -f /c/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
-            cat /c/hostedtoolcache/specmatic/0.59.0/x64/specmatic
-          fi
+      #     if [ -f /c/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
+      #       cat /c/hostedtoolcache/specmatic/0.59.0/x64/specmatic
+      #     fi
 
-      - name: Find Java
-        run: type -a java
+      # - name: Find Java
+      #   if: always()
+      #   run: type -a java
 
       # - name: Find specmatic
+      #   if: always()
       #   run: type -a specmatic
 
       - name: Check specmatic version
+        if: always()
         run: specmatic --version
