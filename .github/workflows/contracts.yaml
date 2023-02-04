@@ -59,15 +59,11 @@ jobs:
 
       - name: Run API server
         if: matrix.os != 'windows-latest'
-        run: flask run --port 5000 &
-        env:
-          FLASK_APP: server.py
+        run: flask run &
 
       - name: Run API server
         if: matrix.os == 'windows-latest'
-        run: Start-Process -NoNewWindow flask -ArgumentList 'run --port 5000'
-        env:
-          FLASK_APP: server.py
+        run: Start-Process -NoNewWindow flask -ArgumentList 'run'
 
       - name: Setup specmatic
         uses: airslate-oss/setup-specmatic@v1
