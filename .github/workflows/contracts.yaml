@@ -59,6 +59,7 @@ jobs:
 
       - name: Run API server
         run: flask run &
+        working-directory: src/products
         shell: bash
 
       - name: Setup specmatic
