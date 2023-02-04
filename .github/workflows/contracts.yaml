@@ -34,6 +34,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run API server
-        run: flask run --port 5000
+        run: flask run --port 5000 &
         env:
           FLASK_APP: server.py
