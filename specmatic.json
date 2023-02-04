@@ -2,9 +2,8 @@
     "sources": [
       {
         "provider": "git",
-        "repository": "https://github.com/sergeyklay/specmatic-action-test.git",
         "test": [
-          "contracts/documentation.yaml"
+          "contracts/products.spec"
         ]
       }
     ]
