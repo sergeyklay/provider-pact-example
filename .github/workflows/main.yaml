@@ -9,8 +9,8 @@ defaults:
 jobs:
   hello_world_job:
 
-    runs-on: ubuntu-latest
-    name: A job to test custom actions
+    runs-on: ${{ matrix.os }}
+    name: Rest action
 
     strategy:
       # When set to true, GitHub cancels
