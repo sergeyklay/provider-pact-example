@@ -1,0 +1,83 @@
+---
+openapi: 3.0.3
+
+info:
+  version: 1.0.0
+  title: Products API
+
+servers:
+  - description: Localhost
+    url: http://127.0.0.1:5000
+
+components:
+  schemas:
+    Product:
+      title: Product
+      allOf:
+        - $ref: '#/components/schemas/ProductId'
+        - $ref: '#/components/schemas/ProductDetails'
+    ProductId:
+      title: Product ID
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 42
+      required: [id]
+    ProductDetails:
+      title: Product Details
+      type: object
+      properties:
+        title:
+          type: string
+          example: iPhone 9
+        description:
+          type: string
+          example: An apple mobile which is nothing like apple
+        price:
+          type: number
+          minimum: 0
+          example: 549
+        discount:
+          type: number
+          minimum: 0.0
+          example: 12.96
+        rating:
+          type: number
+          minimum: 0.0
+          maximum: 5.0
+          example: 4.69
+        stock:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 856
+        brand:
+          type: string
+          example: Apple, Inc.
+        category:
+          $ref: '#/components/schemas/ProductCategory'
+    ProductCategory:
+      title: Product Category
+      type: string
+      enum:
+        - smartphones
+        - laptops
+      example: smartphones
+
+paths:
+  /v1/products:
+    get:
+      summary: List of all products.
+      operationId: products.index
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
