@@ -1,0 +1,21 @@
+{
+    "http-request": {
+        "path": "/v1/products/1",
+        "method": "GET"
+    },
+    "http-response": {
+        "status": 200,
+        "body": {
+            "brand": "Apple, Inc.",
+            "category": "smartphones",
+            "description": "An apple mobile which is nothing like apple",
+            "discount": 12.96,
+            "id": 1,
+            "price": 549,
+            "rating": 4.69,
+            "stock": 94,
+            "title": "iPhone 9" 
+        },
+        "status-text": "OK"
+    }
+}

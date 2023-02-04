@@ -45,4 +45,4 @@ jobs:
           specmatic-version: stable
 
       - name: Test specification
-        run: specmatic test contracts/documentation.yaml --testBaseURL=http://127.0.0.1:5000
+        run: specmatic test --testBaseURL=http://127.0.0.1:5000
