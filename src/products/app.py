@@ -12,6 +12,7 @@ def get_products_list():
 
 @app.errorhandler(HTTPException)
 def resource_not_found(e):
+    """Return JSON instead of HTML for HTTP errors."""
     response = e.get_response()
     response.data = json.dumps({
         'code': e.code,
@@ -23,7 +24,7 @@ def resource_not_found(e):
 
 
 @app.route('/v1/products', methods=['GET'])
-def index():
+def list():
     data = get_products_list()
     response = app.response_class(
         response=json.dumps(data),

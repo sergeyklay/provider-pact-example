@@ -1,3 +1,26 @@
-# `specmatic-action-test`
+# Specmatic Testing Example
 
-Test for  [`setup-specmatic`](https://github.com/airslate-oss/setup-specmatic).
+## How to try it out
+
+### Install project dependencies
+
+First, install python dependencies:ß
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+Next, install [specmatic](https://specmatic.in/download/latest.html).
+
+### Run products API server
+
+```bash
+cd src/products
+flask run &
+```
+
+### Run the tests
+
+```bash
+java specmatic.jar test --testBaseURL=http://127.0.0.1:5000
+```

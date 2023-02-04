@@ -5,26 +5,33 @@ Feature: Products API
 
   Scenario Outline: Get Product Success
     When GET /v1/products/(id:number)
+    And request-header Accept? (string)
     Then status 400
     Examples:
-      | id  |
-      | 1.1 |
+      | id  | Accept           |
+      | 1.1 | application/json |
 
   Scenario Outline: Get Product Not Found Error
     When GET /v1/products/(id:number)
+    And request-header Accept? (string)
     Then status 404
     Examples:
-      | id  |
-      | 100 |
+      | id  | Accept           |
+      | 100 | application/json |
 
   Scenario Outline: Get Product Success
     When GET /v1/products/(id:number)
+    And request-header Accept? (string)
     Then status 200
     Examples:
-      | id |
-      | 1  |
-      | 4  |
+      | id | Accept           |
+      | 1  | application/json |
+      | 4  | application/json |
 
   Scenario Outline: Products List Success
     When GET /v1/products
+    And request-header Accept? (string)
     Then status 200
+    Examples:
+      | Accept           |
+      | application/json |
