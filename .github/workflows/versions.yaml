@@ -1,4 +1,4 @@
-name: Test
+name: Validate Action
 
 on: [push]
 
@@ -6,7 +6,7 @@ jobs:
   hello_world_job:
 
     runs-on: ${{ matrix.os }}
-    name: Rest action
+    name: Test Specmatic Installation
 
     strategy:
       # When set to true, GitHub cancels
