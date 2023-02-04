@@ -42,7 +42,7 @@ jobs:
 
       - name: Run API server
         if: matrix.os == 'windows-latest'
-        run: Start-Process -NoNewWindow flask run --port 5000
+        run: Start-Process -NoNewWindow flask run -ArgumentList '--port 5000'
         env:
           FLASK_APP: server.py
           FLASK_ENV: development
