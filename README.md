@@ -22,5 +22,10 @@ flask run &
 ### Run the tests
 
 ```bash
-java specmatic.jar test --testBaseURL=http://127.0.0.1:5000
+java -jar specmatic.jar test --testBaseURL=http://127.0.0.1:5000
 ```
+
+## License
+
+Specmatic Testing Example licensed under the MIT License.
+See the [LICENSE](./LICENSE) file for more information.
