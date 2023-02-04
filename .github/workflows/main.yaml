@@ -68,6 +68,7 @@ jobs:
         run: |
           if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic") {
             Get-Content "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic"
+            Rename-Item -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic" -NewName "specmatic.bat"
           }
 
       - name: Find Java
