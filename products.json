@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "title": "iPhone 9",
+        "description": "An apple mobile which is nothing like apple",
+        "price": 549,
+        "discount": 12.96,
+        "rating": 4.69,
+        "stock": 94,
+        "brand": "Apple, Inc.",
+        "category": "smartphones"
+    },
+    {
+        "id": 2,
+        "title": "iPhone X",
+        "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+        "price": 899,
+        "discount": 17.94,
+        "rating": 4.44,
+        "stock": 34,
+        "brand": "Apple, Inc.",
+        "category": "smartphones"
+    },
+    {
+        "id": 3,
+        "title": "Samsung Universe 9",
+        "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+        "price": 1249,
+        "discount": 15.46,
+        "rating": 4.09,
+        "stock": 36,
+        "brand": "Samsung, Inc.",
+        "category": "smartphones"
+    }
+]
