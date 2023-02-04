@@ -89,9 +89,16 @@ jobs:
             java -jar "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.jar" --version
           }
 
-      - name: Check specmatic version using test file
+      - name: Check specmatic version using bat file
         if: matrix.os == 'windows-latest'
         run: |
           if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.jar") {
             & .\specmatic-test.bat --version
+          }
+
+      - name: Check specmatic version using ps1 file
+        if: matrix.os == 'windows-latest'
+        run: |
+          if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.jar") {
+            .\specmatic-test.ps1
           }
