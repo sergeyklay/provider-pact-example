@@ -58,12 +58,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run API server
-        if: matrix.os != 'windows-latest'
         run: flask run &
-
-      - name: Run API server
-        if: matrix.os == 'windows-latest'
-        run: Start-Process -NoNewWindow flask -ArgumentList 'run'
+        shell: bash
 
       - name: Setup specmatic
         uses: airslate-oss/setup-specmatic@v1
