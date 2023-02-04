@@ -38,7 +38,7 @@ jobs:
           }
 
       - name: Setup specmatic
-        uses: airslate-oss/setup-specmatic@b67981952f1fe9688bbc3f5916c76bcd78afc968
+        uses: airslate-oss/setup-specmatic@v1
         with:
           specmatic-version: stable
 
@@ -49,9 +49,6 @@ jobs:
             ls -l /opt/hostedtoolcache
           fi
 
-      - name: Print wrapper contents
-        if: matrix.os != 'windows-latest'
-        run: |
           if [ -f /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic ]; then
             cat /opt/hostedtoolcache/specmatic/0.59.0/x64/specmatic
           fi
@@ -63,41 +60,12 @@ jobs:
             Get-ChildItem "C:\hostedtoolcache\windows"
           }
 
-      - name: Print wrapper contents
-        if: matrix.os == 'windows-latest'
-        run: |
           if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.bat") {
             Get-Content "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.bat"
           }
 
-      - name: Find Java
-        if: matrix.os != 'windows-latest'
-        run: type -a java
-
-      - name: Find specmatic
-        if: matrix.os != 'windows-latest'
-        run: type -a specmatic
+      - name: Check Java
+        run: java -version
 
       - name: Check specmatic version
         run: specmatic --version
-
-      - name: Check specmatic version using jar file
-        if: matrix.os == 'windows-latest'
-        run: |
-          if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.jar") {
-            java -jar "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.jar" --version
-          }
-
-      - name: Check specmatic version using bat file
-        if: matrix.os == 'windows-latest'
-        run: |
-          if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.jar") {
-            & .\specmatic-test.bat --version
-          }
-
-      - name: Check specmatic version using ps1 file
-        if: matrix.os == 'windows-latest'
-        run: |
-          if (Test-Path -Path "C:\hostedtoolcache\windows\specmatic\0.59.0\x64\specmatic.jar") {
-            .\specmatic-test.ps1
-          }
