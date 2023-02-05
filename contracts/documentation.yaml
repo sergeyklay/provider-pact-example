@@ -34,6 +34,28 @@ components:
         minimum: 1
       required: true
       example: 42
+    CategoryQuery:
+      in: query
+      name: category
+      description: Filter by product category.
+      required: false
+      schema:
+        type: string
+      examples:
+        single:
+          value: laptops
+          summary: A sample category to filter products.
+    KeywordQuery:
+      in: query
+      name: q
+      description: Search term.
+      required: false
+      schema:
+        type: string
+      examples:
+        term:
+          value: Samsung
+          summary: A sample search keyword.
 
   schemas:
     Product:
@@ -109,20 +131,8 @@ paths:
       tags: [products]
       parameters:
         - $ref: '#/components/parameters/AcceptHeader'
-        - name: category
-          description: Filter by product category.
-          in: query
-          required: false
-          schema:
-            type: string
-          example: laptops
-        - name: q
-          description: Search term.
-          in: query
-          required: false
-          schema:
-            type: string
-          example: samsung
+        - $ref: '#/components/parameters/CategoryQuery'
+        - $ref: '#/components/parameters/KeywordQuery'
       responses:
         '200':
           description: List of products
@@ -132,6 +142,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+              examples:
+                products:
+                  value:
+                    - id: 1
+                      title: iPhone 9
+                      description: An apple mobile which is nothing like apple
+                      price: 549
+                      discount: 12.96
+                      rating: 4.69
+                      stock: 94
+                      brand: Apple
+                      category: smartphones
+                    - id: 6
+                      title: Samsung Galaxy Book
+                      description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                      price: 1499
+                      discount: 4.15
+                      rating: 4.25
+                      stock: 50
+                      brand: Samsung
+                      category: laptops
+                  summary: A sample list of products.
 
   '/v1/products/{id}':
     get:
