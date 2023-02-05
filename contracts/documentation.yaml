@@ -115,7 +115,6 @@ paths:
           required: false
           schema:
             type: string
-          allowEmptyValue: true
           example: laptops
         - name: q
           description: Search term.
@@ -123,7 +122,6 @@ paths:
           required: false
           schema:
             type: string
-          allowEmptyValue: true
           example: samsung
       responses:
         '200':
