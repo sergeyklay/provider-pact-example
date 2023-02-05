@@ -16,14 +16,6 @@ tags:
 
 components:
   parameters:
-    AcceptHeader:
-      in: header
-      name: Accept
-      description: Accept Header
-      schema:
-        type: string
-        enum: [application/json, '*/*']
-      example: application/json
     IdParam:
       in: path
       name: id
@@ -130,7 +122,6 @@ paths:
       operationId: products.index
       tags: [products]
       parameters:
-        - $ref: '#/components/parameters/AcceptHeader'
         - $ref: '#/components/parameters/CategoryQuery'
         - $ref: '#/components/parameters/KeywordQuery'
       responses:
@@ -171,7 +162,6 @@ paths:
       operationId: products.get
       tags: [products]
       parameters:
-        - $ref: '#/components/parameters/AcceptHeader'
         - $ref: '#/components/parameters/IdParam'
       responses:
         '200':
