@@ -8,10 +8,13 @@
 #
 # Setting up linguist
 #
-*.md      linguist-documentation -linguist-detectable
-*.spec    linguist-language=Gherkin linguist-detectable
-*.yaml    linguist-language=YAML linguist-detectable
-*.json    linguist-language=JSON linguist-detectable
+
+*.md              linguist-documentation -linguist-detectable
+LICENSE           linguist-documentation -linguist-detectable
+*.spec            linguist-language=Gherkin linguist-detectable
+*.json            linguist-language=Json linguist-detectable
+
+/contracts/*.yaml linguist-language=Yaml linguist-detectable
 
 #
 # Exclude files from exporting
