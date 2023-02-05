@@ -15,48 +15,9 @@ tags:
     description: Products related API.
 
 components:
-  parameters:
-    IdParam:
-      in: path
-      name: id
-      description: Entity ID param
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-      required: true
-      example: 42
-    CategoryQuery:
-      in: query
-      name: category
-      description: Filter by product category.
-      required: false
-      schema:
-        type: string
-      examples:
-        single:
-          value: laptops
-          summary: A sample category to filter products.
-    KeywordQuery:
-      in: query
-      name: q
-      description: Search term.
-      required: false
-      schema:
-        type: string
-      examples:
-        term:
-          value: Samsung
-          summary: A sample search keyword.
-
   schemas:
     Product:
       title: Product
-      allOf:
-        - $ref: '#/components/schemas/ProductId'
-        - $ref: '#/components/schemas/ProductDetails'
-    ProductId:
-      title: Product ID
       type: object
       properties:
         id:
@@ -64,11 +25,6 @@ components:
           format: int32
           minimum: 1
           example: 42
-      required: [id]
-    ProductDetails:
-      title: Product Details
-      type: object
-      properties:
         title:
           type: string
           example: iPhone 9
@@ -99,6 +55,7 @@ components:
         category:
           $ref: '#/components/schemas/ProductCategory'
       required:
+        - id
         - title
         - description
         - price
@@ -122,8 +79,26 @@ paths:
       operationId: products.index
       tags: [products]
       parameters:
-        - $ref: '#/components/parameters/CategoryQuery'
-        - $ref: '#/components/parameters/KeywordQuery'
+        - in: query
+          name: category
+          description: Filter by product category.
+          required: false
+          schema:
+            type: string
+          examples:
+            single:
+              value: laptops
+              summary: A sample category to filter products.
+        - in: query
+          name: q
+          description: Search term.
+          required: false
+          schema:
+            type: string
+          examples:
+            term:
+              value: Samsung
+              summary: A sample search keyword.
       responses:
         '200':
           description: List of products
@@ -162,7 +137,15 @@ paths:
       operationId: products.get
       tags: [products]
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - in: path
+          name: id
+          description: Entity ID param
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+          required: true
+          example: 42
       responses:
         '200':
           description: Get product
