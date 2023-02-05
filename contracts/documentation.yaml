@@ -79,6 +79,15 @@ components:
           example: Apple, Inc.
         category:
           $ref: '#/components/schemas/ProductCategory'
+      required:
+        - title
+        - description
+        - price
+        - discount
+        - rating
+        - stock
+        - brand
+        - category
     ProductCategory:
       title: Product Category
       type: string
