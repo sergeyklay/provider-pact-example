@@ -28,13 +28,33 @@ Feature: Products API
       | 1  | application/json |
       | 4  | application/json |
 
-  Scenario Outline: Products List Success
-    When GET /v1/products?category=(category:string)&q=(q:string)
+  Scenario Outline: Successful getting list of products
+    When GET /v1/products
     And request-header Accept? (string)
     Then status 200
     Examples:
-      | Accept           | category    | q       |
-      | application/json |             | samsung |
-      | application/json | laptops     |         |
-      | */*              | smartphones | HP      |
-      | */*              |             |         |
+      | Accept           |
+      | application/json |
+      | */*              |
+
+  Scenario Outline: Successful getting list of products in a given category
+    When GET /v1/products?category=(category:string)
+    And request-header Accept? (string)
+    Then status 200
+    Examples:
+      | Accept           | category    |
+      | application/json | smartphones |
+      | application/json | laptops     |
+      | */*              | smartphones |
+      | */*              |             |
+
+  Scenario Outline: Successful getting list of products using search term
+    When GET /v1/products?q=(q:string)
+    And request-header Accept? (string)
+    Then status 200
+    Examples:
+      | Accept           | q     |
+      | application/json | phone |
+      | application/json |       |
+      | */*              | HP    |
+      | */*              |       |
