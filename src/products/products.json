@@ -7,7 +7,7 @@
     "discount": 12.96,
     "rating": 4.69,
     "stock": 94,
-    "brand": "Apple, Inc.",
+    "brand": "Apple",
     "category": "smartphones"
   },
   {
@@ -29,7 +29,7 @@
     "discount": 15.46,
     "rating": 4.09,
     "stock": 36,
-    "brand": "Samsung.",
+    "brand": "Samsung",
     "category": "smartphones"
   },
   {
@@ -41,6 +41,28 @@
     "rating": 4.43,
     "stock": 89,
     "brand": "HP Pavilion",
+    "category": "laptops"
+  },
+  {
+    "id": 5,
+    "title": "Microsoft Surface Laptop 4",
+    "description": "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
+    "price": 1499,
+    "discount": 10.23,
+    "rating": 4.43,
+    "stock": 68,
+    "brand": "Microsoft Surface",
+    "category": "laptops"
+  },
+  {
+    "id": 6,
+    "title": "Samsung Galaxy Book",
+    "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+    "price": 1499,
+    "discount": 4.15,
+    "rating": 4.25,
+    "stock": 50,
+    "brand": "Samsung",
     "category": "laptops"
   }
 ]

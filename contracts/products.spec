@@ -29,9 +29,12 @@ Feature: Products API
       | 4  | application/json |
 
   Scenario Outline: Products List Success
-    When GET /v1/products
+    When GET /v1/products?category=(category:string)&q=(q:string)
     And request-header Accept? (string)
     Then status 200
     Examples:
-      | Accept           |
-      | application/json |
+      | Accept           | category    | q       |
+      | application/json |             | samsung |
+      | application/json | laptops     |         |
+      | */*              | smartphones | HP      |
+      | */*              |             |         |

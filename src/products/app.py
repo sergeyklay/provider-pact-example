@@ -25,15 +25,27 @@ def resource_not_found(e):
 
 @app.route('/v1/products', methods=['GET'])
 def list():
-    args = request.args
-    category = args.get('category')
     data = get_products_list()
+    args = request.args
 
-    if category is not None:
-        data = [p for p in data if p['category'] == category]
+    category = args.get('category')
+    q = args.get('q')
+    
+    products = []
+    for p in data:
+        if q is not None and len(q.strip()) > 0:
+            descr = p['description'].lower()
+            title = p['title'].lower()
+            brand = p['brand'].lower()
+            if q.lower() not in descr and q.lower() not in title and q.lower() not in brand:
+                continue
+        if category is not None and len(category.strip()) > 0:
+            if p['category'].lower() != category.lower():
+                continue
+        products.append(p)
 
     response = app.response_class(
-        response=json.dumps(data),
+        response=json.dumps(products),
         status=200,
         mimetype='application/json'
     )

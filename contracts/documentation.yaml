@@ -104,11 +104,22 @@ paths:
       tags: [products]
       parameters:
         - $ref: '#/components/parameters/AcceptHeader'
-        - schema:
-            type: string
+        - name: category
+          description: Filter by product category.
           in: query
-          name: category
+          required: false
+          schema:
+            type: string
+          allowEmptyValue: true
           example: laptops
+        - name: q
+          description: Search term.
+          in: query
+          required: false
+          schema:
+            type: string
+          allowEmptyValue: true
+          example: samsung
       responses:
         '200':
           description: List of products
