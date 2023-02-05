@@ -95,6 +95,11 @@ paths:
       tags: [products]
       parameters:
         - $ref: '#/components/parameters/AcceptHeader'
+        - schema:
+            type: string
+          in: query
+          name: category
+          example: laptops
       responses:
         '200':
           description: List of products
