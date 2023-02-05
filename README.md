@@ -4,7 +4,7 @@
 
 ### Install project dependencies
 
-First, install python dependencies:ß
+First, install python dependencies:
 
 ```bash
 python3 -m pip install -r requirements.txt
@@ -24,6 +24,12 @@ flask run &
 ```bash
 java -jar specmatic.jar test --testBaseURL=http://127.0.0.1:5000
 ```
+
+## Support
+
+Should you have any question, any remark, or if you find a bug, or if there is something
+you can't do with the Specmatic Testing Example, please
+[open an issue](https://github.com/sergeyklay/specmatic-testing-example/issues).
 
 ## License
 
