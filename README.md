@@ -1,5 +1,8 @@
 # Specmatic Testing Example
 
+[![Check Contracts](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/contracts.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/contracts.yaml)
+[![Validate Action](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml)
+
 ## How to try it out
 
 ### Install project dependencies
