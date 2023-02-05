@@ -4,10 +4,15 @@ openapi: 3.0.3
 info:
   version: '1.0'
   title: Products API
+  description: Example API to test Specmatic features.
 
 servers:
   - description: Localhost
     url: http://127.0.0.1:5000
+
+tags:
+  - name: products
+    description: Products related API.
 
 components:
   parameters:
@@ -132,7 +137,7 @@ paths:
 
   '/v1/products/{id}':
     get:
-      summary: List of all products.
+      summary: Get product.
       operationId: products.get
       tags: [products]
       parameters:
