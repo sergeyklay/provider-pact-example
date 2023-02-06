@@ -3,8 +3,11 @@ openapi: 3.0.3
 
 info:
   version: '1.0'
-  title: Products API
+  title: Products API Definition
   description: Example API to test Specmatic features.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
 
 servers:
   - description: Localhost
