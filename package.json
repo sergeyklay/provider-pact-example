@@ -5,7 +5,9 @@
   "description": "Specmatic Testing Example",
   "main": "index.js",
   "scripts": {
-    "lint": "openapi-enforcer validate contracts/documentation.yaml",
+    "lint-enforcer": "openapi-enforcer validate contracts/documentation.yaml",
+    "lint-redocly": "redocly lint --config redocly.yaml contracts/documentation.yaml",
+    "lint": "npm run lint-enforcer && npm run lint-redocly",
     "all": "npm run lint"
   },
   "repository": {
@@ -24,6 +26,7 @@
   },
   "homepage": "https://github.com/sergeyklay/specmatic-testing-example#readme",
   "dependencies": {
+    "@redocly/cli": "^1.0.0-beta.123",
     "openapi-enforcer-cli": "^0.3.7"
   }
 }
