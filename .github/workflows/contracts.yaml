@@ -3,7 +3,7 @@ name: Check Contracts
 on: [push]
 
 jobs:
-  hello_world_job:
+  check-contracts:
 
     runs-on: ${{ matrix.os }}
     name: Test Contracts
@@ -20,8 +20,10 @@ jobs:
           - windows-latest
 
     steps:
-      - name: Checkout
+      - name: Check out code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v4

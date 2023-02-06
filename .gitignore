@@ -1,1 +1,7 @@
+# Directories to ignore (do not add trailing '/'s, they skip symlinks):
+# Dependency directory
+/node_modules
+
+# Python cache.
+*.py[cod]
 __pycache__

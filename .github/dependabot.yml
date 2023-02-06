@@ -18,3 +18,11 @@ updates:
       interval: daily
     assignees:
       - sergeyklay
+
+  - package-ecosystem: npm
+    # package.json stored in repository root.
+    directory: /
+    schedule:
+      interval: daily
+    assignees:
+      - sergeyklay

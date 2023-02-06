@@ -2,6 +2,7 @@
 
 [![Check Contracts](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/contracts.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/contracts.yaml)
 [![Validate Action](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml)
+[![Lint OpenAPI](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml)
 
 ## How to try it out
 

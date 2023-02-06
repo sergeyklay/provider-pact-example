@@ -3,8 +3,11 @@ openapi: 3.0.3
 
 info:
   version: '1.0'
-  title: Products API
+  title: Products API Definition
   description: Example API to test Specmatic features.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
 
 servers:
   - description: Localhost
@@ -15,34 +18,9 @@ tags:
     description: Products related API.
 
 components:
-  parameters:
-    AcceptHeader:
-      in: header
-      name: Accept
-      description: Accept Header
-      schema:
-        type: string
-        enum: [application/json, '*/*']
-      example: application/json
-    IdParam:
-      in: path
-      name: id
-      description: Entity ID param
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-      required: true
-      example: 42
-
   schemas:
     Product:
       title: Product
-      allOf:
-        - $ref: '#/components/schemas/ProductId'
-        - $ref: '#/components/schemas/ProductDetails'
-    ProductId:
-      title: Product ID
       type: object
       properties:
         id:
@@ -50,11 +28,6 @@ components:
           format: int32
           minimum: 1
           example: 42
-      required: [id]
-    ProductDetails:
-      title: Product Details
-      type: object
-      properties:
         title:
           type: string
           example: iPhone 9
@@ -85,6 +58,7 @@ components:
         category:
           $ref: '#/components/schemas/ProductCategory'
       required:
+        - id
         - title
         - description
         - price
@@ -104,25 +78,31 @@ components:
 paths:
   /v1/products:
     get:
-      summary: List of all products.
+      summary: Get products
+      description: Returns a list of all products.
       operationId: products.index
       tags: [products]
       parameters:
-        - $ref: '#/components/parameters/AcceptHeader'
-        - name: category
+        - in: query
+          name: category
           description: Filter by product category.
-          in: query
           required: false
           schema:
             type: string
-          example: laptops
-        - name: q
+          examples:
+            single:
+              value: laptops
+              summary: A sample category to filter products.
+        - in: query
+          name: q
           description: Search term.
-          in: query
           required: false
           schema:
             type: string
-          example: samsung
+          examples:
+            term:
+              value: Samsung
+              summary: A sample search keyword.
       responses:
         '200':
           description: List of products
@@ -132,15 +112,45 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+              examples:
+                products:
+                  value:
+                    - id: 1
+                      title: iPhone 9
+                      description: An apple mobile which is nothing like apple
+                      price: 549
+                      discount: 12.96
+                      rating: 4.69
+                      stock: 94
+                      brand: Apple
+                      category: smartphones
+                    - id: 6
+                      title: Samsung Galaxy Book
+                      description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                      price: 1499
+                      discount: 4.15
+                      rating: 4.25
+                      stock: 50
+                      brand: Samsung
+                      category: laptops
+                  summary: A sample list of products.
 
   '/v1/products/{id}':
     get:
-      summary: Get product.
+      summary: Get single product
+      description: Returns a single product.
       operationId: products.get
       tags: [products]
       parameters:
-        - $ref: '#/components/parameters/AcceptHeader'
-        - $ref: '#/components/parameters/IdParam'
+        - in: path
+          name: id
+          description: Entity ID param
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+          required: true
+          example: 42
       responses:
         '200':
           description: Get product
