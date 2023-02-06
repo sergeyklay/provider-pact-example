@@ -1,9 +1,9 @@
-name: Validate Action
+name: Working Action
 
 on: [push]
 
 jobs:
-  hello_world_job:
+  validate-action:
 
     runs-on: ${{ matrix.os }}
     name: Test Specmatic Installation
@@ -20,8 +20,10 @@ jobs:
           - windows-latest
 
     steps:
-      - name: Checkout
+      - name: Check out code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
 
       - name: Check cache before install
         if: matrix.os != 'windows-latest'
