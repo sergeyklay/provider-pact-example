@@ -78,7 +78,8 @@ components:
 paths:
   /v1/products:
     get:
-      summary: List of all products.
+      summary: Get products
+      description: Returns a list of all products.
       operationId: products.index
       tags: [products]
       parameters:
@@ -136,7 +137,8 @@ paths:
 
   '/v1/products/{id}':
     get:
-      summary: Get product.
+      summary: Get single product
+      description: Returns a single product.
       operationId: products.get
       tags: [products]
       parameters:
