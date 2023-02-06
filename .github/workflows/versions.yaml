@@ -1,4 +1,4 @@
-name: Working Action
+name: Validate Action
 
 on: [push]
 

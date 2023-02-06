@@ -1,4 +1,4 @@
-name: Correct Contracts
+name: Check Contracts
 
 on: [push]
 
