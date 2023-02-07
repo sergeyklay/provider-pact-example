@@ -60,8 +60,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run API server
-        run: flask run &
-        working-directory: src/products
+        run: flask --app runner:app run &
         shell: bash
 
       - name: Setup specmatic

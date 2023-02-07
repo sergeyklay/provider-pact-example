@@ -1,29 +1,21 @@
-from flask import abort, json, Flask, request
-from werkzeug.exceptions import HTTPException
+# This file is part of the Specmatic Testing Example.
+#
+# Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
 
+from flask import abort, json, request, Response
 
-app = Flask(__name__)
-
+from provider import current_app
+from provider.api import api
 
 def get_products_list():
     with open('products.json') as f:
         return json.loads(f.read())
 
 
-@app.errorhandler(HTTPException)
-def resource_not_found(e):
-    """Return JSON instead of HTML for HTTP errors."""
-    response = e.get_response()
-    response.data = json.dumps({
-        'code': e.code,
-        'name': e.name,
-        'description': e.description,
-    })
-    response.content_type = 'application/json'
-    return response
-
-
-@app.route('/v1/products', methods=['GET'])
+@api.route('/products', methods=['GET'])
 def list():
     data = get_products_list()
     args = request.args
@@ -44,7 +36,7 @@ def list():
                 continue
         products.append(p)
 
-    response = app.response_class(
+    response = current_app.response_class(
         response=json.dumps(products),
         status=200,
         mimetype='application/json'
@@ -52,7 +44,7 @@ def list():
     return response
 
 
-@app.route('/v1/products/<id>', methods=['GET'])
+@api.route('/products/<id>', methods=['GET'])
 def get(id):
     # This check is made on purpose to simulate 400 error
     try:
@@ -63,7 +55,7 @@ def get(id):
     data = get_products_list()
     for product in data:
         if product['id'] == id:
-            response = app.response_class(
+            response = current_app.response_class(
                 response=json.dumps(product),
                 status=200,
                 mimetype='application/json'
