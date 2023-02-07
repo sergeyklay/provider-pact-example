@@ -56,7 +56,7 @@ def get(id):
     for product in data:
         if product['id'] == id:
             response = current_app.response_class(
-                response=api.dumps(product),
+                response=json.dumps(product),
                 status=200,
                 mimetype='application/json'
             )
