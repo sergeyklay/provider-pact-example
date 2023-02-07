@@ -6,21 +6,25 @@
 
 ## How to try it out
 
-### Install project dependencies
+### Install dependencies and tools
 
-First, install python dependencies:
+First, install Python dependencies:
 
 ```bash
 python3 -m pip install -r requirements.txt
 ```
 
-Next, install [specmatic](https://specmatic.in/download/latest.html).
+Next, Node.js linters and tools
+```bash
+npm install
+```
 
-### Run products API server
+Finally, install [specmatic](https://specmatic.in/download/latest.html).
+
+### Run API server
 
 ```bash
-cd src/products
-flask run &
+npm run server
 ```
 
 ### Run the tests
