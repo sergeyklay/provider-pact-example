@@ -5,19 +5,10 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-"""The error handler module for the application.
+"""The error handler module for the application."""
 
-Functions:
-
-    handle_error(e) -> Any
-    bad_request(e) -> Any
-    page_not_found(e) -> Any
-    method_not_allowed(e) -> Any
-    on_json_loading_failed(e: Request, error: json.decoder.JSONDecodeError)
-
-"""
-
-from flask import json, Request
+from flask import json
+from werkzeug.wrappers import Response
 from werkzeug.exceptions import (
     HTTPException,
     BadRequest,
@@ -30,7 +21,7 @@ from provider.main import main
 
 
 @main.errorhandler(HTTPException)
-def handle_error(e):
+def handle_error(e: HTTPException) -> Response:
     """Return JSON instead of HTML for HTTP errors."""
     response = e.get_response()
     response.data = json.dumps({
@@ -43,29 +34,18 @@ def handle_error(e):
 
 
 @main.app_errorhandler(400)
-def bad_request(e):
+def bad_request(e: HTTPException) -> Response:
     """Registers a function to handle 400 errors."""
     return handle_error(BadRequest(response=e.get_response()))
 
 
 @main.app_errorhandler(404)
-def page_not_found(e):
+def page_not_found(e: HTTPException) -> Response:
     """Registers a function to handle 404 errors."""
     return handle_error(NotFound(response=e.get_response()))
 
 
 @main.app_errorhandler(405)
-def method_not_allowed(e):
+def method_not_allowed(e: HTTPException) -> Response:
     """Registers a function to handle 405 errors."""
     return handle_error(MethodNotAllowed(response=e.get_response()))
-
-
-def on_json_loading_failed(req, error):
-    """Abort with a custom JSON message."""
-    raise BadRequest(
-        description=f'''Failed to decode JSON object: {error}''',
-        response=req
-    )
-
-
-Request.on_json_loading_failed = on_json_loading_failed
