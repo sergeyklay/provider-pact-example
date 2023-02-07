@@ -14,7 +14,7 @@ First, install Python dependencies:
 python3 -m pip install -r requirements.txt
 ```
 
-Next, Node.js linters and tools
+Next, install Node.js linters and tools:
 ```bash
 npm install
 ```
