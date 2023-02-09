@@ -18,6 +18,19 @@ tags:
     description: Products related API.
 
 components:
+  parameters:
+    CategoryFilter:
+      in: query
+      name: category
+      description: Filter by product category.
+      required: false
+      schema:
+        type: string
+      examples:
+        single:
+          value: laptops
+          summary: A sample category to filter products.
+    
   schemas:
     Product:
       title: Product
@@ -83,16 +96,7 @@ paths:
       operationId: products.index
       tags: [products]
       parameters:
-        - in: query
-          name: category
-          description: Filter by product category.
-          required: false
-          schema:
-            type: string
-          examples:
-            single:
-              value: laptops
-              summary: A sample category to filter products.
+        - $ref: '#/components/parameters/categoryFilter'
         - in: query
           name: q
           description: Search term.
