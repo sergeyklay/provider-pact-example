@@ -39,6 +39,7 @@ jobs:
           branch=${ref#"$prefix"}
           
           echo "ref=$branch" >> $GITHUB_OUTPUT
+        shell: bash
 
       - name: Setup tracking for main branch
         if: steps.current-branch.outputs.ref != 'main'
