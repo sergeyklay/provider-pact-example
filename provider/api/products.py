@@ -11,14 +11,20 @@ from provider import current_app
 from provider.api import api
 
 
+def _json_dumps(data):
+    if current_app.config['DEBUG']:
+        return json.dumps(data, indent=2, sort_keys=False, separators=(',', ': '))
+    return json.dumps(data, indent=None, sort_keys=False)
+
+
 def get_products_list():
     with open('products.json') as f:
         return json.loads(f.read())
 
 
 def save_products_list(data):
-    with open('products.json', 'w') as f:
-        json.dump(data, fp=f, indent=4)
+    with open('products.json', 'w') as fp:
+        fp.write(_json_dumps(data) + '\n')
 
 
 @api.route('/products', methods=['GET'])
@@ -43,7 +49,7 @@ def list_products():
         products.append(p)
 
     response = current_app.response_class(
-        response=json.dumps(products),
+        response=_json_dumps(products),
         status=200,
         mimetype='application/json'
     )
@@ -62,7 +68,7 @@ def get_product(product_id):
     for product in data:
         if product['id'] == product_id:
             response = current_app.response_class(
-                response=json.dumps(product),
+                response=_json_dumps(product),
                 status=200,
                 mimetype='application/json'
             )
