@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
@@ -71,21 +73,6 @@ jobs:
 
       - name: Test specification
         run: specmatic test --testBaseURL=http://127.0.0.1:5000
-
-      - name: Get changed yaml files
-        id: changed-oas-files
-        uses: tj-actions/changed-files@v34
-        with:
-          files: |
-            contracts/*.yaml
-
-      - name: Show changed files
-        run: |
-          echo "Changed files are: ${{ steps.changed-oas-files.outputs.all_changed_files }}"
-        shell: bash
     
       - name: Run backward compatibility check on changed files
-        if: steps.changed-oas-files.outputs.any_changed == 'true'
-        run: |
-          echo "${{ steps.changed-oas-files.outputs.all_changed_files }}" | tr -s ' ' '\n' | xargs -I % specmatic compatible git commits % main HEAD
-        shell: bash
+        run: specmatic compatible git commits contracts/documentation.yaml main HEAD
