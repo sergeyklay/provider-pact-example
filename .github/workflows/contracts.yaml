@@ -70,3 +70,16 @@ jobs:
 
       - name: Test specification
         run: specmatic test --testBaseURL=http://127.0.0.1:5000
+
+      - name: Get changed yaml files
+        id: changed-oas-files
+        uses: tj-actions/changed-files@v34
+        with:
+          files: |
+            contracts/**/*.yaml
+
+      - name: Run backward compatibility check on changed files
+        if: steps.changed-oas-files.outputs.any_changed == 'true'
+        run: |
+          echo "Running backward compatibility checks on: ${{ steps.changed-oas-files.outputs.all_changed_files }}"
+          echo "${{ steps.changed-oas-files.outputs.all_changed_files }}" | tr -s ' ' '\n' | xargs -I % specmatic compatible git commits % main HEAD
