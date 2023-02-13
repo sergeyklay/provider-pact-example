@@ -6,7 +6,7 @@ jobs:
   check-contracts:
 
     runs-on: ${{ matrix.os }}
-    name: Test Contracts
+    name: Specmatic ${{ matrix.specmatic-version }} on ${{ matrix.os }}
 
     strategy:
       # When set to true, GitHub cancels
@@ -18,6 +18,9 @@ jobs:
           - ubuntu-latest
           - macos-latest
           - windows-latest
+        specmatic-version:
+          - 0.59.0
+          - 0.60.0
 
     steps:
       - name: Check out code
@@ -89,7 +92,7 @@ jobs:
       - name: Setup specmatic
         uses: airslate-oss/setup-specmatic@v1
         with:
-          specmatic-version: 0.59.0
+          specmatic-version: ${{ matrix.specmatic-version }}
 
       - name: Test specification
         run: specmatic test --testBaseURL=http://127.0.0.1:5000
