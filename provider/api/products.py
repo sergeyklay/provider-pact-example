@@ -93,3 +93,8 @@ def delete_product(product_id):
             return Response(status=204)
 
     abort(404, description='Product not found')
+
+
+@api.route('/foo/<foo_id>', methods=['DELETE'])
+def delete_subscriptions(foo_id):
+    return Response(status=204)

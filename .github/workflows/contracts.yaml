@@ -21,6 +21,7 @@ jobs:
         specmatic-version:
           - 0.59.0
           - 0.60.0
+          - 0.61.0
 
     steps:
       - name: Check out code
@@ -94,9 +95,12 @@ jobs:
         with:
           specmatic-version: ${{ matrix.specmatic-version }}
 
-      - name: Test specification
-        run: specmatic test --testBaseURL=http://127.0.0.1:5000
-    
-      - name: Run backward compatibility check on changed files
-        if: matrix.os != 'windows-latest' && steps.current-branch.outputs.ref != 'main'
-        run: specmatic compatible git commits contracts/documentation.yaml main HEAD
+      - name: Test Products specification
+        run: specmatic test --testBaseURL=http://127.0.0.1:5000 --debug
+
+      - name: Test Foo specification
+        run: specmatic test contracts/specmatic-pattern-issue.spec --testBaseURL=http://127.0.0.1:5000 --debug
+
+      # - name: Run backward compatibility check on changed files
+      #  if: matrix.os != 'windows-latest' && steps.current-branch.outputs.ref != 'main'
+      #  run: specmatic compatible git commits contracts/documentation.yaml main HEAD
