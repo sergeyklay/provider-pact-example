@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: '0'
 
       - name: Get changed yaml files
         id: changed-oas-files
@@ -26,6 +24,10 @@ jobs:
         with:
           files: |
             contracts/**/*.yaml
+
+      - name: Show changed files
+        run: |
+          echo "Changed files are: ${{ steps.changed-oas-files.outputs.all_changed_files }}"
 
       - name: Set up Go
         if: steps.changed-oas-files.outputs.any_changed == 'true'

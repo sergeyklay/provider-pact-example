@@ -22,15 +22,14 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-        # with:
-        #   fetch-depth: '0'
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - uses: actions/cache@v3
+      - name: Setup cache on Linux
+        uses: actions/cache@v3
         if: startsWith(runner.os, 'Linux')
         with:
           path: ~/.cache/pip
@@ -38,7 +37,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - uses: actions/cache@v3
+      - name: Setup cache on macOS
+        uses: actions/cache@v3
         if: startsWith(runner.os, 'macOS')
         with:
           path: ~/Library/Caches/pip
@@ -46,7 +46,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - uses: actions/cache@v3
+      - name: Setup cache on Windows
+        uses: actions/cache@v3
         if: matrix.os == 'windows-latest'
         with:
           path: ~\AppData\Local\pip\Cache
@@ -78,8 +79,13 @@ jobs:
           files: |
             contracts/**/*.yaml
 
+      - name: Show changed files
+        run: |
+          echo "Changed files are: ${{ steps.changed-oas-files.outputs.all_changed_files }}"
+        shell: bash
+    
       - name: Run backward compatibility check on changed files
         if: steps.changed-oas-files.outputs.any_changed == 'true'
         run: |
-          echo "Running backward compatibility checks on: ${{ steps.changed-oas-files.outputs.all_changed_files }}"
           echo "${{ steps.changed-oas-files.outputs.all_changed_files }}" | tr -s ' ' '\n' | xargs -I % specmatic compatible git commits % main HEAD
+        shell: bash
