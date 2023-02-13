@@ -23,7 +23,7 @@ jobs:
 
       - name: Get changed yaml files
         id: changed-oas-files
-        uses: tj-actions/changed-files@v34
+        uses: tj-actions/changed-files@v35
         with:
           files: |
             contracts/*.yaml
