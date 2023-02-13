@@ -8,6 +8,9 @@ info:
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
+  contact:
+    name: Bug Tracker
+    url: https://github.com/sergeyklay/specmatic-testing-example/issues
 
 servers:
   - description: Localhost
