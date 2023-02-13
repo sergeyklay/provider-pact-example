@@ -10,13 +10,19 @@ from flask import abort, json, request, Response
 from provider import current_app
 from provider.api import api
 
+
 def get_products_list():
     with open('products.json') as f:
         return json.loads(f.read())
 
 
+def save_products_list(data):
+    with open('products.json', 'w') as f:
+        json.dump(data, fp=f, indent=4)
+
+
 @api.route('/products', methods=['GET'])
-def list():
+def list_products():
     data = get_products_list()
     args = request.args
 
@@ -44,22 +50,40 @@ def list():
     return response
 
 
-@api.route('/products/<id>', methods=['GET'])
-def get(id):
+@api.route('/products/<product_id>', methods=['GET'])
+def get_product(product_id):
     # This check is made on purpose to simulate 400 error
     try:
-        id = int(id)
+        product_id = int(product_id)
     except ValueError:
         abort(400, description='Invalid product ID data type')
     
     data = get_products_list()
     for product in data:
-        if product['id'] == id:
+        if product['id'] == product_id:
             response = current_app.response_class(
                 response=json.dumps(product),
                 status=200,
                 mimetype='application/json'
             )
             return response
+
+    abort(404, description='Product not found')
+
+
+@api.route('/products/<product_id>', methods=['DELETE'])
+def delete_product(product_id):
+    # This check is made on purpose to simulate 400 error
+    try:
+        product_id = int(product_id)
+    except ValueError:
+        abort(400, description='Invalid product ID data type')
+
+    data = get_products_list()
+    for i in range(len(data)):
+        if data[i]['id'] == product_id:
+            del data[i]
+            save_products_list(data)
+            return Response(status=204)
 
     abort(404, description='Product not found')
