@@ -22,8 +22,6 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: '0'
 
       - name: Check cache before install
         if: matrix.os != 'windows-latest'
