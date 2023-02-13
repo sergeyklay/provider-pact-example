@@ -78,6 +78,54 @@ components:
         - smartphones
         - laptops
       example: smartphones
+    NotFoundResponse:
+      title: Not Found Response
+      type: object
+      required:
+        - code
+        - description
+        - name
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 404
+        description:
+          type: string
+          example: Product not found
+        name:
+          type: string
+          example: Not Found
+    BadRequestResponse:
+      title: Bad Request Response
+      type: object
+      required:
+        - code
+        - description
+        - name
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 400
+        description:
+          type: string
+          example: Invalid product ID data type
+        name:
+          type: string
+          example: Bad Request
+  parameters:
+    ProductIdParameter:
+      in: path
+      name: id
+      description: Product ID param
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+      required: true
+      example: 42
+
 
 paths:
   /v1/products:
@@ -146,18 +194,10 @@ paths:
       operationId: products.get
       tags: [products]
       parameters:
-        - in: path
-          name: id
-          description: Product ID param
-          schema:
-            type: integer
-            format: int32
-            minimum: 1
-          required: true
-          example: 42
+        - $ref: '#/components/parameters/ProductIdParameter'
       responses:
         '200':
-          description: Get product
+          description: A product
           content:
             application/json:
               schema:
@@ -167,50 +207,20 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    format: int32
-                    example: 400
-                  description:
-                    type: string
-                    example: Invalid product ID data type
-                  name:
-                    type: string
-                    example: Bad Request
+                $ref: '#/components/schemas/BadRequestResponse'
         '404':
-          description: Not Found
+          description: Product not found
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    format: int32
-                    example: 404
-                  description:
-                    type: string
-                    example: Product not found
-                  name:
-                    type: string
-                    example: Not Found
+                $ref: '#/components/schemas/NotFoundResponse'
     delete:
       summary: Delete product
       description: Deletes a specific product and returns status code 204 if successful, otherwise - 404.
       operationId: products.delete
       tags: [ products ]
       parameters:
-        - in: path
-          name: id
-          description: Product ID param
-          schema:
-            type: integer
-            format: int32
-            minimum: 1
-          required: true
-          example: 42
+        - $ref: '#/components/parameters/ProductIdParameter'
       responses:
         '204':
           description: Successful operation
@@ -219,32 +229,10 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    format: int32
-                    example: 400
-                  description:
-                    type: string
-                    example: Invalid product ID data type
-                  name:
-                    type: string
-                    example: Bad Request
+                $ref: '#/components/schemas/BadRequestResponse'
         '404':
-          description: Not Found
+          description: Product not found
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    format: int32
-                    example: 404
-                  description:
-                    type: string
-                    example: Product not found
-                  name:
-                    type: string
-                    example: Not Found
+                $ref: '#/components/schemas/NotFoundResponse'
