@@ -92,7 +92,7 @@ components:
           example: 404
         description:
           type: string
-          example: Product not found
+          example: Specified product not found
         name:
           type: string
           example: Not Found
