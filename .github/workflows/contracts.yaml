@@ -79,4 +79,5 @@ jobs:
         run: specmatic test --testBaseURL=http://127.0.0.1:5000
     
       - name: Run backward compatibility check on changed files
+        if: matrix.os != 'windows-latest'
         run: specmatic compatible git commits contracts/documentation.yaml main HEAD
