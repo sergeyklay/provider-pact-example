@@ -11,6 +11,7 @@ info:
   contact:
     name: Bug Tracker
     url: https://github.com/sergeyklay/specmatic-testing-example/issues
+    email: egrep@protonmail.ch
 
 servers:
   - description: Localhost

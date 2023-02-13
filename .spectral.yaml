@@ -1,4 +1,5 @@
-extends: spectral:oas
+extends: [[spectral:oas, all]]
+
 rules:
   path-keys-no-trailing-slash: error
   oas3-valid-media-example: warn
