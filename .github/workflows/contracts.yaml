@@ -77,7 +77,7 @@ jobs:
         uses: tj-actions/changed-files@v34
         with:
           files: |
-            contracts/**/*.yaml
+            contracts/*.yaml
 
       - name: Show changed files
         run: |
