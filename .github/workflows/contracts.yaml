@@ -26,7 +26,22 @@ jobs:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           fetch-depth: 0
 
-      - name: Create-main-branch
+      - name: Detect current branch
+        id: current-branch
+        run: |
+          if [ "${{ github.head_ref }}" != "" ]; then
+            ref="${{ github.head_ref }}"
+          else
+            ref="${{ github.ref }}"
+          fi
+          
+          prefix="refs/heads/"
+          branch=${ref#"$prefix"}
+          
+          echo "ref=$branch" >> $GITHUB_OUTPUT
+
+      - name: Setup tracking for main branch
+        if: steps.current-branch.outputs.ref != 'main'
         run: git branch --track main origin/main
 
       - name: Set up Python 3.11
@@ -78,6 +93,6 @@ jobs:
       - name: Test specification
         run: specmatic test --testBaseURL=http://127.0.0.1:5000
     
-#      - name: Run backward compatibility check on changed files
-#        if: matrix.os != 'windows-latest'
-#        run: specmatic compatible git commits contracts/documentation.yaml main HEAD
+      - name: Run backward compatibility check on changed files
+        if: matrix.os != 'windows-latest' && steps.current-branch.outputs.ref != 'main'
+        run: specmatic compatible git commits contracts/documentation.yaml main HEAD
