@@ -10,7 +10,7 @@ Feature: Products API
       | id  |
       | 1.1 |
 
-  Scenario Outline: Product not found
+  Scenario Outline: Getting a product that does not exist
     When GET /v1/products/(id:number)
     Then status 404
     Examples:
@@ -45,3 +45,24 @@ Feature: Products API
       | phone |
       | HP    |
       |       |
+
+  Scenario Outline: Bad request when deleting the product by ID
+    When DELETE /v1/products/(id:number)
+    Then status 400
+    Examples:
+      | id  |
+      | 1.1 |
+
+  Scenario Outline: Deleting a product that does not exist
+    When DELETE /v1/products/(id:number)
+    Then status 404
+    Examples:
+      | id  |
+      | 100 |
+
+   Scenario Outline: Successful deleting product by ID
+    When DELETE /v1/products/(id:number)
+    Then status 204
+    Examples:
+      | id |
+      | 1  |
