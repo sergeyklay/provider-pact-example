@@ -5,6 +5,13 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+# Please do not use this ignore file to define platform specific files.
+#
+# For these purposes create a global .gitignore file, which is a list of rules
+# for ignoring files in every Git repository on your computer.
+#
+# https://help.github.com/articles/ignoring-files/#create-a-global-gitignore
+
 # Directories to ignore (do not add trailing '/'s, they skip symlinks):
 # Dependency directory
 /node_modules
@@ -12,3 +19,6 @@
 # Python cache.
 *.py[cod]
 __pycache__
+
+# Databses.
+*.sqlite3
