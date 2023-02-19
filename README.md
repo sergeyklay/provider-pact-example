@@ -4,6 +4,14 @@
 [![Validate Action](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml)
 [![Lint OpenAPI](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml)
 
+This project contains the product API, which can used by client applications.
+Here is the [contract](https://github.com/sergeyklay/specmatic-testing-example/blob/main/contracts/documentation.yaml)
+governing the interaction of the client with the product API.
+
+## Requirements
+- Python 3.8 >= 3.8
+- Node.js >= 16
+
 ## How to try it out
 
 ### Install dependencies and tools
@@ -24,13 +32,19 @@ Finally, install [specmatic](https://specmatic.in/download/latest.html).
 ### Run API server
 
 ```bash
-npm run server
+flask --app runner:app run
 ```
 
-### Run the tests
+### Run the contract tests
 
 ```bash
 java -jar specmatic.jar test --testBaseURL=http://127.0.0.1:5000
+```
+
+### Run lint check
+
+```bash
+npm run lint
 ```
 
 ## Support

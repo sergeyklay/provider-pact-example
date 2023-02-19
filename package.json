@@ -2,10 +2,9 @@
   "name": "specmatic-testing-example",
   "version": "1.4.0",
   "private": true,
-  "description": "Specmatic Testing Example",
+  "description": "Provider-side demo using Specmatic to do contract driven development",
   "main": "index.js",
   "scripts": {
-    "server": "flask --app runner:app run",
     "lint-enforcer": "openapi-enforcer validate contracts/documentation.yaml",
     "lint-redocly": "redocly lint --config redocly.yaml contracts/documentation.yaml",
     "lint-spectral": "spectral lint --fail-severity=info contracts/**/*.yaml",
