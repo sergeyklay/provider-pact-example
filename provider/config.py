@@ -9,6 +9,9 @@ import os
 
 
 class Config:
+    """Base config, uses staging database server."""
+    TESTING = False
+    DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     BASE_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -28,6 +31,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'TEST_DATABASE_URL',
         'sqlite://'  # in-memory
@@ -35,6 +39,7 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
+    """Uses production database server."""
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'DATABASE_URL',
         'sqlite:///' + os.path.join(Config.BASE_PATH, 'ddb.sqlite3')
