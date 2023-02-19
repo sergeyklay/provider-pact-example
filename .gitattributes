@@ -19,7 +19,6 @@
 *.md              linguist-documentation -linguist-detectable
 LICENSE           linguist-documentation -linguist-detectable
 *.spec            linguist-language=Gherkin linguist-detectable
-*.json            linguist-language=Json linguist-detectable
 
 /contracts/*.yaml linguist-language=Yaml linguist-detectable
 
