@@ -33,31 +33,7 @@ def list_products():
 
     Returns a list of all products.
     """
-    data = get_products_list()
-    args = request.args
-
-    category = args.get('category')
-    q = args.get('q')
-    
-    products = []
-    for p in data:
-        if q is not None and len(q.strip()) > 0:
-            descr = p['description'].lower()
-            title = p['title'].lower()
-            brand = p['brand'].lower()
-            if q.lower() not in descr and q.lower() not in title and q.lower() not in brand:
-                continue
-        if category is not None and len(category.strip()) > 0:
-            if p['category'].lower() != category.lower():
-                continue
-        products.append(p)
-
-    response = current_app.response_class(
-        response=_json_dumps(products),
-        status=200,
-        mimetype='application/json'
-    )
-    return response
+    return Product.query
 
 
 @api.route('/products/<product_id>', methods=['GET'])
