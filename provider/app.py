@@ -74,6 +74,7 @@ def configure_blueprints(app: Flask):
 def configure_extensions(app: Flask):
     """Configure extensions for the application."""
     from provider.models import db
+    from provider import seeder
     from flask_migrate import Migrate, upgrade
 
     # Flask-SQLAlchemy
@@ -88,6 +89,12 @@ def configure_extensions(app: Flask):
         """Run deployment tasks."""
         # Migrate database to latest revision.
         upgrade()
+
+    @app.cli.command()
+    def seed():
+        """Seed the database."""
+        db.create_all()
+        seeder.seed()
 
 
 def configure_context_processors(app: Flask):
