@@ -98,7 +98,7 @@ def configure_extensions(app: Flask):
 
 
 def configure_context_processors(app: Flask):
-    """Configures the context processors."""
+    """Configure the context processors."""
     import inspect
     from provider import models
 
