@@ -10,6 +10,7 @@ governing the interaction of the client with the product API.
 
 ## Requirements
 - Python 3.8 >= 3.8
+- SQLite3
 - Node.js >= 16
 
 ## How to try it out
@@ -21,12 +22,17 @@ governing the interaction of the client with the product API.
    python3 -m pip install -r requirements.txt
    ```
 
-2. Next, install Node.js linters and tools:
+2. Run database migrations
+   ```bash
+   flask --app runner:app db upgrade
+   ```
+
+3. Next, install Node.js linters and tools:
    ```bash
    npm install
    ```
 
-3. Finally, install [specmatic](https://specmatic.in/download/latest.html).
+4. Finally, install [specmatic](https://specmatic.in/download/latest.html).
 
 ### Run API server
 

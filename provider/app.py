@@ -21,6 +21,8 @@ def create_app(config=None) -> Flask:
 
     configure_app(app, config)
     configure_blueprints(app)
+    configure_extensions(app)
+    configure_context_processors(app)
 
     return app
 
@@ -67,3 +69,36 @@ def configure_blueprints(app: Flask):
     # api blueprint registration
     from provider.api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/v1')
+
+
+def configure_extensions(app: Flask):
+    """Configure extensions for the application."""
+    from provider.models import db
+    from flask_migrate import Migrate, upgrade
+
+    # Flask-SQLAlchemy
+    db.init_app(app)
+
+    # Flask-Migrate
+    migrate = Migrate()
+    migrate.init_app(app, db)
+
+    @app.cli.command()
+    def deploy():
+        """Run deployment tasks."""
+        # Migrate database to latest revision.
+        upgrade()
+
+
+def configure_context_processors(app: Flask):
+    """Configures the context processors."""
+    import inspect
+    from provider import models
+
+    @app.shell_context_processor
+    def make_shell_context():
+        """Configure flask shell command to automatically import app objects."""
+        return dict(
+            app=app,
+            db=models.db,
+            **dict(inspect.getmembers(models, inspect.isclass)))
