@@ -16,20 +16,21 @@ governing the interaction of the client with the product API.
 
 ### Install dependencies and tools
 
-First, install Python dependencies:
+1. First, install Python dependencies:
+   ```bash
+   python3 -m pip install -r requirements.txt
+   ```
 
-```bash
-python3 -m pip install -r requirements.txt
-```
+2. Next, install Node.js linters and tools:
+   ```bash
+   npm install
+   ```
 
-Next, install Node.js linters and tools:
-```bash
-npm install
-```
-
-Finally, install [specmatic](https://specmatic.in/download/latest.html).
+3. Finally, install [specmatic](https://specmatic.in/download/latest.html).
 
 ### Run API server
+
+To run API server use the command as follows:
 
 ```bash
 flask --app runner:app run
@@ -37,11 +38,15 @@ flask --app runner:app run
 
 ### Run the contract tests
 
+To run contract tests use the command as follows:
+
 ```bash
 java -jar specmatic.jar test --testBaseURL=http://127.0.0.1:5000
 ```
 
 ### Run lint check
+
+To run code style checking use the command as follows:
 
 ```bash
 npm run lint

@@ -10,7 +10,6 @@
 import os
 
 from flask import Flask
-from werkzeug.exceptions import HTTPException
 
 
 app = Flask(__name__)

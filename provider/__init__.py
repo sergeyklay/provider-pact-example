@@ -12,16 +12,6 @@ base application info used by various functions within the
 package and provides a factory function to create application
 instance.
 
-Misc variables:
-
-    __author__
-    __author_email__
-    __copyright__
-    __description__
-    __license__
-    __url__
-    __version__
-
 """
 
 from flask import current_app
