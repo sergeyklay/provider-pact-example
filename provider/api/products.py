@@ -101,8 +101,8 @@ def delete_product(product_id):
     data = get_products_list()
     for i in range(len(data)):
         if data[i]['id'] == product_id:
-            # del data[i]
-            # save_products_list(data)
+            del data[i]
+            save_products_list(data)
             return Response(status=204)
 
     abort(404, description='Product not found')
