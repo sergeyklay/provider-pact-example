@@ -164,6 +164,14 @@ paths:
       responses:
         '200':
           description: List of products
+          headers:
+            ETag:
+              schema:
+                description: Used as caching key for future requests.
+                type: string
+                minLength: 34
+                maxLength: 34
+              example: '"c1983e057880c5d40817708584401e4d"'
           content:
             application/json:
               schema:
@@ -193,6 +201,8 @@ paths:
                       category: laptops
                   summary: A sample list of products.
 
+
+
   '/v1/products/{id}':
     get:
       summary: Get single product
@@ -204,6 +214,14 @@ paths:
       responses:
         '200':
           description: A product
+          headers:
+            ETag:
+              schema:
+                description: Used as caching key for future requests.
+                type: string
+                minLength: 34
+                maxLength: 34
+              example: '"c1983e057880c5d40817708584401e4d"'
           content:
             application/json:
               schema:

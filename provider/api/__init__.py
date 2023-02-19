@@ -9,6 +9,16 @@
 
 from flask import Blueprint
 
+from provider.decorators import etag
+
 api = Blueprint('api', __name__)
+
+
+@api.after_request
+@etag
+def after_request(response):
+    """Generate an ETag header for all routes in this blueprint."""
+    return response
+
 
 from . import products
