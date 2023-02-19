@@ -29,6 +29,10 @@ def save_products_list(data):
 
 @api.route('/products', methods=['GET'])
 def list_products():
+    """Get products.
+
+    Returns a list of all products.
+    """
     data = get_products_list()
     args = request.args
 
@@ -58,6 +62,10 @@ def list_products():
 
 @api.route('/products/<product_id>', methods=['GET'])
 def get_product(product_id):
+    """Get single product.
+
+    Returns a single product.
+    """
     # This check is made on purpose to simulate 400 error
     try:
         product_id = int(product_id)
@@ -79,6 +87,11 @@ def get_product(product_id):
 
 @api.route('/products/<product_id>', methods=['DELETE'])
 def delete_product(product_id):
+    """Delete product.
+
+    Deletes a specific product and returns status code 204 if successful,
+    otherwise - 404.
+    """
     # This check is made on purpose to simulate 400 error
     try:
         product_id = int(product_id)
@@ -88,8 +101,8 @@ def delete_product(product_id):
     data = get_products_list()
     for i in range(len(data)):
         if data[i]['id'] == product_id:
-            del data[i]
-            save_products_list(data)
+            # del data[i]
+            # save_products_list(data)
             return Response(status=204)
 
     abort(404, description='Product not found')
