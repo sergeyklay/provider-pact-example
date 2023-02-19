@@ -93,7 +93,7 @@ def configure_extensions(app: Flask):
         fake = Faker()
 
         db.create_all()
-        for _ in range(100):
+        for _ in range(1000):
             Product.seed(fake)
 
 
