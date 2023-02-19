@@ -27,7 +27,7 @@ governing the interaction of the client with the product API.
    flask --app runner:app db upgrade
    ```
 
-3. Run database seed
+3. Add seed data to the database
    ```bash
    flask --app runner:app seed
    ```
