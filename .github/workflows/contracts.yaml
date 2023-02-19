@@ -88,6 +88,9 @@ jobs:
       - name: Run database migrations
         run: flask --app runner:app db upgrade
 
+      - name: Run database seed
+        run: flask --app runner:app seed
+
       - name: Run API server
         run: flask --app runner:app run &
         shell: bash

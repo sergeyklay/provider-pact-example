@@ -27,12 +27,17 @@ governing the interaction of the client with the product API.
    flask --app runner:app db upgrade
    ```
 
-3. Next, install Node.js linters and tools:
+3. Run database seed
+   ```bash
+   flask --app runner:app seed
+   ```
+
+4. Next, install Node.js linters and tools:
    ```bash
    npm install
    ```
 
-4. Finally, install [specmatic](https://specmatic.in/download/latest.html).
+5. Finally, install [specmatic](https://specmatic.in/download/latest.html).
 
 ### Run API server
 
