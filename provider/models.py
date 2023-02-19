@@ -13,7 +13,7 @@ db = SQLAlchemy()
 class Product(db.Model):
     __tablename__ = 'products'
 
-    id = db.Column(db.BigInteger, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
     title = db.Column(db.String(64), unique=True, index=True, nullable=False)
     description = db.Column(db.String(512), nullable=False, default='')
     price = db.Column(db.Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=False, default=0.0)
