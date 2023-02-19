@@ -4,6 +4,10 @@
 [![Validate Action](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml)
 [![Lint OpenAPI](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml)
 
+This project contains the product API, which can used by client applications.
+Here is the [contract](https://github.com/sergeyklay/specmatic-testing-example/blob/main/contracts/documentation.yaml)
+governing the interaction of the client with the product API.
+
 ## Requirements
 - Python 3.8 >= 3.8
 - Node.js >= 16

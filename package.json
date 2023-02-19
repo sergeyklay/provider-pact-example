@@ -2,7 +2,7 @@
   "name": "specmatic-testing-example",
   "version": "1.4.0",
   "private": true,
-  "description": "Specmatic Testing Example",
+  "description": "Provider-side demo using Specmatic to do contract driven development",
   "main": "index.js",
   "scripts": {
     "lint-enforcer": "openapi-enforcer validate contracts/documentation.yaml",
