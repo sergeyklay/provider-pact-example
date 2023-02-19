@@ -105,24 +105,6 @@ components:
         message:
           type: string
           example: Specified product not found
-    BadRequestResponse:
-      title: Bad Request Response
-      type: object
-      required:
-        - status
-        - error
-        - message
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad Request
-        message:
-          type: string
-          example: Invalid product ID data type
   parameters:
     ProductIdParameter:
       in: path
@@ -229,12 +211,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestResponse'
         '404':
           description: Product not found
           content:
@@ -251,12 +227,6 @@ paths:
       responses:
         '204':
           description: Successful operation
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestResponse'
         '404':
           description: Product not found
           content:
