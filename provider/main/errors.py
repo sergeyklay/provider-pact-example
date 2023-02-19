@@ -19,7 +19,6 @@ from werkzeug.exceptions import (
 from provider.main import main
 
 
-
 @main.errorhandler(HTTPException)
 def handle_error(e: HTTPException) -> Response:
     """Return JSON instead of HTML for HTTP errors."""
