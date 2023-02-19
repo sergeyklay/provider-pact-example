@@ -35,9 +35,13 @@ components:
         title:
           type: string
           example: iPhone 9
+          minLength: 1
+          maxLength: 64
         description:
           type: string
-          example: An apple mobile which is nothing like apple
+          example: An Apple mobile which is nothing like apple
+          minLength: 0
+          maxLength: 512
         price:
           type: number
           minimum: 0
@@ -59,6 +63,8 @@ components:
         brand:
           type: string
           example: Apple, Inc.
+          minLength: 1
+          maxLength: 64
         category:
           $ref: '#/components/schemas/ProductCategory'
       required:
