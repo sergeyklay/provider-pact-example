@@ -12,9 +12,6 @@ import os
 from flask import Flask
 
 
-app = Flask(__name__)
-
-
 def create_app(config=None) -> Flask:
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__)
