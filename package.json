@@ -5,7 +5,6 @@
   "description": "Specmatic Testing Example",
   "main": "index.js",
   "scripts": {
-    "server": "flask --app runner:app run",
     "lint-enforcer": "openapi-enforcer validate contracts/documentation.yaml",
     "lint-redocly": "redocly lint --config redocly.yaml contracts/documentation.yaml",
     "lint-spectral": "spectral lint --fail-severity=info contracts/**/*.yaml",

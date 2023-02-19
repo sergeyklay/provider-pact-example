@@ -28,7 +28,7 @@ Finally, install [specmatic](https://specmatic.in/download/latest.html).
 ### Run API server
 
 ```bash
-npm run server
+flask --app runner:app run
 ```
 
 ### Run the contract tests
