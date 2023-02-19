@@ -91,38 +91,38 @@ components:
       title: Not Found Response
       type: object
       required:
-        - code
-        - description
-        - name
+        - status
+        - error
+        - message
       properties:
-        code:
+        status:
           type: integer
           format: int32
           example: 404
-        description:
-          type: string
-          example: Specified product not found
-        name:
+        error:
           type: string
           example: Not Found
+        message:
+          type: string
+          example: Specified product not found
     BadRequestResponse:
       title: Bad Request Response
       type: object
       required:
-        - code
-        - description
-        - name
+        - status
+        - error
+        - message
       properties:
-        code:
+        status:
           type: integer
           format: int32
           example: 400
-        description:
-          type: string
-          example: Invalid product ID data type
-        name:
+        error:
           type: string
           example: Bad Request
+        message:
+          type: string
+          example: Invalid product ID data type
   parameters:
     ProductIdParameter:
       in: path

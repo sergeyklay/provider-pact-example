@@ -49,9 +49,9 @@ def etag(f):
             if etag not in etag_list and '*' not in etag_list:
                 response = jsonify(
                     {
-                        'code': 412,
-                        'name': 'Precondition Failed',
-                        'description': 'Precondition Failed.'
+                        'status': 412,
+                        'error': 'Precondition Failed',
+                        'message': 'Precondition Failed.'
                     }
                 )
                 response.status_code = 412
@@ -64,9 +64,9 @@ def etag(f):
             if etag in etag_list or '*' in etag_list:
                 response = jsonify(
                     {
-                        'code': 304,
-                        'name': 'Not Modified',
-                        'description': 'Resource not modified.',
+                        'status': 304,
+                        'error': 'Not Modified',
+                        'message': 'Resource not modified.',
                     }
                 )
                 response.status_code = 304
