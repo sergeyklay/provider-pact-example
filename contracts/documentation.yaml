@@ -167,9 +167,11 @@ paths:
           headers:
             ETag:
               schema:
-                description: Used as caching key for future requests
+                description: Used as caching key for future requests.
                 type: string
-                example: c1983e057880c5d40817708584401e4d
+                minLength: 34
+                maxLength: 34
+              example: '"c1983e057880c5d40817708584401e4d"'
           content:
             application/json:
               schema:
@@ -215,9 +217,11 @@ paths:
           headers:
             ETag:
               schema:
-                description: Used as caching key for future requests
+                description: Used as caching key for future requests.
                 type: string
-                example: c1983e057880c5d40817708584401e4d
+                minLength: 34
+                maxLength: 34
+              example: '"c1983e057880c5d40817708584401e4d"'
           content:
             application/json:
               schema:
