@@ -20,7 +20,7 @@ jobs:
           - windows-latest
         specmatic-version:
           - 0.59.0
-          - 0.60.0
+          - 0.61.0
 
     steps:
       - name: Check out code
