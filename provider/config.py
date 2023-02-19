@@ -9,7 +9,7 @@ import os
 
 
 class Config:
-    BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+    BASE_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
     @staticmethod
     def init_app(app):
