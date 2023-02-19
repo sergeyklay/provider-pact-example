@@ -32,6 +32,9 @@ components:
           format: int32
           minimum: 1
           example: 42
+        self_url:
+          type: string
+          example: https://example.com/v1/products/1
         title:
           type: string
           example: iPhone 9
