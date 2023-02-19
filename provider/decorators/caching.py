@@ -49,7 +49,7 @@ def etag(f):
                     {
                         'code': 412,
                         'name': 'Precondition Failed',
-                        'description': 'Precondition Failed'
+                        'description': 'Precondition Failed.'
                     }
                 )
                 response.status_code = 412
@@ -60,8 +60,13 @@ def etag(f):
             # one matches, then return a 304 Not Modified status code
             etag_list = [tag.strip() for tag in if_none_match.split(',')]
             if etag in etag_list or '*' in etag_list:
-                response = jsonify({'status': 304, 'error': 'not modified',
-                                    'message': 'resource not modified'})
+                response = jsonify(
+                    {
+                        'code': 304,
+                        'name': 'Not Modified',
+                        'description': 'Resource not modified.',
+                    }
+                )
                 response.status_code = 304
                 return response
         return rv
