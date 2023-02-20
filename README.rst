@@ -39,6 +39,7 @@ Requirements
 * Python >= 3.11
 * SQLite3
 * Node.js >= 16
+* Specmatic >= 0.60.0
 
 How to try it out
 =================
