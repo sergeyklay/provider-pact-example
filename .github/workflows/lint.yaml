@@ -66,10 +66,6 @@ jobs:
         if: steps.changed-oas-files.outputs.any_changed == 'true'
         run: npm ci --ignore-scripts
 
-      - name: Run openapi-enforcer linter
-        if: steps.changed-oas-files.outputs.any_changed == 'true'
-        run: npm run lint-enforcer
-
       - name: Run redocly linter
         if: steps.changed-oas-files.outputs.any_changed == 'true'
         run: npm run lint-redocly

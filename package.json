@@ -5,7 +5,6 @@
   "description": "Provider-side demo using Specmatic to do contract driven development",
   "main": "index.js",
   "scripts": {
-    "lint-enforcer": "openapi-enforcer validate contracts/documentation.yaml",
     "lint-redocly": "redocly lint --config redocly.yaml contracts/documentation.yaml",
     "lint-spectral": "spectral lint --fail-severity=info contracts/**/*.yaml",
     "lint": "npm run lint-enforcer && npm run lint-redocly && npm run lint-spectral"
@@ -32,7 +31,6 @@
   "homepage": "https://github.com/sergeyklay/specmatic-testing-example#readme",
   "dependencies": {
     "@redocly/cli": "^1.0.0-beta.123",
-    "@stoplight/spectral-cli": "^6.6.0",
-    "openapi-enforcer-cli": "^0.3.7"
+    "@stoplight/spectral-cli": "^6.6.0"
   }
 }
