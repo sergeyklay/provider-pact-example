@@ -80,20 +80,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install Python dependencies
-        run: |
-          make init
-          make install
+      - name: Set up virtualenv
+        run: make init
+        shell: bash
+
+      - name: Install dependencies
+        run: make install
         shell: bash
 
       - name: Run database migrations
-        run: flask --app runner:app db upgrade
+        run: make migrate
 
       - name: Add seed data to the database
-        run: flask --app runner:app seed
+        run: make seed
 
       - name: Run API server
-        run: flask --app runner:app run &
+        run: make serve &
         shell: bash
 
       - name: Setup specmatic

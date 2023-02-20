@@ -76,6 +76,43 @@ uninstall:
 	@echo Done.
 	@echo
 
+.PHONY: serve
+serve: $(VENV_PYTHON)
+	@echo $(CS)Run builtin server$(CE)
+	$(VENV_BIN)/flask --app runner:app run
+	@echo
+
+.PHONY: migrate
+migrate: $(VENV_PYTHON)
+	@echo $(CS)Run database migrations$(CE)
+	$(VENV_BIN)/flask --app runner:app db upgrade
+	@echo
+
+.PHONY: seed
+seed: $(VENV_PYTHON)
+	@echo $(CS)Add seed data to the database$(CE)
+	$(VENV_BIN)/flask --app runner:app seed
+	@echo
+
+.PHONY: clean
+clean:
+	@echo $(CS)Remove build and tests artefacts and directories$(CE)
+	$(call rm-venv-link)
+	find ./ -name '__pycache__' -delete -o -name '*.pyc' -delete
+	$(RM) -r ./build ./dist ./*.egg-info
+	$(RM) -r ./.cache ./.pytest_cache
+	$(RM) -r ./htmlcov
+	$(RM) ./coverage.*
+	@echo
+
+.PHONY: maintainer-clean
+maintainer-clean: clean
+	@echo $(CS)Performing full clean$(CE)
+	-$(RM) -r $(VENV_ROOT)
+	$(call rm-venv-link)
+	$(RM) requirements/*.txt
+	@echo
+
 .PHONY: help
 help:
 	@echo $(PKG_NAME)
@@ -89,6 +126,13 @@ help:
 	@echo '  init:         Set up virtualenv (has to be launched first)'
 	@echo '  install:      Install project and all its dependencies'
 	@echo '  uninstall:    Uninstall local version of the project'
+	@echo '  serve:        Run builtin server'
+	@echo '  migrate:      Run database migrations'
+	@echo '  seed:         Add seed data to the database'
+	@echo '  clean:        Remove build and tests artefacts and directories'
+	@echo '  maintainer-clean:'
+	@echo '                Delete almost everything that can be reconstructed'
+	@echo '                with this Makefile'
 	@echo
 	@echo 'Virtualenv:'
 	@echo
