@@ -5,6 +5,8 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+from flask import Response
+
 from provider.api import api
 from provider.decorators import json
 from provider.models import db, Product
@@ -31,7 +33,6 @@ def get_product(product_id):
 
 
 @api.route('/products/<int:product_id>', methods=['DELETE'])
-@json
 def delete_product(product_id):
     """Delete product.
 
@@ -41,4 +42,4 @@ def delete_product(product_id):
     product = Product.query.get_or_404(product_id)
     db.session.delete(product)
     db.session.commit()
-    return {}
+    return Response(status=204)
