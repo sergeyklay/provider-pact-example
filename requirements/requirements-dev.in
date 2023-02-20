@@ -1,2 +1,10 @@
 -r requirements.in
+
+# testing
 Faker
+check-manifest
+
+# develop
+twine
+wheel
+check-wheel-contents

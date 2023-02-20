@@ -22,6 +22,9 @@
 /htmlcov
 /node_modules
 
+# Application configuration
+.env
+
 # Python cache.
 *.py[cod]
 __pycache__

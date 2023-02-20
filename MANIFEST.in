@@ -1,0 +1,44 @@
+# This file is part of the Specmatic Testing Example.
+#
+# Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
+# This file consists of commands, one per line, instructing setuptools to add
+# or remove some set of files from the sdist.
+
+# Include all files matching any of the listed patterns.
+include AUTHORS.rst CHANGELOG.rst CODEOWNERS CONTRIBUTING.rst LICENSE README.rst SECURITY.rst *.yml *.yaml *.spec
+include runner.py specmatic.json .env.example
+
+# include all files under dir
+graft contracts
+graft migrations
+
+# The contents of the directory tree tests will first be added to the sdist.
+# Many OS distributions prefers provide an ability run the tests
+# during the package installation.
+recursive-include tests *.py
+
+# All files in the sdist with a .pyc, .pyo, or .pyd extension will be removed
+# from the sdist.
+global-exclude *.py[cod]
+
+# Exclude stuff for local development
+exclude .coveragerc .pylintrc Makefile default.mk requirements/*.in .env package-lock.json package.json
+recursive-exclude .github node_modules
+
+# Include requirements.txt for reproducible tests
+include requirements/*.txt
+
+# Documentation
+include docs/docutils.conf docs/Makefile
+recursive-include docs *.png
+recursive-include docs *.svg
+recursive-include docs *.py
+recursive-include docs *.rst
+
+prune docs/_build
+
+exclude docs/_static/.gitkeep
