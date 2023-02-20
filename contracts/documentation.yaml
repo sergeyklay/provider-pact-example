@@ -84,9 +84,6 @@ components:
     ProductCategory:
       title: Product Category
       type: string
-      enum:
-        - smartphones
-        - laptops
       example: smartphones
     Pages:
       title: Pages
@@ -165,7 +162,7 @@ components:
 paths:
   /v1/products:
     get:
-      summary: Get list of products,
+      summary: Get list of products.
       description: Returns a list of all products.
       operationId: products.index
       tags: [products]
