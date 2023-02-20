@@ -87,6 +87,44 @@ components:
         - smartphones
         - laptops
       example: smartphones
+    Pages:
+      title: Pages
+      type: object
+      properties:
+        first_url:
+          type: string
+          example: https://example.com/v1/products?page=1&per_page=10
+        last_url:
+          type: string
+          example: https://example.com/v1/products?page=30&per_page=10
+        next_url:
+          type: string
+          example: https://example.com/v1/products?page=3&per_page=10
+          nullable: true
+        prev_url:
+          type: string
+          example: https://example.com/v1/products?page=1&per_page=10
+          nullable: true
+        page:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 7
+        pages:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 30
+        per_page:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 30
+        total:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 300
     NotFoundResponse:
       title: Not Found Response
       type: object
@@ -132,6 +170,22 @@ paths:
       tags: [products]
       parameters:
         - in: query
+          name: expanded
+          description: Return collection of links to products (0) or expanded response (1).
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 1
+          examples:
+            expanded:
+              value: 1
+              summary: Return the response with the full product model
+            collapsed:
+              value: 0
+              summary: Return the response with product links only
+        - in: query
           name: category
           description: Filter by product category.
           required: false
@@ -165,34 +219,77 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product'
+                type: object
+                required:
+                  - pages
+                  - products
+                properties:
+                  pages:
+                    $ref: '#/components/schemas/Pages'
+                  products:
+                    oneOf:
+                      - type: array
+                        items:
+                          $ref: '#/components/schemas/Product'
+                      - type: array
+                        items:
+                          type: string
               examples:
-                products:
+                expanded:
                   value:
-                    - id: 1
-                      title: iPhone 9
-                      description: An apple mobile which is nothing like apple
-                      price: 549
-                      discount: 12.96
-                      rating: 4.69
-                      stock: 94
-                      brand: Apple
-                      category: smartphones
-                    - id: 6
-                      title: Samsung Galaxy Book
-                      description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
-                      price: 1499
-                      discount: 4.15
-                      rating: 4.25
-                      stock: 50
-                      brand: Samsung
-                      category: laptops
-                  summary: A sample list of products.
-
-
-
+                    pages:
+                      first_url: https://example.com/v1/products?page=1&per_page=10
+                      last_url: https://example.com/v1/products?page=30&per_page=10
+                      next_url: https://example.com/v1/products?page=3&per_page=10
+                      prev_url: https://example.com/v1/products?page=1&per_page=10
+                      page: 2
+                      pages: 30
+                      per_page: 10
+                      total: 300
+                    products:
+                      - id: 1
+                        self_url: https://example.com/v1/products/1
+                        title: iPhone 9
+                        description: An Apple mobile which is nothing like apple
+                        price: 549
+                        discount: 12.96
+                        rating: 4.69
+                        stock: 94
+                        brand: Apple
+                        category: smartphones
+                      - id: 6
+                        self_url: https://example.com/v1/products/6
+                        title: Samsung Galaxy Book
+                        description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                        price: 1499
+                        discount: 4.15
+                        rating: 4.25
+                        stock: 50
+                        brand: Samsung
+                        category: laptops
+                  summary: An expanded list of products.
+                collapsed:
+                  value:
+                    pages:
+                      first_url: https://example.com/v1/products?page=1&per_page=10
+                      last_url: https://example.com/v1/products?page=30&per_page=10
+                      next_url: https://example.com/v1/products?page=3&per_page=10
+                      prev_url: https://example.com/v1/products?page=1&per_page=10
+                      page: 2
+                      pages: 30
+                      per_page: 10
+                      total: 300
+                    products:
+                      - https://example.com/v1/products/1
+                      - https://example.com/v1/products/2
+                      - https://example.com/v1/products/3
+                      - https://example.com/v1/products/4
+                      - https://example.com/v1/products/5
+                      - https://example.com/v1/products/6
+                      - https://example.com/v1/products/8
+                      - https://example.com/v1/products/9
+                      - https://example.com/v1/products/10
+                  summary: A collapsed list of products.
   '/v1/products/{id}':
     get:
       summary: Get single product
@@ -216,6 +313,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+              examples:
+                iPhone:
+                  value:
+                    id: 1
+                    self_url: https://example.com/v1/products/1
+                    title: iPhone 9
+                    description: An Apple mobile which is nothing like apple
+                    price: 549
+                    discount: 12.96
+                    rating: 4.69
+                    stock: 94
+                    brand: Apple
+                    category: smartphones
+                Samsung:
+                  value:
+                    id: 6
+                    self_url: https://example.com/v1/products/6
+                    title: Samsung Galaxy Book
+                    description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                    price: 1499
+                    discount: 4.15
+                    rating: 4.25
+                    stock: 50
+                    brand: Samsung
+                    category: laptops
         '404':
           description: Product not found
           content:
