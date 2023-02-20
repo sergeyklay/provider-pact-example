@@ -5,9 +5,6 @@
         <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/contracts.yaml">
             <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/contracts.yaml/badge.svg" alt="Check Contracts" />
         </a>
-        <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml">
-            <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml/badge.svg" alt="Validate Action" />
-        </a>
         <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint-oas.yaml">
             <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint-oas.yaml/badge.svg" alt="Lint OpenAPI" />
         </a>
