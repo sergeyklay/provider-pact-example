@@ -120,9 +120,27 @@ jobs:
         run: make install
         shell: bash
 
+      - name: Setuptools self-test
+        run: |
+          python setup.py --fullname
+          python setup.py --long-description
+          python setup.py --classifiers
+
       - name: Check 'MANIFEST.in' in a source package
         run: make manifest
         shell: bash
+
+      - name: Run unit tests with coverage
+        run: make test
+
+      - name: Combine coverage reports
+        run: make ccov
+
+      - uses: codecov/codecov-action@v3
+        if: success()
+        with:
+          fail_ci_if_error: true
+          verbose: true
 
       - name: Run database migrations
         run: make migrate

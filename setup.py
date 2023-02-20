@@ -156,6 +156,8 @@ EXTRAS_REQUIRE = {
     'testing': [
         'Faker>=17.0.0',  # Generates fake data
         'check-manifest>=0.45',  # Check MANIFEST.in
+        'coverage[toml]>=6.0',  # Code coverage measurement for Python
+        'pytest>=6.2.4',  # Our tests framework
     ],
     'docs': [
     ],
@@ -163,10 +165,10 @@ EXTRAS_REQUIRE = {
 
 # Dependencies that are required to develop package
 DEVELOP_REQUIRE = [
-    'twine>=3.3.0',  # Publishing packages on PyPI
-    'setuptools>=53.0.0',  # Build and install packages
-    'wheel>=0.36.2',  # A built-package format for Python
     'check-wheel-contents>=0.2.0',  # Check wheels have the right contents
+    'setuptools>=53.0.0',  # Build and install packages
+    'twine>=3.3.0',  # Publishing packages on PyPI
+    'wheel>=0.36.2',  # A built-package format for Python
 ]
 
 EXTRAS_REQUIRE['develop'] = \
@@ -202,7 +204,7 @@ if __name__ == '__main__':
         platforms='any',
         include_package_data=True,
         zip_safe=False,
-        python_requires='>=3.8, <4',
+        python_requires='>=3.11, <4',
         install_requires=INSTALL_REQUIRES,
         dependency_links=DEPENDENCY_LINKS,
         extras_require=EXTRAS_REQUIRE,

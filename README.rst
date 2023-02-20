@@ -86,8 +86,14 @@ To run API server use the command as follows:
 
    $ make serve
 
-Run the contract tests
-----------------------
+Run tests
+---------
+
+To run unit tests use the command as follows:
+
+.. code-block:: console
+
+   $ make test
 
 To run contract tests use the command as follows:
 
