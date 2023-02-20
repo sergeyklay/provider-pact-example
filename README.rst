@@ -75,7 +75,7 @@ Next, install Node.js linters and tools:
 
    $ npm install
 
-Finally, install [specmatic](https://specmatic.in/download/latest.html).
+Finally, install `Specmatic <https://specmatic.in/download/latest.html>`_.
 
 Run API server
 --------------
