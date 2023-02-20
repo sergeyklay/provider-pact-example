@@ -1,6 +1,6 @@
 {
   "name": "specmatic-testing-example",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "description": "Provider-side demo using Specmatic to do contract driven development",
   "main": "index.js",
