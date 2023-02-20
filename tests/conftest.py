@@ -6,10 +6,10 @@
 # the LICENSE file that was distributed with this source code.
 
 import pytest
+from flask_migrate import upgrade
 
 from products.app import create_app
 from products.models import db
-from flask_migrate import upgrade
 
 
 @pytest.fixture()

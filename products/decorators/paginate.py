@@ -9,7 +9,7 @@
 
 import functools
 
-from flask import url_for, request
+from flask import request, url_for
 
 
 def paginate(collection, max_per_page=10):
@@ -22,11 +22,11 @@ def paginate(collection, max_per_page=10):
     results. The application must ensure that this result is converted to a
     response object, either by chaining another decorator or by using a
     custom response object that accepts dictionaries."""
-    def decorator(f):
-        @functools.wraps(f)
+    def decorator(func):
+        @functools.wraps(func)
         def wrapped(*args, **kwargs):
             # invoke the wrapped function
-            query = f(*args, **kwargs)
+            query = func(*args, **kwargs)
 
             # obtain pagination arguments from the URL's query string
             page = request.args.get('page', 1, type=int)

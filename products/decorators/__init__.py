@@ -7,6 +7,6 @@
 
 """Provides all decorators used for the application."""
 
-from .caching import etag
-from .json import json
-from .paginate import paginate
+from .caching import etag  # noqa: F401
+from .json import json  # noqa: F401
+from .paginate import paginate  # noqa: F401

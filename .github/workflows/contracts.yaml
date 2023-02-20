@@ -130,6 +130,9 @@ jobs:
         run: make manifest
         shell: bash
 
+      - name: Python code linting
+        run: make lint
+
       - name: Run unit tests with coverage
         run: make test
 

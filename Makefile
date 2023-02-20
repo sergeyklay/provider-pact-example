@@ -103,6 +103,13 @@ manifest:
 	$(VENV_BIN)/check-manifest -v
 	@echo
 
+.PHONY: lint
+lint: $(VENV_PYTHON)
+	@echo $(CS)Running linters$(CE)
+	-$(VENV_BIN)/flake8 $(FLAKE8_FLAGS) ./
+	$(VENV_BIN)/pylint $(PYLINT_FLAGS) ./$(PKG_NAME)
+	@echo
+
 .PHONY: test
 test: $(VENV_PYTHON)
 	@echo $(CS)Running tests$(CE)
@@ -156,6 +163,7 @@ help:
 	@echo '  migrate:      Run database migrations'
 	@echo '  seed:         Add seed data to the database'
 	@echo '  manifest:     Check MANIFEST.in in a source package'
+	@echo '  lint:         Lint the code'
 	@echo '  test:         Run unit tests with coverage'
 	@echo '  ccov:         Combine coverage reports'
 	@echo '  clean:        Remove build and tests artefacts and directories'
