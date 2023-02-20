@@ -47,21 +47,21 @@ First, install Python dependencies:
 
 .. code-block:: console
 
-   $ # make init
-   $ python3 -m pip install -r requirements.txt
+   $ make init
+   $ make install
 
 
 Run database migrations
 
 .. code-block:: console
 
-   $ flask --app runner:app db upgrade
+   $ make migrate
 
 Add seed data to the database
 
 .. code-block:: console
 
-   $ flask --app runner:app seed
+   $ make seed
 
 Next, install Node.js linters and tools:
 
@@ -78,7 +78,7 @@ To run API server use the command as follows:
 
 .. code-block:: console
 
-   $ flask --app runner:app run
+   $ make serve
 
 Run the contract tests
 ----------------------
