@@ -56,7 +56,7 @@ Feature: Single product API
       | HP    | 1        |
       |       | 1        |
 
-  Scenario Outline: Successful getting list of products in a given category 2
+  Scenario Outline: Successful getting expanded list of products in a given category and using text search
     When GET /v1/products?category=(string)&expanded=(number)&q=(string)
     Then status 200
     Examples:
