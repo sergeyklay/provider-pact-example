@@ -45,7 +45,7 @@ def method_not_supported(e: HTTPException) -> Response:
 @api.app_errorhandler(500)
 def internal_server_error(e: HTTPException) -> Response:
     """Registers a function to handle 500 errors."""
-    response = _create_response(500, 'Internal Server Error', e.args[0])
+    response = _create_response(500, 'Internal Server Error', e.description or '')
     response.status_code = 500
     return response
 
