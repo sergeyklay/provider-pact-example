@@ -103,6 +103,22 @@ manifest:
 	$(VENV_BIN)/check-manifest -v
 	@echo
 
+.PHONY: test
+test: $(VENV_PYTHON)
+	@echo $(CS)Running tests$(CE)
+	$(VENV_BIN)/coverage erase
+	$(VENV_BIN)/coverage run -m pytest $(PYTEST_FLAGS) ./$(PKG_NAME) ./tests
+	@echo
+
+.PHONY: ccov
+ccov: $(VENV_PYTHON)
+	@echo $(CS)Combine coverage reports$(CE)
+	$(VENV_BIN)/coverage combine
+	$(VENV_BIN)/coverage report
+	$(VENV_BIN)/coverage html
+	$(VENV_BIN)/coverage xml
+	@echo
+
 .PHONY: clean
 clean:
 	@echo $(CS)Remove build and tests artefacts and directories$(CE)
@@ -140,6 +156,8 @@ help:
 	@echo '  migrate:      Run database migrations'
 	@echo '  seed:         Add seed data to the database'
 	@echo '  manifest:     Check MANIFEST.in in a source package'
+	@echo '  test:         Run unit tests with coverage'
+	@echo '  ccov:         Combine coverage reports'
 	@echo '  clean:        Remove build and tests artefacts and directories'
 	@echo '  maintainer-clean:'
 	@echo '                Delete almost everything that can be reconstructed'

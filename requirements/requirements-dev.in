@@ -3,6 +3,8 @@
 # testing
 Faker
 check-manifest
+coverage[toml]
+pytest
 
 # develop
 twine
