@@ -138,10 +138,11 @@ CLASSIFIERS = [
 
 # Dependencies that are downloaded by pip on installation and why.
 INSTALL_REQUIRES = [
-    'Flask-Migrate>=4.0.0',  # SQLAlchemy database migrations for Flask applications
+    'Flask-Migrate>=4.0.0',  # SQLAlchemy database migrations for Flask app
     'Flask-SQLAlchemy>=3.0.3',  # Adds SQLAlchemy support to Flask application
     'Flask>=2.2.2',  # Our framework for building API
     'SQLAlchemy>=2.0.0',  # Database Abstraction Library
+    'Werkzeug>=2.2.0',  # Read key-value pairs from a .env file
     'alembic>=1.9.0',  # A database migration tool for SQLAlchemy
     'python-dotenv>=0.21.0',  # Read key-value pairs from a .env file
 ]

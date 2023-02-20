@@ -9,5 +9,6 @@ Flask
 Flask-Migrate
 Flask-SQLAlchemy
 SQLAlchemy
+Werkzeug
 alembic
 python-dotenv
