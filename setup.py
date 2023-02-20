@@ -155,6 +155,7 @@ EXTRAS_REQUIRE = {
     # Dependencies that are required to run tests
     'testing': [
         'Faker>=17.0.0',  # Generates fake data
+        'check-manifest>=0.45',  # Check MANIFEST.in
     ],
     'docs': [
     ],

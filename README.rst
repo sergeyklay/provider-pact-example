@@ -51,13 +51,19 @@ First, install Python dependencies:
    $ make install
 
 
-Run database migrations
+Create API application configuration:
+
+.. code-block:: console
+
+   $ cp .env.example .env
+
+Run database migrations:
 
 .. code-block:: console
 
    $ make migrate
 
-Add seed data to the database
+Add seed data to the database:
 
 .. code-block:: console
 
@@ -69,7 +75,7 @@ Next, install Node.js linters and tools:
 
    $ npm install
 
-Finally, install [specmatic](https://specmatic.in/download/latest.html).
+Finally, install `Specmatic <https://specmatic.in/download/latest.html>`_.
 
 Run API server
 --------------

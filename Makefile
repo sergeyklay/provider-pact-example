@@ -30,6 +30,9 @@ define rm-venv-link
 	fi
 endef
 
+.env: .env.example
+	cp $< $@
+
 requirements/%.txt: requirements/%.in $(VENV_BIN)
 	$(VENV_BIN)/pip-compile --allow-unsafe --generate-hashes --output-file=$@ $<
 
@@ -77,7 +80,7 @@ uninstall:
 	@echo
 
 .PHONY: serve
-serve: $(VENV_PYTHON)
+serve: $(VENV_PYTHON) .env
 	@echo $(CS)Run builtin server$(CE)
 	$(VENV_BIN)/flask --app runner:app run
 	@echo
@@ -92,6 +95,12 @@ migrate: $(VENV_PYTHON)
 seed: $(VENV_PYTHON)
 	@echo $(CS)Add seed data to the database$(CE)
 	$(VENV_BIN)/flask --app runner:app seed
+	@echo
+
+.PHONY: manifest
+manifest:
+	@echo $(CS)Check MANIFEST.in for completeness$(CE)
+	$(VENV_BIN)/check-manifest -v
 	@echo
 
 .PHONY: clean
@@ -111,6 +120,7 @@ maintainer-clean: clean
 	-$(RM) -r $(VENV_ROOT)
 	$(call rm-venv-link)
 	$(RM) requirements/*.txt
+	$(RM) *.env *.sqlite3
 	@echo
 
 .PHONY: help
@@ -129,6 +139,7 @@ help:
 	@echo '  serve:        Run builtin server'
 	@echo '  migrate:      Run database migrations'
 	@echo '  seed:         Add seed data to the database'
+	@echo '  manifest:     Check MANIFEST.in in a source package'
 	@echo '  clean:        Remove build and tests artefacts and directories'
 	@echo '  maintainer-clean:'
 	@echo '                Delete almost everything that can be reconstructed'

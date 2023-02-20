@@ -104,6 +104,7 @@ jobs:
 
       - name: Makefile selftest
         run: make help
+        shell: bash
 
       - name: Install virtualenv
         if: matrix.os == 'windows-latest'
@@ -117,6 +118,10 @@ jobs:
 
       - name: Install dependencies
         run: make install
+        shell: bash
+
+      - name: Check 'MANIFEST.in' in a source package
+        run: make manifest
         shell: bash
 
       - name: Run database migrations
