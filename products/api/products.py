@@ -20,6 +20,9 @@ def list_products():
 
     Returns a list of all products.
     """
+    category = request.args.get('category')
+    if category:
+        return Product.query.filter_by(category=category)
     return Product.query
 
 

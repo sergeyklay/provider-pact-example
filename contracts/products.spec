@@ -55,3 +55,12 @@ Feature: Single product API
       | phone | 1        |
       | HP    | 1        |
       |       | 1        |
+
+  Scenario Outline: Successful getting list of products in a given category 2
+    When GET /v1/products?category=(string)&expanded=(number)&q=(string)
+    Then status 200
+    Examples:
+      | category    | expanded | q   |
+      | smartphones | 1        | foo |
+      | smartphones | 1        |     |
+      |             | 1        |     |

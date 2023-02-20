@@ -23,6 +23,7 @@ data_file = coverage.db
 # out of measurement or reporting.
 omit =
     */tests/*
+    migrations/*
     */.eggs/*
     */site-packages/*
     */__pycache__/*
