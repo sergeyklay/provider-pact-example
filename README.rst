@@ -47,8 +47,8 @@ First, install Python dependencies:
 
 .. code-block:: console
 
-   $ # make init
-   $ python3 -m pip install -r requirements.txt
+   $ make init
+   $ make install
 
 
 Run database migrations
