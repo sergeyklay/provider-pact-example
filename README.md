@@ -4,9 +4,15 @@
 [![Validate Action](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml)
 [![Lint OpenAPI](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml/badge.svg)](https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml)
 
-This project contains the product API, which can used by client applications.
-Here is the [contract](https://github.com/sergeyklay/specmatic-testing-example/blob/main/contracts/documentation.yaml)
+This project contains a complete Contract Testing solution for the example
+of product API, which can used by client applications. Here is the
+[contract](https://github.com/sergeyklay/specmatic-testing-example/blob/main/contracts/documentation.yaml)
 governing the interaction of the client with the product API.
+
+It uses:
+ - [Specmatic](https://specmatic.in)
+ - [OpenAPI](https://swagger.io)
+ - [Flask](https://flask.palletsprojects.com)
 
 ## Requirements
 - Python 3.8 >= 3.8
