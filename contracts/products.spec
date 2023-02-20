@@ -37,24 +37,45 @@ Feature: Single product API
     Examples:
       | expanded |
       | 1        |
+      | 0        |
 
   Scenario Outline: Successful getting list of products in a given category
+    When GET /v1/products?category=(string)
+    Then status 200
+    Examples:
+      | category    |
+      | smartphones |
+      | laptops     |
+      |             |
+
+  Scenario Outline: Successful getting list of products in a given category and expanded param
     When GET /v1/products?category=(string)&expanded=(number)
     Then status 200
     Examples:
       | category    | expanded |
       | smartphones | 1        |
-      | laptops     | 1        |
+      | laptops     | 0        |
       |             | 1        |
+      |             | 0        |
 
   Scenario Outline: Successful getting list of products using search term
     When GET /v1/products?q=(string)
     Then status 200
     Examples:
+      | q     |
+      | phone |
+      | HP    |
+      |       |
+
+  Scenario Outline: Successful getting list of products using search term and expanded param
+    When GET /v1/products?q=(string)&expanded=(number)
+    Then status 200
+    Examples:
       | q     | expanded |
       | phone | 1        |
-      | HP    | 1        |
+      | HP    | 0        |
       |       | 1        |
+      |       | 0        |
 
   Scenario Outline: Successful getting expanded list of products in a given category and using text search
     When GET /v1/products?category=(string)&expanded=(number)&q=(string)
@@ -62,5 +83,6 @@ Feature: Single product API
     Examples:
       | category    | expanded | q   |
       | smartphones | 1        | foo |
-      | smartphones | 1        |     |
+      | laptops     | 0        |     |
       |             | 1        |     |
+      |             | 0        |     |
