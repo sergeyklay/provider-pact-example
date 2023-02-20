@@ -8,12 +8,13 @@
 from flask import Response, request
 
 from provider.api import api
-from provider.decorators import json
+from provider.decorators import json, paginate
 from provider.models import db, Product
 
 
 @api.route('/products', methods=['GET'])
 @json
+@paginate('products')
 def list_products():
     """Get products.
 

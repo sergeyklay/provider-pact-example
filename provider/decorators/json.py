@@ -10,7 +10,6 @@
 import functools
 
 from flask import jsonify
-from flask_sqlalchemy.query import Query
 
 
 def json(f):
@@ -31,15 +30,10 @@ def json(f):
         if isinstance(status, (dict, list)):
             headers, status = status, None
 
+        # if the response was a database model, then convert it to a
+        # dictionary
         if not isinstance(rv, dict):
-            # if the response was a Query instance, then convert it to a
-            # dictionary
-            if isinstance(rv, Query):
-                rv = [item.export_data() for item in rv]
-            # if the response was a database model, then convert it to a
-            # dictionary
-            else:
-                rv = rv.export_data()
+            rv = rv.export_data()
 
         # generate the JSON response
         rv = jsonify(rv)
