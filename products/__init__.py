@@ -14,8 +14,6 @@ instance.
 
 """
 
-from flask import current_app
-
 __copyright__ = 'Copyright (C) 2023 Serghei Iakovlev'
 __version__ = '1.5.0'
 __license__ = 'MIT'
