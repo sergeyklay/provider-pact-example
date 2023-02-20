@@ -16,7 +16,7 @@
 # Setting up linguist
 #
 
-*.md              linguist-documentation -linguist-detectable
+*.rst             linguist-documentation -linguist-detectable
 LICENSE           linguist-documentation -linguist-detectable
 *.spec            linguist-language=Gherkin linguist-detectable
 
