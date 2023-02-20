@@ -43,7 +43,7 @@ jobs:
         specmatic-version:
           # Version 0.59.0 is disabled due to lack of these patches:
           # - https://github.com/znsio/specmatic/pull/586
-          # - https://github.com/znsio/specmatic/pull/ 594
+          # - https://github.com/znsio/specmatic/pull/594
           #
           # - 0.59.0
 
