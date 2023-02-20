@@ -53,7 +53,7 @@ def load_long_description():
             '===================\n',
             changes(),
             '',
-            f"`Full changelog <https://github.com/sergeyklay/specmatic-testing-example/blob/master/CHANGELOG.rst>`_.",  # noqa: E501
+            '`Full changelog <https://github.com/sergeyklay/specmatic-testing-example/blob/master/CHANGELOG.rst>`_.',  # noqa: E501
             '',
             read_file(path.join(PKG_DIR, 'SECURITY.rst')),
             '',
@@ -186,7 +186,7 @@ EXTRAS_REQUIRE['develop'] = \
 PROJECT_URLS = {
     'Documentation': 'https://github.com/sergeyklay/specmatic-testing-example',
     'Changelog': 'https://github.com/sergeyklay/specmatic-testing-example/blob/master/CHANGELOG.rst',  # noqa: E501
-    'Bug Tracker': 'https://github.com/sergeyklay/specmatic-testing-example/issues',
+    'Bug Tracker': 'https://github.com/sergeyklay/specmatic-testing-example/issues',  # noqa: E501
     'Source Code': 'https://github.com/sergeyklay/specmatic-testing-example',
 }
 

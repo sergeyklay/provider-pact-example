@@ -10,7 +10,7 @@
 import functools
 import hashlib
 
-from flask import request, make_response
+from flask import make_response, request
 
 from products.utils import json_response
 
@@ -49,13 +49,15 @@ def etag(f):
             # match, then return a 412 Precondition Failed status code
             etag_list = [tag.strip() for tag in if_match.split(',')]
             if etag not in etag_list and '*' not in etag_list:
-                return json_response(412, 'Precondition Failed', 'Precondition Failed.')
+                return json_response(412, 'Precondition Failed',
+                                     'Precondition Failed.')
         elif if_none_match:
             # only return the response if the etag for this request does not
             # match any of the etags given in the If-None-Match header. If
             # one matches, then return a 304 Not Modified status code
             etag_list = [tag.strip() for tag in if_none_match.split(',')]
             if etag in etag_list or '*' in etag_list:
-                return json_response(304, 'Not Modified', 'Resource not modified.')
+                return json_response(304, 'Not Modified',
+                                     'Resource not modified.')
         return rv
     return wrapped

@@ -7,11 +7,11 @@
 
 """The error handler module for the application."""
 
-from werkzeug.wrappers import Response
 from werkzeug.exceptions import HTTPException
+from werkzeug.wrappers import Response
 
-from . import api
 from products.utils import json_response
+from . import api
 
 
 @api.app_errorhandler(400)
@@ -29,16 +29,19 @@ def page_not_found(e: HTTPException) -> Response:
 @api.app_errorhandler(405)
 def method_not_supported(e: HTTPException) -> Response:
     """Registers a function to handle 405 errors."""
-    return json_response(405, 'Method Not Allowed', 'The method is not supported.')
+    return json_response(405, 'Method Not Allowed',
+                         'The method is not supported.')
 
 
 @api.app_errorhandler(500)
 def internal_server_error(e: HTTPException) -> Response:
     """Registers a function to handle 500 errors."""
-    return json_response(500, 'Internal Server Error', e.description or '')
+    return json_response(500, 'Internal Server Error',
+                         e.description or '')
 
 
 @api.app_errorhandler(503)
 def service_unavailable(e: HTTPException) -> Response:
     """Registers a function to handle 503 errors."""
-    return json_response(503, 'Service Unavailable', 'The server is not ready to handle the request.')
+    return json_response(503, 'Service Unavailable',
+                         'The server is not ready to handle the request.')

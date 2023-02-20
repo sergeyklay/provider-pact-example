@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-from flask import Response, request
+from flask import request, Response
 
 from products.api import api
 from products.decorators import json, paginate
@@ -41,7 +41,8 @@ def delete_product(product_id):
     otherwise - 404.
     """
     # Emulate deletion
-    if request.headers.get('User-Agent') == 'Ktor client' and product_id == 7777:
+    if request.headers.get('User-Agent') == 'Ktor client' \
+            and product_id == 7777:
         return Response(status=204)
 
     product = Product.query.get_or_404(product_id)

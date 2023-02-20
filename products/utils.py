@@ -12,6 +12,7 @@ from flask import jsonify, Response
 
 def json_response(status: int, title: str, description: str) -> Response:
     """Make JSON response."""
-    response = jsonify({'status': status, 'title': title, 'description': description})
+    response = jsonify({'status': status, 'title': title,
+                        'description': description})
     response.status_code = status
     return response

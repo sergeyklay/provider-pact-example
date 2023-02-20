@@ -21,4 +21,4 @@ def after_request(response):
     return response
 
 
-from . import products, errors
+from . import errors, products  # noqa: I100, I202, F401, E402
