@@ -92,17 +92,17 @@ components:
       type: object
       required:
         - status
-        - error
-        - message
+        - title
+        - description
       properties:
         status:
           type: integer
           format: int32
           example: 404
-        error:
+        title:
           type: string
           example: Not Found
-        message:
+        description:
           type: string
           example: Specified product not found
   parameters:
