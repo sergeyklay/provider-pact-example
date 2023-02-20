@@ -3,7 +3,7 @@
     {
       "provider": "git",
       "test": [
-        "contracts/documentation.yaml"
+        "contracts/products.spec"
       ]
     }
   ]

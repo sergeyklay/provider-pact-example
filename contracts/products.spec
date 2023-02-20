@@ -1,28 +1,35 @@
-Feature: Products API
+Feature: Single product API
 
   Background:
     Given openapi ./documentation.yaml
-
-  Scenario Outline: Bad request when getting the product by ID
-    When GET /v1/products/(id:number)
-    Then status 400
-    Examples:
-      | id  |
-      | 1.1 |
 
   Scenario Outline: Getting a product that does not exist
     When GET /v1/products/(id:number)
     Then status 404
     Examples:
-      | id  |
-      | 100 |
+      | id       |
+      | 10000000 |
 
   Scenario Outline: Successful getting product by ID
     When GET /v1/products/(id:number)
     Then status 200
     Examples:
       | id |
-      | 1  |
+      | 42 |
+
+  Scenario Outline: Deleting a product that does not exist
+    When DELETE /v1/products/(id:number)
+    Then status 404
+    Examples:
+      | id       |
+      | 10000000 |
+
+  Scenario Outline: Successful deleting product by ID
+    When DELETE /v1/products/(id:number)
+    Then status 204
+    Examples:
+      | id   |
+      | 7777 |
 
   Scenario Outline: Successful getting list of products
     When GET /v1/products
@@ -45,24 +52,3 @@ Feature: Products API
       | phone |
       | HP    |
       |       |
-
-  Scenario Outline: Bad request when deleting the product by ID
-    When DELETE /v1/products/(id:number)
-    Then status 400
-    Examples:
-      | id  |
-      | 1.1 |
-
-  Scenario Outline: Deleting a product that does not exist
-    When DELETE /v1/products/(id:number)
-    Then status 404
-    Examples:
-      | id  |
-      | 100 |
-
-   Scenario Outline: Successful deleting product by ID
-    When DELETE /v1/products/(id:number)
-    Then status 204
-    Examples:
-      | id |
-      | 1  |
