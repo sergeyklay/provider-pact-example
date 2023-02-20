@@ -72,6 +72,7 @@ components:
           $ref: '#/components/schemas/ProductCategory'
       required:
         - id
+        - self_url
         - title
         - description
         - price
@@ -83,9 +84,6 @@ components:
     ProductCategory:
       title: Product Category
       type: string
-      enum:
-        - smartphones
-        - laptops
       example: smartphones
     Pages:
       title: Pages
@@ -164,7 +162,7 @@ components:
 paths:
   /v1/products:
     get:
-      summary: Get products
+      summary: Get list of products
       description: Returns a list of all products.
       operationId: products.index
       tags: [products]
@@ -181,10 +179,10 @@ paths:
           examples:
             expanded:
               value: 1
-              summary: Return the response with the full product model
+              summary: A response with full products detail
             collapsed:
               value: 0
-              summary: Return the response with product links only
+              summary: A response with products links only
         - in: query
           name: category
           description: Filter by product category.
@@ -192,9 +190,12 @@ paths:
           schema:
             type: string
           examples:
-            single:
+            laptops:
               value: laptops
-              summary: A sample category to filter products.
+              summary: Products from the "laptops" category
+            smartphones:
+              value: smartphones
+              summary: Products from the "smartphones" category
         - in: query
           name: q
           description: Search term.
@@ -204,14 +205,14 @@ paths:
           examples:
             term:
               value: Samsung
-              summary: A sample search keyword.
+              summary: A sample search keyword
       responses:
         '200':
           description: List of products
           headers:
             ETag:
+              description: The ETag HTTP response header is an identifier for a specific version of a resource.
               schema:
-                description: Used as caching key for future requests.
                 type: string
                 minLength: 34
                 maxLength: 34
@@ -267,7 +268,7 @@ paths:
                         stock: 50
                         brand: Samsung
                         category: laptops
-                  summary: An expanded list of products.
+                  summary: A response with full products detail
                 collapsed:
                   value:
                     pages:
@@ -289,7 +290,7 @@ paths:
                       - https://example.com/v1/products/8
                       - https://example.com/v1/products/9
                       - https://example.com/v1/products/10
-                  summary: A collapsed list of products.
+                  summary: A response with products links only
   '/v1/products/{id}':
     get:
       summary: Get single product
@@ -303,8 +304,8 @@ paths:
           description: A product
           headers:
             ETag:
+              description: The ETag HTTP response header is an identifier for a specific version of a resource.
               schema:
-                description: Used as caching key for future requests.
                 type: string
                 minLength: 34
                 maxLength: 34
