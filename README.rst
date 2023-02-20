@@ -8,8 +8,8 @@
         <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml">
             <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/versions.yaml/badge.svg" alt="Validate Action" />
         </a>
-        <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml">
-            <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint.yaml/badge.svg" alt="Lint OpenAPI" />
+        <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint-oas.yaml">
+            <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint-oas.yaml/badge.svg" alt="Lint OpenAPI" />
         </a>
         <a href="https://codecov.io/gh/sergeyklay/specmatic-testing-example" >
             <img src="https://codecov.io/gh/sergeyklay/specmatic-testing-example/branch/main/graph/badge.svg?token=2C8W0VZQGN"/>

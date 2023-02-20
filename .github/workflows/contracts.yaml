@@ -108,10 +108,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Makefile selftest
-        run: make help
-        shell: bash
-
       - name: Install virtualenv
         if: matrix.os == 'windows-latest'
         run: |
@@ -125,19 +121,6 @@ jobs:
       - name: Install dependencies
         run: make install
         shell: bash
-
-      - name: Setuptools self-test
-        run: |
-          python setup.py --fullname
-          python setup.py --long-description
-          python setup.py --classifiers
-
-      - name: Check 'MANIFEST.in' in a source package
-        run: make manifest
-        shell: bash
-
-      - name: Python code linting
-        run: make lint
 
       - name: Run unit tests with coverage
         run: make test
@@ -153,11 +136,9 @@ jobs:
 
       - name: Run database migrations
         run: make migrate
-        shell: bash
 
       - name: Add seed data to the database
         run: make seed
-        shell: bash
 
       - name: Run API server
         run: make serve &

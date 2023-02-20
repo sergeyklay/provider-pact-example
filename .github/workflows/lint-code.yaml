@@ -1,0 +1,53 @@
+name: Lint Code
+
+on:
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - '**.rst'
+  push:
+    paths-ignore:
+      - '**.rst'
+
+jobs:
+  lint-openapi:
+    name: Lint Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Setup cache on Linux
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Makefile selftest
+        run: make help
+
+      - name: Set up virtualenv
+        run: make init
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Setuptools self-test
+        run: |
+          python setup.py --fullname
+          python setup.py --long-description
+          python setup.py --classifiers
+
+      - name: Check 'MANIFEST.in' in a source package
+        run: make manifest
+
+      - name: Python code linting
+        run: make lint
