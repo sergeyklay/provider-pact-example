@@ -11,7 +11,7 @@ from werkzeug.wrappers import Response
 from werkzeug.exceptions import HTTPException
 
 from . import api
-from provider.utils import json_response
+from products.utils import json_response
 
 
 @api.app_errorhandler(400)

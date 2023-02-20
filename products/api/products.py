@@ -7,9 +7,9 @@
 
 from flask import Response, request
 
-from provider.api import api
-from provider.decorators import json, paginate
-from provider.models import db, Product
+from products.api import api
+from products.decorators import json, paginate
+from products.models import db, Product
 
 
 @api.route('/products', methods=['GET'])

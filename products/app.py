@@ -35,7 +35,7 @@ def load_env_vars(base_path: str):
 
 def configure_app(app: Flask, config_name=None):
     """Configure application."""
-    from provider.config import config, Config
+    from products.config import config, Config
 
     # Use the default config and override it afterwards
     app.config.from_object(config['default'])
@@ -60,17 +60,17 @@ def configure_app(app: Flask, config_name=None):
 def configure_blueprints(app: Flask):
     """Configure blueprints for the application."""
     # main blueprint registration
-    from provider.main import main as main_blueprint
+    from products.main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
     # api blueprint registration
-    from provider.api import api as api_blueprint
+    from products.api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/v1')
 
 
 def configure_extensions(app: Flask):
     """Configure extensions for the application."""
-    from provider.models import db, Product
+    from products.models import db, Product
     from flask_migrate import Migrate, upgrade
 
     # Flask-SQLAlchemy
@@ -100,7 +100,7 @@ def configure_extensions(app: Flask):
 def configure_context_processors(app: Flask):
     """Configure the context processors."""
     import inspect
-    from provider import models
+    from products import models
 
     @app.shell_context_processor
     def make_shell_context():

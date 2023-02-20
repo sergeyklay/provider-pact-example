@@ -45,7 +45,7 @@ class Product(db.Model):
     @classmethod
     def seed(cls, fake: Faker):
         from faker.providers import company, lorem, python
-        from provider.fake import FakeProduct
+        from products.fake import FakeProduct
 
         fake.add_provider(company)
         fake.add_provider(lorem)
