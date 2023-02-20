@@ -162,7 +162,7 @@ components:
 paths:
   /v1/products:
     get:
-      summary: Get list of products.
+      summary: Get list of products
       description: Returns a list of all products.
       operationId: products.index
       tags: [products]
@@ -205,7 +205,7 @@ paths:
           examples:
             term:
               value: Samsung
-              summary: A sample search keyword.
+              summary: A sample search keyword
       responses:
         '200':
           description: List of products
@@ -293,7 +293,7 @@ paths:
                   summary: A response with products links only
   '/v1/products/{id}':
     get:
-      summary: Get single product.
+      summary: Get single product
       description: Returns a single product.
       operationId: products.get
       tags: [products]
@@ -346,7 +346,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundResponse'
     delete:
-      summary: Delete product.
+      summary: Delete product
       description: Deletes a specific product and returns status code 204 if successful, otherwise - 404.
       operationId: products.delete
       tags: [ products ]
