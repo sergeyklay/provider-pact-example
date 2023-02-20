@@ -32,23 +32,26 @@ Feature: Single product API
       | 7777 |
 
   Scenario Outline: Successful getting list of products
-    When GET /v1/products?expanded=1
+    When GET /v1/products?expanded=(number)
     Then status 200
+    Examples:
+      | expanded |
+      | 1        |
 
   Scenario Outline: Successful getting list of products in a given category
-    When GET /v1/products?category=(category:string)
+    When GET /v1/products?category=(string)&expanded=(number)
     Then status 200
     Examples:
-      | category    |
-      | smartphones |
-      | laptops     |
-      |             |
+      | category    | expanded |
+      | smartphones | 1        |
+      | laptops     | 1        |
+      |             | 1        |
 
   Scenario Outline: Successful getting list of products using search term
-    When GET /v1/products?q=(q:string)
+    When GET /v1/products?q=(string)
     Then status 200
     Examples:
-      | q     |
-      | phone |
-      | HP    |
-      |       |
+      | q     | expanded |
+      | phone | 1        |
+      | HP    | 1        |
+      |       | 1        |
