@@ -132,6 +132,22 @@ paths:
       tags: [products]
       parameters:
         - in: query
+          name: expanded
+          description: Return collection of links to products (0) or expanded response (1).
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 1
+          examples:
+            expanded:
+              value: 1
+              summary: Return the response with the full product model
+            collapsed:
+              value: 0
+              summary: Return the response with product links only
+        - in: query
           name: category
           description: Filter by product category.
           required: false

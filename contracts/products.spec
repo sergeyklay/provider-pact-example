@@ -32,7 +32,7 @@ Feature: Single product API
       | 7777 |
 
   Scenario Outline: Successful getting list of products
-    When GET /v1/products
+    When GET /v1/products?expanded=1
     Then status 200
 
   Scenario Outline: Successful getting list of products in a given category
