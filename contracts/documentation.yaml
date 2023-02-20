@@ -172,6 +172,7 @@ paths:
                 products:
                   value:
                     - id: 1
+                      self_url: https://example.com/v1/products/1
                       title: iPhone 9
                       description: An apple mobile which is nothing like apple
                       price: 549
@@ -181,6 +182,7 @@ paths:
                       brand: Apple
                       category: smartphones
                     - id: 6
+                      self_url: https://example.com/v1/products/6
                       title: Samsung Galaxy Book
                       description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
                       price: 1499
@@ -190,8 +192,6 @@ paths:
                       brand: Samsung
                       category: laptops
                   summary: A sample list of products.
-
-
 
   '/v1/products/{id}':
     get:
@@ -216,6 +216,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+              examples:
+                iPhone:
+                  value:
+                    id: 1
+                    self_url: https://example.com/v1/products/1
+                    title: iPhone 9
+                    description: An apple mobile which is nothing like apple
+                    price: 549
+                    discount: 12.96
+                    rating: 4.69
+                    stock: 94
+                    brand: Apple
+                    category: smartphones
+                Samsung:
+                  value:
+                    id: 6
+                    self_url: https://example.com/v1/products/6
+                    title: Samsung Galaxy Book
+                    description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                    price: 1499
+                    discount: 4.15
+                    rating: 4.25
+                    stock: 50
+                    brand: Samsung
+                    category: laptops
         '404':
           description: Product not found
           content:
