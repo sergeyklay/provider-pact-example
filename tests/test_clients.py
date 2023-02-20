@@ -28,11 +28,15 @@ def test_products_empty_database(client):
 
 def test_delete_product_empty_database(client):
     response = client.delete('/v1/products/1')
+
+    assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
     assert response.status_code == 404
 
 
 def test_delete_special_product_empty_database(client):
     response = client.delete('/v1/products/7777')
+
+    assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
     assert response.status_code == 404
 
     client.environ_base['HTTP_USER_AGENT'] = 'Ktor client'
