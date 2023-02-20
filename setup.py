@@ -138,9 +138,11 @@ CLASSIFIERS = [
 
 # Dependencies that are downloaded by pip on installation and why.
 INSTALL_REQUIRES = [
-    'Flask>=2.2.2',  # Our framework for building API.
-    'Flask-SQLAlchemy>=3.0.3',  # Adds SQLAlchemy support to Flask application
     'Flask-Migrate>=4.0.0',  # SQLAlchemy database migrations for Flask applications
+    'Flask-SQLAlchemy>=3.0.3',  # Adds SQLAlchemy support to Flask application
+    'Flask>=2.2.2',  # Our framework for building API
+    'SQLAlchemy>=2.0.0',  # Database Abstraction Library
+    'alembic>=1.9.0',  # A database migration tool for SQLAlchemy
     'python-dotenv>=0.21.0',  # Read key-value pairs from a .env file
 ]
 
@@ -157,6 +159,10 @@ EXTRAS_REQUIRE = {
         'Faker>=17.0.0',  # Generates fake data
         'check-manifest>=0.45',  # Check MANIFEST.in
         'coverage[toml]>=6.0',  # Code coverage measurement for Python
+        'flake8-blind-except>=0.2.0',  # Checks for blind except: statements
+        'flake8-import-order>=0.18.1',  # Checks the ordering of imports
+        'flake8>=6.0.0',  # The modular source code checker
+        'pylint>=2.6.2',  # Python code static checker
         'pytest>=6.2.4',  # Our tests framework
     ],
     'docs': [
