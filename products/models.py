@@ -77,4 +77,4 @@ class Product(db.Model):
 
     def __repr__(self):
         """Returns the object representation in string format."""
-        return '<Product %r>' % self.id
+        return f'''<Product {self.id!r}>'''

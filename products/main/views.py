@@ -8,10 +8,10 @@
 """The routes module for the application."""
 
 import os
-from distutils.util import strtobool
 
 from flask import abort
 
+from products.utils import strtobool
 from . import main
 
 

@@ -105,7 +105,7 @@ def configure_context_processors(app: Flask):
     @app.shell_context_processor
     def make_shell_context():
         """Configure flask shell command to autoimport app objects."""
-        return dict(
-            app=app,
-            db=models.db,
-            **dict(inspect.getmembers(models, inspect.isclass)))
+        return {
+            'app': app,
+            'db': models.db,
+            **dict(inspect.getmembers(models, inspect.isclass))}

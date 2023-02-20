@@ -15,13 +15,13 @@ from flask import make_response, request
 from products.utils import json_response
 
 
-def etag(f):
+def etag(func):
     """Add entity tag (etag) handling to the decorated route."""
-    @functools.wraps(f)
+    @functools.wraps(func)
     def wrapped(*args, **kwargs):
         # invoke the wrapped function and generate a response object from
         # its result
-        rv = f(*args, **kwargs)
+        rv = func(*args, **kwargs)
         rv = make_response(rv)
 
         # etags only make sense for request that are cacheable, so only

@@ -12,13 +12,13 @@ import functools
 from flask import jsonify
 
 
-def json(f):
+def json(func):
     """Generate a JSON response from a database model or a Python
         dictionary."""
-    @functools.wraps(f)
+    @functools.wraps(func)
     def wrapped(*args, **kwargs):
         # invoke the wrapped function
-        rv = f(*args, **kwargs)
+        rv = func(*args, **kwargs)
 
         # the wrapped function can return the dictionary alone,
         # or can also include a status code and/or headers.

@@ -15,6 +15,12 @@ jobs=0
 
 # Disable the message, report, category or checker with the given id(s).
 disable=
+    import-outside-toplevel,
+    wrong-import-position,
+    too-few-public-methods,
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
 
 [LOGGING]
 
@@ -26,4 +32,4 @@ logging-format-style=old
 [BASIC]
 
 # Good variable names which should always be accepted, separated by a comma.
-good-names=i,j,k,n,ex,Run,_
+good-names=i,j,k,n,ex,rv,p,Run,_
