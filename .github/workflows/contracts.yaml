@@ -24,10 +24,6 @@ on:
 env:
   PYTHONUNBUFFERED: '1'
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   check-contracts:
 
@@ -68,6 +64,7 @@ jobs:
           branch=${ref#"$prefix"}
           
           echo "ref=$branch" >> $GITHUB_OUTPUT
+        shell: bash
 
       - name: Setup tracking for main branch
         if: steps.current-branch.outputs.ref != 'main'
@@ -116,18 +113,23 @@ jobs:
 
       - name: Set up virtualenv
         run: make init
+        shell: bash
 
       - name: Install dependencies
         run: make install
+        shell: bash
 
       - name: Run database migrations
         run: make migrate
+        shell: bash
 
       - name: Add seed data to the database
         run: make seed
+        shell: bash
 
       - name: Run API server
         run: make serve &
+        shell: bash
 
       - name: Setup specmatic
         uses: airslate-oss/setup-specmatic@v1
