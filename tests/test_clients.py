@@ -26,6 +26,13 @@ def test_products_empty_database(client):
     assert response.status_code == 200
 
 
+def test_products_with_query_params_empty_database(client):
+    response = client.get('/v1/products?expanded=1&category=laptops&q=')
+
+    assert [] == response.json['products']
+    assert response.status_code == 200
+
+
 def test_products_not_found(client):
     response = client.get('/v1/products/99999999')
 
