@@ -12,9 +12,6 @@ import os
 from flask import Flask
 
 
-app = Flask(__name__)
-
-
 def create_app(config=None) -> Flask:
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__)
@@ -96,12 +93,12 @@ def configure_extensions(app: Flask):
         fake = Faker()
 
         db.create_all()
-        for _ in range(100):
+        for _ in range(1000):
             Product.seed(fake)
 
 
 def configure_context_processors(app: Flask):
-    """Configures the context processors."""
+    """Configure the context processors."""
     import inspect
     from provider import models
 

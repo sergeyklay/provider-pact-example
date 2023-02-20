@@ -32,6 +32,9 @@ components:
           format: int32
           minimum: 1
           example: 42
+        self_url:
+          type: string
+          example: https://example.com/v1/products/1
         title:
           type: string
           example: iPhone 9
@@ -88,38 +91,20 @@ components:
       title: Not Found Response
       type: object
       required:
-        - code
+        - status
+        - title
         - description
-        - name
       properties:
-        code:
+        status:
           type: integer
           format: int32
           example: 404
+        title:
+          type: string
+          example: Not Found
         description:
           type: string
           example: Specified product not found
-        name:
-          type: string
-          example: Not Found
-    BadRequestResponse:
-      title: Bad Request Response
-      type: object
-      required:
-        - code
-        - description
-        - name
-      properties:
-        code:
-          type: integer
-          format: int32
-          example: 400
-        description:
-          type: string
-          example: Invalid product ID data type
-        name:
-          type: string
-          example: Bad Request
   parameters:
     ProductIdParameter:
       in: path
@@ -130,8 +115,13 @@ components:
         format: int32
         minimum: 1
       required: true
-      example: 42
-
+      examples:
+        success:
+          summary: An ID of an existing product
+          value: 42
+        not-found:
+          summary: An ID of an not existing product
+          value: 10000000
 
 paths:
   /v1/products:
@@ -226,12 +216,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestResponse'
         '404':
           description: Product not found
           content:
@@ -248,12 +232,6 @@ paths:
       responses:
         '204':
           description: Successful operation
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestResponse'
         '404':
           description: Product not found
           content:

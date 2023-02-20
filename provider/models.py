@@ -6,6 +6,7 @@
 # the LICENSE file that was distributed with this source code.
 
 from faker import Faker
+from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -23,6 +24,23 @@ class Product(db.Model):
     stock = db.Column(db.Integer, nullable=False, default=0)
     brand = db.Column(db.String(64), index=True, nullable=False)
     category = db.Column(db.String(64), index=True, nullable=False)
+
+    def get_url(self):
+        return url_for('api.get_product', product_id=self.id, _external=True)
+
+    def export_data(self):
+        return {
+            'self_url': self.get_url(),
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'price': float(self.price),
+            'discount': float(self.discount),
+            'rating': float(self.rating),
+            'stock': int(self.stock),
+            'brand': self.brand,
+            'category': self.category,
+        }
 
     @classmethod
     def seed(cls, fake: Faker):

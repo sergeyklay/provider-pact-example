@@ -17,7 +17,7 @@ instance.
 from flask import current_app
 
 __copyright__ = 'Copyright (C) 2023 Serghei Iakovlev'
-__version__ = '1.3.1'
+__version__ = '1.5.0'
 __license__ = 'MIT'
 __author__ = 'Serghei Iakovlev'
 __author_email__ = 'egrep@protonmail.ch'

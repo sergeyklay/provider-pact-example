@@ -8,3 +8,4 @@
 """Provides all decorators used for the application."""
 
 from .caching import etag
+from .json import json
