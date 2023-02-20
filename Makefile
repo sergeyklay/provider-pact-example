@@ -120,7 +120,7 @@ maintainer-clean: clean
 	-$(RM) -r $(VENV_ROOT)
 	$(call rm-venv-link)
 	$(RM) requirements/*.txt
-	$(RM) *.sql *.sqlite *.sqlite3
+	$(RM) *.env *.sqlite3
 	@echo
 
 .PHONY: help
