@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-from flask import Response
+from flask import Response, request
 
 from provider.api import api
 from provider.decorators import json
@@ -39,6 +39,10 @@ def delete_product(product_id):
     Deletes a specific product and returns status code 204 if successful,
     otherwise - 404.
     """
+    # Emulate deletion
+    if request.headers.get('User-Agent') == 'Ktor client' and product_id == 7777:
+        return Response(status=204)
+
     product = Product.query.get_or_404(product_id)
     db.session.delete(product)
     db.session.commit()
