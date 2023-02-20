@@ -36,7 +36,7 @@ It uses:
 Requirements
 ============
 
-* Python 3.8 >= 3.8
+* Python >= 3.11
 * SQLite3
 * Node.js >= 16
 
