@@ -104,6 +104,11 @@ jobs:
 
       - name: Makefile selftest
         run: make help
+        shell: bash
+
+      - name: Check 'MANIFEST.in' in a source package
+        run: make manifest
+        shell: bash
 
       - name: Install virtualenv
         if: matrix.os == 'windows-latest'
