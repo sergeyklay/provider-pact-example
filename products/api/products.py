@@ -6,6 +6,7 @@
 # the LICENSE file that was distributed with this source code.
 
 from flask import request, Response
+from sqlalchemy import or_
 
 from products.api import api
 from products.decorators import json, paginate
@@ -20,10 +21,20 @@ def list_products():
 
     Returns a list of all products.
     """
+    query = Product.query
+
     category = request.args.get('category')
     if category:
-        return Product.query.filter_by(category=category)
-    return Product.query
+        query = query.filter_by(category=category)
+
+    search = request.args.get('q')
+    if search:
+        query = query.filter(or_(
+            Product.title.like(f'''%{search}%'''),
+            Product.description.like(f'''%{search}%'''),
+        ))
+
+    return query
 
 
 @api.route('/products/<int:product_id>', methods=['GET'])
