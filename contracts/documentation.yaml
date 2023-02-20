@@ -115,8 +115,13 @@ components:
         format: int32
         minimum: 1
       required: true
-      example: 42
-
+      examples:
+        success:
+          summary: An ID of an existing product
+          value: 42
+        not-found:
+          summary: An ID of an not existing product
+          value: 10000000
 
 paths:
   /v1/products:
