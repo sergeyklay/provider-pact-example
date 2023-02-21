@@ -41,11 +41,15 @@ app = create_app(config)
 #   $ flask --app runner:app run
 #
 if __name__ == '__main__':
-    # Add seed data to the database if current mode is testing
     if config == 'testing':
+        # Add seed data to the database if current mode is testing
         with app.app_context():
             db.session.remove()
             db.drop_all()
             upgrade()
             seed_products()
+
+    # The alternative way to start the application is through the Flask.run()
+    # method. This will immediately launch a local server exactly the same way
+    # the flask script does.
     app.run()
