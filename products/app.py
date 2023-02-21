@@ -10,6 +10,10 @@
 import os
 
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+
+db = SQLAlchemy()
 
 
 def create_app(config=None) -> Flask:
@@ -70,7 +74,6 @@ def configure_blueprints(app: Flask):
 
 def configure_extensions(app: Flask):
     """Configure extensions for the application."""
-    from products.models import db
     from flask_migrate import Migrate, upgrade
 
     # Flask-SQLAlchemy
@@ -103,5 +106,5 @@ def configure_context_processors(app: Flask):
         """Configure flask shell command to autoimport app objects."""
         return {
             'app': app,
-            'db': models.db,
+            'db': db,
             **dict(inspect.getmembers(models, inspect.isclass))}

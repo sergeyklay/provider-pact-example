@@ -9,10 +9,9 @@ import decimal
 
 import sqlalchemy as sa
 from flask import url_for
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import orm as so
 
-db = SQLAlchemy()
+from .app import db
 
 
 class BaseModel(db.Model):
@@ -21,6 +20,11 @@ class BaseModel(db.Model):
     def save(self):
         """Save current model to the database."""
         db.session.add(self)
+        db.session.commit()
+
+    def remove(self):
+        """Remove current model from the database."""
+        db.session.delete(self)
         db.session.commit()
 
 
