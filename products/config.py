@@ -22,6 +22,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
+    """Uses development database server."""
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'DEV_DATABASE_URL',
@@ -30,12 +31,9 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    """Uses in-memory database server."""
     TESTING = True
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        'TEST_DATABASE_URL',
-        'sqlite://'  # in-memory
-    )
+    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URL', 'sqlite://')
 
 
 class ProductionConfig(Config):
