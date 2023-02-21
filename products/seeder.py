@@ -10,8 +10,9 @@
 from faker import Faker
 from faker.providers import company, lorem, python
 
+from products.app import db
 from products.fake import FakeProduct
-from .models import db, Product
+from .models import Product
 
 
 def seed_products():

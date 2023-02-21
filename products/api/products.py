@@ -10,7 +10,7 @@ from sqlalchemy import or_
 
 from products.api import api
 from products.decorators import json, paginate
-from products.models import db, Product
+from products.models import Product
 
 
 @api.route('/products', methods=['GET'])
@@ -30,8 +30,8 @@ def list_products():
     search = request.args.get('q')
     if search:
         query = query.filter(or_(
-            Product.title.like(f'''%{search}%'''),
-            Product.description.like(f'''%{search}%'''),
+            Product.title.contains(search),
+            Product.description.contains(search),
         ))
 
     return query
@@ -60,6 +60,6 @@ def delete_product(product_id):
         return Response(status=204)
 
     product = Product.query.get_or_404(product_id)
-    db.session.delete(product)
-    db.session.commit()
+    product.remove()
+
     return Response(status=204)

@@ -21,8 +21,7 @@ import os
 
 from flask_migrate import upgrade
 
-from products.app import create_app, load_env_vars
-from products.models import db
+from products.app import create_app, db, load_env_vars
 from products.seeder import seed_products
 
 load_env_vars(os.path.dirname(os.path.abspath(__file__)))
