@@ -71,10 +71,13 @@ class Product(BaseModel):
         default=0,
     )
 
-    brand: so.Mapped[str] = so.mapped_column(
-        sa.String(64),
-        index=True,
-        nullable=False,
+    brand_id: so.Mapped[int] = so.mapped_column(
+        sa.ForeignKey('brands.id'),
+        nullable=False
+    )
+
+    brand: so.Mapped['Brand'] = so.relationship(
+        back_populates='product',
     )
 
     category_id: so.Mapped[int] = so.mapped_column(
@@ -98,8 +101,8 @@ class Product(BaseModel):
             'price': float(self.price),
             'discount': float(self.discount),
             'rating': float(self.rating),
-            'stock': int(self.stock),
-            'brand': self.brand,
+            'stock': self.stock,
+            'brand': self.brand.name,
             'category': self.category.name,
         }
 
@@ -127,3 +130,24 @@ class Category(BaseModel):
     def __repr__(self):
         """Returns the object representation in string format."""
         return f'''<Category {self.id!r}>'''
+
+
+class Brand(BaseModel):
+    __tablename__ = 'brands'
+
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+
+    name: so.Mapped[str] = so.mapped_column(
+        sa.String(64),
+        unique=True,
+        index=True,
+        nullable=False,
+    )
+
+    product: so.Mapped[List['Product']] = so.relationship(
+        back_populates='brand',
+    )
+
+    def __repr__(self):
+        """Returns the object representation in string format."""
+        return f'''<Brand {self.id!r}>'''

@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-"""empty message
+"""
 
 Revision ID: 53230d4207d2
 Revises: 9c4ffb14d5fd
