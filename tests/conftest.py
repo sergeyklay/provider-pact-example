@@ -15,7 +15,7 @@ from products.models import db
 @pytest.fixture()
 def app():
     app_instance = create_app('testing')
-    app.config.update({
+    app_instance.config.update({
         'TESTING': True,
     })
     with app_instance.app_context():
