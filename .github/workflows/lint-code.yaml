@@ -1,0 +1,76 @@
+# This file is part of the Specmatic Testing Example.
+#
+# Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
+name: Lint Code
+
+on:
+  push:
+    paths-ignore:
+      - '**.rst'
+    branches:
+      - main
+      - 'feature/**'
+      - 'release/**'
+      - 'fix/**'
+
+  pull_request:
+    paths-ignore:
+      - '**.rst'
+    branches:
+      - main
+
+  schedule:
+    - cron: '0 12 * * *'
+      #      | | | | |
+      #      | | | | |____ day of the week (0 - 6 or SUN-SAT)
+      #      | | | |____ month (1 - 12 or JAN-DEC)
+      #      | | |____ day of the month (1 - 31)
+      #      | |____ hour (0 - 23)
+      #      |____ minute (0 - 59)
+
+jobs:
+  lint-openapi:
+    name: Lint Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Setup cache on Linux
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Makefile selftest
+        run: make help
+
+      - name: Set up virtualenv
+        run: make init
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Setuptools self-test
+        run: |
+          python setup.py --fullname
+          python setup.py --long-description
+          python setup.py --classifiers
+
+      - name: Check 'MANIFEST.in' in a source package
+        run: make manifest
+
+      - name: Python code linting
+        run: make lint
