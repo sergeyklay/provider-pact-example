@@ -14,7 +14,7 @@ from faker.providers import company, lorem, python
 from sqlalchemy.exc import IntegrityError
 
 from products.app import db
-from .models import Category, Product
+from .models import Brand, Category, Product
 
 
 def seed_products():
@@ -26,6 +26,17 @@ def seed_products():
     fake.add_provider(company)
     fake.add_provider(lorem)
     fake.add_provider(python)
+
+    brands = []
+    batch_size = 10
+    while len(brands) < batch_size:
+        try:
+            brand = Brand(name=fake.company())
+            db.session.add(brand)
+            db.session.commit()
+            brands.append(brand)
+        except IntegrityError:
+            db.session.rollback()
 
     categories = []
     batch_size = 10
@@ -66,7 +77,7 @@ def seed_products():
                     max_value=5.0,
                 ),
                 stock=fake.pyint(min_value=0, max_value=999),
-                brand=fake.company(),
+                brand=random.choice(brands),
                 category=random.choice(categories),
             )
             db.session.add(product)
