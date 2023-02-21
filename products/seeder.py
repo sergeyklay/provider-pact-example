@@ -28,41 +28,49 @@ def seed_products():
     fake.add_provider(python)
 
     categories = []
-    for _ in range(10):
+    batch_size = 10
+    while len(categories) < batch_size:
         try:
-            category = Category(name=' '.join(fake.words(nb=1)).lower())
-            category.save()
+            category = Category(name=''.join(fake.words(nb=1)).lower())
+            db.session.add(category)
+            db.session.commit()
+            categories.append(category)
         except IntegrityError:
-            category = Category(name=' '.join(fake.words(nb=1)).lower())
-            category.save()
-        categories.append(category)
+            db.session.rollback()
 
-    for _ in range(1000):
-        price = fake.pyfloat(
-            left_digits=3,
-            right_digits=2,
-            min_value=1.0,
-            max_value=999.99,
-        )
-
-        product = Product(
-            title=' '.join(fake.words(nb=5)).capitalize(),
-            description=fake.sentence(nb_words=10),
-            price=price,
-            discount=fake.pyfloat(
+    batch_size = 1000
+    created = 0
+    while created < batch_size:
+        try:
+            price = fake.pyfloat(
                 left_digits=3,
                 right_digits=2,
-                min_value=0.0,
-                max_value=price,
-            ),
-            rating=fake.pyfloat(
-                left_digits=1,
-                right_digits=2,
-                min_value=0.0,
-                max_value=5.0,
-            ),
-            stock=fake.pyint(min_value=0, max_value=999),
-            brand=fake.company(),
-            category=random.choice(categories),
-        )
-        product.save()
+                min_value=1.0,
+                max_value=999.99,
+            )
+
+            product = Product(
+                title=' '.join(fake.words(nb=5)).capitalize(),
+                description=fake.sentence(nb_words=10),
+                price=price,
+                discount=fake.pyfloat(
+                    left_digits=3,
+                    right_digits=2,
+                    min_value=0.0,
+                    max_value=price,
+                ),
+                rating=fake.pyfloat(
+                    left_digits=1,
+                    right_digits=2,
+                    min_value=0.0,
+                    max_value=5.0,
+                ),
+                stock=fake.pyint(min_value=0, max_value=999),
+                brand=fake.company(),
+                category=random.choice(categories),
+            )
+            db.session.add(product)
+            db.session.commit()
+            created += 1
+        except IntegrityError:
+            db.session.rollback()
