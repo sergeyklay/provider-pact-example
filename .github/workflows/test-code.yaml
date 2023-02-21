@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-name: Lint Code
+name: Unit Tests
 
 on:
   push:
@@ -34,7 +34,7 @@ on:
 
 jobs:
   lint-openapi:
-    name: Lint Code
+    name: Tests API service
     runs-on: ubuntu-latest
 
     steps:
@@ -54,23 +54,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Makefile selftest
-        run: make help
-
       - name: Set up virtualenv
         run: make init
 
       - name: Install dependencies
         run: make install
 
-      - name: Setuptools self-test
-        run: |
-          python setup.py --fullname
-          python setup.py --long-description
-          python setup.py --classifiers
+      - name: Run unit tests with coverage
+        run: make test
 
-      - name: Check 'MANIFEST.in' in a source package
-        run: make manifest
+      - name: Combine coverage reports
+        run: make ccov
 
-      - name: Python code linting
-        run: make lint
+      - uses: codecov/codecov-action@v3
+        if: success()
+        with:
+          fail_ci_if_error: true
+          verbose: true

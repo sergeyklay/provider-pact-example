@@ -2,8 +2,11 @@
 
     <h1 align="center">Specmatic Testing Example</h1>
     <p align="center">
-        <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/contracts.yaml">
-            <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/contracts.yaml/badge.svg" alt="Check Contracts" />
+        <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/test-contracts.yaml">
+            <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/test-contracts.yaml/badge.svg" alt="Test Contracts" />
+        </a>
+        <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/test-code.yaml">
+            <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/test-code.yaml/badge.svg" alt="Test Code" />
         </a>
         <a href="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint-oas.yaml">
             <img src="https://github.com/sergeyklay/specmatic-testing-example/actions/workflows/lint-oas.yaml/badge.svg" alt="Lint OpenAPI" />
