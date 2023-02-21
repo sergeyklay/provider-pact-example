@@ -15,21 +15,7 @@ from sqlalchemy import orm as so
 from .app import db
 
 
-class BaseModel(db.Model):
-    __abstract__ = True
-
-    def save(self):
-        """Save current model to the database."""
-        db.session.add(self)
-        db.session.commit()
-
-    def remove(self):
-        """Remove current model from the database."""
-        db.session.delete(self)
-        db.session.commit()
-
-
-class Product(BaseModel):
+class Product(db.Model):
     __tablename__ = 'products'
 
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -111,7 +97,7 @@ class Product(BaseModel):
         return f'''<Product {self.id!r}>'''
 
 
-class Category(BaseModel):
+class Category(db.Model):
     __tablename__ = 'categories'
 
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -132,7 +118,7 @@ class Category(BaseModel):
         return f'''<Category {self.id!r}>'''
 
 
-class Brand(BaseModel):
+class Brand(db.Model):
     __tablename__ = 'brands'
 
     id: so.Mapped[int] = so.mapped_column(primary_key=True)

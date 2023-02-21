@@ -9,6 +9,7 @@ from flask import request, Response
 from sqlalchemy import or_
 
 from products.api import api
+from products.app import db
 from products.decorators import json, paginate
 from products.models import Product
 
@@ -60,6 +61,7 @@ def delete_product(product_id):
         return Response(status=204)
 
     product = Product.query.get_or_404(product_id)
-    product.remove()
+    db.session.delete(product)
+    db.session.commit()
 
     return Response(status=204)
