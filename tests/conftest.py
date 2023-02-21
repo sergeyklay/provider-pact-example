@@ -15,6 +15,9 @@ from products.models import db
 @pytest.fixture()
 def app():
     app_instance = create_app('testing')
+    app_instance.config.update({
+        'TESTING': True,
+    })
     with app_instance.app_context():
         db.session.remove()
         db.drop_all()

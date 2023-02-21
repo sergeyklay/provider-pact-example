@@ -79,10 +79,9 @@ uninstall:
 	@echo Done.
 	@echo
 
-.PHONY: serve
-serve: $(VENV_PYTHON) .env
+serve: $(VENV_PYTHON) .env runner.py
 	@echo $(CS)Run builtin server$(CE)
-	$(VENV_BIN)/flask --app runner:app run
+	$(VENV_BIN)/flask --app runner:app run --debug
 	@echo
 
 .PHONY: migrate
