@@ -5,27 +5,78 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+import decimal
+
+import sqlalchemy as sa
 from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import orm as so
 
 db = SQLAlchemy()
 
 
-class Product(db.Model):
+class BaseModel(db.Model):
+    __abstract__ = True
+
+    def save(self):
+        """Save current model to the database."""
+        db.session.add(self)
+        db.session.commit()
+
+
+class Product(BaseModel):
     __tablename__ = 'products'
 
-    price_column = db.Numeric(precision=8, scale=2, decimal_return_scale=2)
-    rating_column = db.Numeric(precision=3, scale=2, decimal_return_scale=2)
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
 
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(64), unique=True, index=True, nullable=False)
-    description = db.Column(db.String(512), nullable=False, default='')
-    price = db.Column(price_column, nullable=False, default=0.0)
-    discount = db.Column(price_column, nullable=False, default=0.0)
-    rating = db.Column(rating_column, index=True, nullable=False, default=0.0)
-    stock = db.Column(db.Integer, nullable=False, default=0)
-    brand = db.Column(db.String(64), index=True, nullable=False)
-    category = db.Column(db.String(64), index=True, nullable=False)
+    title: so.Mapped[str] = so.mapped_column(
+        sa.String(64),
+        unique=True,
+        index=True,
+        nullable=False,
+    )
+
+    description: so.Mapped[str] = so.mapped_column(
+        sa.String(512),
+        nullable=False,
+        default='',
+    )
+
+    price: so.Mapped[decimal.Decimal] = so.mapped_column(
+        sa.Numeric(precision=8, scale=2, decimal_return_scale=2),
+        nullable=False,
+        default=0.0,
+    )
+
+    discount: so.Mapped[decimal.Decimal] = so.mapped_column(
+        sa.Numeric(precision=8, scale=2, decimal_return_scale=2),
+        nullable=False,
+        default=0.0,
+    )
+
+    rating: so.Mapped[decimal.Decimal] = so.mapped_column(
+        sa.Numeric(precision=3, scale=2, decimal_return_scale=2),
+        index=True,
+        nullable=False,
+        default=0.0,
+    )
+
+    stock: so.Mapped[int] = so.mapped_column(
+        nullable=False,
+        default=0,
+    )
+
+    brand: so.Mapped[str] = so.mapped_column(
+        sa.String(64),
+        index=True,
+        nullable=False,
+    )
+
+    category: so.Mapped[str] = so.mapped_column(
+        sa.String(64),
+        index=True,
+        nullable=False,
+    )
 
     def get_url(self):
         return url_for('api.get_product', product_id=self.id, _external=True)
@@ -43,10 +94,6 @@ class Product(db.Model):
             'brand': self.brand,
             'category': self.category,
         }
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
 
     def __repr__(self):
         """Returns the object representation in string format."""
