@@ -25,7 +25,7 @@ def list_products():
 
     category = request.args.get('category')
     if category:
-        query = query.filter_by(category=category)
+        query = query.filter(Product.category.has(name=category))
 
     search = request.args.get('q')
     if search:
