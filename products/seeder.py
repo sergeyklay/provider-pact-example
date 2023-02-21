@@ -14,7 +14,6 @@ from faker.providers import company, lorem, python
 from sqlalchemy.exc import IntegrityError
 
 from products.app import db
-from products.fake import FakeProduct
 from .models import Category, Product
 
 
@@ -27,7 +26,6 @@ def seed_products():
     fake.add_provider(company)
     fake.add_provider(lorem)
     fake.add_provider(python)
-    fake.add_provider(FakeProduct)
 
     categories = []
     for _ in range(10):
