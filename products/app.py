@@ -66,8 +66,11 @@ def configure_app(app: Flask, config_name=None):
 
     # Update config from environment variable (if any).
     # Export this variable as follows:
-    #   export APP_SETTINGS="/var/www/server/config.py"
-    app.config.from_envvar('APP_SETTINGS', silent=True)
+    #
+    #    $ export PRODUCTS_API_SETTINGS="/var/www/server/config.py"
+    #    $ flask --app runner:app run
+    #
+    app.config.from_envvar('PRODUCTS_API_SETTINGS', silent=True)
 
 
 def configure_blueprints(app: Flask):
