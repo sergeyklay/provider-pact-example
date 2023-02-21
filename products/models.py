@@ -6,6 +6,7 @@
 # the LICENSE file that was distributed with this source code.
 
 import decimal
+from typing import List
 
 import sqlalchemy as sa
 from flask import url_for
@@ -76,10 +77,13 @@ class Product(BaseModel):
         nullable=False,
     )
 
-    category: so.Mapped[str] = so.mapped_column(
-        sa.String(64),
-        index=True,
-        nullable=False,
+    category_id: so.Mapped[int] = so.mapped_column(
+        sa.ForeignKey('categories.id'),
+        nullable=False
+    )
+
+    category: so.Mapped['Category'] = so.relationship(
+        back_populates='product',
     )
 
     def get_url(self):
@@ -96,9 +100,30 @@ class Product(BaseModel):
             'rating': float(self.rating),
             'stock': int(self.stock),
             'brand': self.brand,
-            'category': self.category,
+            'category': self.category.name,
         }
 
     def __repr__(self):
         """Returns the object representation in string format."""
         return f'''<Product {self.id!r}>'''
+
+
+class Category(BaseModel):
+    __tablename__ = 'categories'
+
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+
+    name: so.Mapped[str] = so.mapped_column(
+        sa.String(64),
+        unique=True,
+        index=True,
+        nullable=False,
+    )
+
+    product: so.Mapped[List['Product']] = so.relationship(
+        back_populates='category',
+    )
+
+    def __repr__(self):
+        """Returns the object representation in string format."""
+        return f'''<Category {self.id!r}>'''
