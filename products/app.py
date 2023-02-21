@@ -66,19 +66,22 @@ def configure_app(app: Flask, config_name=None):
 
     # Update config from environment variable (if any).
     # Export this variable as follows:
-    #   export APP_SETTINGS="/var/www/server/config.py"
-    app.config.from_envvar('APP_SETTINGS', silent=True)
+    #
+    #    $ export PRODUCTS_API_SETTINGS="/var/www/server/config.py"
+    #    $ flask --app runner:app run
+    #
+    app.config.from_envvar('PRODUCTS_API_SETTINGS', silent=True)
 
 
 def configure_blueprints(app: Flask):
     """Configure blueprints for the application."""
     # main blueprint registration
-    from products.main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    from products.main import main as main_bp
+    app.register_blueprint(main_bp)
 
     # api blueprint registration
-    from products.api import api as api_blueprint
-    app.register_blueprint(api_blueprint, url_prefix='/v1')
+    from products.api import api as api_bp
+    app.register_blueprint(api_bp, url_prefix='/v1')
 
 
 def configure_extensions(app: Flask):
