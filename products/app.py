@@ -70,7 +70,7 @@ def configure_blueprints(app: Flask):
 
 def configure_extensions(app: Flask):
     """Configure extensions for the application."""
-    from products.models import db, Product
+    from products.models import db
     from flask_migrate import Migrate, upgrade
 
     # Flask-SQLAlchemy
@@ -89,12 +89,8 @@ def configure_extensions(app: Flask):
     @app.cli.command()
     def seed():
         """Add seed data to the database."""
-        from faker import Faker
-        fake = Faker()
-
-        db.create_all()
-        for _ in range(1000):
-            Product.seed(fake)
+        from products.seeder import seed_products
+        seed_products()
 
 
 def configure_context_processors(app: Flask):
