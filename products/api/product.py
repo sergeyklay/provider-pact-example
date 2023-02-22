@@ -31,12 +31,6 @@ def delete_product(product_id):
     Deletes a specified product and returns status code 204 if successful,
     otherwise - 404.
     """
-    # Emulate deletion for testing purposes. Actually needed only
-    # for contract testing.
-    if request.headers.get('User-Agent') == 'Ktor client' \
-            and product_id == 7777:
-        return Response(status=204)
-
     product = Product.query.get_or_404(product_id)
     db.session.delete(product)
     db.session.commit()
