@@ -105,7 +105,7 @@ Improvements
 ^^^^^^^^^^^^
 
 * Set ``minLength`` and ``maxLength`` for OpenAPI string values.
-* Use thin controller for products API.
+* Use thin view for products API.
 * Redesign error responses.
 
 
