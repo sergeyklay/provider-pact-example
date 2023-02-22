@@ -86,12 +86,13 @@ components:
       type: string
       example: smartphones
     Links:
-      title: Pagination links
+      title: Pagination Links
       description: |-
         Used to provide pagination information, allowing clients to navigate
         through large sets of data by following links to subsequent pages.
       type: object
       required:
+        - self
         - first
         - last
         - next
@@ -133,21 +134,38 @@ components:
         - total
       properties:
         page:
+          description: |-
+            Indicates the current page number of the data that is being returned in the response.
+            This is useful because it allows the client to keep track of which page they are currently
+            viewing and to navigate to other pages of the data if necessary.
           type: integer
           format: int32
           minimum: 1
           example: 7
         pages:
+          description: |-
+            Used to provide information about the number of pages in a paginated set of data.
+            In this case, it would indicate the total number of pages in the dataset, which can be
+            useful for the client to understand the overall structure of the dataset and to navigate
+            through the data efficiently.
           type: integer
           format: int32
           minimum: 1
           example: 30
         per_page:
+          description: |-
+            Indicates the number of items or entries that are included in a single page of the
+            paginated response. For example, if the value of pagination.per_page is 10, then each
+            page of the response will include 10 items or entries.
           type: integer
           format: int32
           minimum: 1
           example: 30
         total:
+          description: |-
+            Indicates the total number of items or entries in the dataset, regardless of pagination.
+            This parameter is useful because it allows the client to better understand the overall
+            size of the dataset and to calculate the number of pages in the paginated response.
           type: integer
           format: int32
           minimum: 0
