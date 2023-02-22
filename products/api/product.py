@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-from flask import request, Response
+from flask import Response
 
 from products.api import api
 from products.app import db

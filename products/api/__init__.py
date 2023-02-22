@@ -23,6 +23,7 @@ def after_request(response):
 
 
 @api.before_request
+# pylint: disable-next=inconsistent-return-statements
 def specmatic_deletes_product():
     """Emulate deletion for testing purposes.
      Actually this method is needed only for contract testing."""
