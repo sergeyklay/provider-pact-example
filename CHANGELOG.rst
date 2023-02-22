@@ -10,6 +10,19 @@ releases, in reverse chronological order.
    versions.
 
 
+1.7.0 (2023-XX-XX)
+------------------
+
+Bug Fixes
+^^^^^^^^^
+
+* Fixed pagination response to not offer 0 page.
+* Fixed response code for 400 error.
+
+
+----
+
+
 1.6.0 (2023-02-20)
 ------------------
 
