@@ -4,20 +4,47 @@ Changelog
 This file contains a brief summary of new features and dependency changes or
 releases, in reverse chronological order.
 
-.. note::
 
-   Backward incompatible (breaking) changes will only be introduced in major
-   versions.
-
-
-1.7.0 (2023-XX-XX)
+1.7.0 (2023-02-22)
 ------------------
+
+Features
+^^^^^^^^
+
+* Rework the main application entry point to provide more options for launching
+  the application.
+
+
+Improvements
+^^^^^^^^^^^^
+
+* Improve OpenAPI spec documentation.
+* Amend contract tests for product API.
+
 
 Bug Fixes
 ^^^^^^^^^
 
 * Fixed pagination response to not offer 0 page.
 * Fixed response code for 400 error.
+
+
+Breaking Changes
+^^^^^^^^^^^^^^^^
+
+* Separate pagination ``links`` in responses to a separate response attribute.
+* Rename ``pages`` response attribute to ``pagination``.
+
+
+Trivial/Internal Changes
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Separate Python code linting into a separate workflow.
+* Extract database seeder into a separate module.
+* Move ``db`` definition to ``app`` module.
+* Use SQLAlchemy 2.x way to declare ORM models.
+* Separate Categories into a separate ORM model.
+* Separate Brands into a separate ORM model.
 
 
 ----
