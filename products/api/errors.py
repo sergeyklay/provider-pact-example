@@ -15,9 +15,9 @@ from . import api
 
 
 @api.app_errorhandler(400)
-def bad_request(_error: HTTPException) -> Response:
+def bad_request(error: HTTPException) -> Response:
     """Registers a function to handle 400 errors."""
-    return json_response(400, 'Bad Request', _error.description)
+    return json_response(400, 'Bad Request', error.description)
 
 
 @api.app_errorhandler(404)
