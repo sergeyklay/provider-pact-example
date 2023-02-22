@@ -47,7 +47,20 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Snyk test for Python dependencies
+      - name: Setup cache on Linux
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --progress-bar=off --upgrade pip pip-tools setuptools wheel
+          python -m pip install --progress-bar=off requirements/requirements-dev.txt
+
+      - name: Snyk test for all projects
         uses: snyk/actions/python-3.10@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -55,8 +68,7 @@ jobs:
           command: test
           args: >
             --project-name=${{ github.repository }}
-            --package-manager=pip
-            --file=requirements/requirements.txt
+            --all-projects
             --severity-threshold=high
             --fail-on=all
 
@@ -73,7 +85,7 @@ jobs:
             --severity-threshold=high
             --fail-on=all
 
-      - name: Snyk monitor for Python dependencies
+      - name: Snyk monitor for all projects
         uses: snyk/actions/python-3.10@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -81,8 +93,7 @@ jobs:
           command: monitor
           args: >
             --project-name=${{ github.repository }}
-            --package-manager=pip
-            --file=requirements/requirements.txt
+            --all-projects
 
       - name: Snyk monitor for Python dev dependencies
         uses: snyk/actions/python-3.10@master
