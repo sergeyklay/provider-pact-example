@@ -5,12 +5,23 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-from flask import Response
+from flask import request, Response
 
 from products.api import api
 from products.app import db
 from products.decorators import json
 from products.models import Product
+
+
+@api.route('/products', methods=['POST'])
+@json
+def new_product():
+    product = Product()
+    product.import_data(request.json)
+    db.session.add(product)
+    db.session.commit()
+
+    return {}, 201, {'Location': product.get_url()}
 
 
 @api.route('/products/<int:product_id>', methods=['GET'])

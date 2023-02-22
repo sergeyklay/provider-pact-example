@@ -18,6 +18,7 @@ disable=
     import-outside-toplevel,
     wrong-import-position,
     too-few-public-methods,
+    too-many-instance-attributes,
     missing-module-docstring,
     missing-class-docstring,
     missing-function-docstring,

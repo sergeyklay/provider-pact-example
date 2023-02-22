@@ -5,6 +5,11 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+from urllib.parse import urlsplit
+
+from products.app import db
+from products.models import Brand, Category
+
 NOT_FOUND_RESPONSE = {
         'status': 404,
         'title': 'Not Found',
@@ -56,3 +61,48 @@ def test_products_not_found(client):
 
     assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
     assert response.status_code == 404
+
+
+def test_create_product(client):
+    brand = Brand(name='Acme')
+    category = Category(name='Test')
+
+    db.session.add(brand)
+    db.session.add(category)
+    db.session.commit()
+
+    data = {
+        "title": "Test",
+        "description": "Description",
+        "discount": 0.0,
+        "price": 0.0,
+        "rating": 0.0,
+        "stock": 0,
+        "brand_id": brand.id,
+        "category_id": category.id,
+    }
+
+    # add a product
+    rv = client.post('/v1/products', json=data)
+
+    assert rv.json == {}
+    assert rv.status_code == 201
+    assert 'Location' in rv.headers
+
+    location = rv.headers['Location']
+    assert urlsplit(rv.headers['Location']).path == '/v1/products/1'
+
+    # get product
+    rv = client.get(urlsplit(rv.headers['Location']).path)
+    assert rv.status_code == 200
+
+    data.update({'self_url': location})
+    assert rv.json['brand'] == 'Acme'
+
+    # get list of products
+    rv = client.get('/v1/products?expanded=1')
+
+    assert rv.status_code == 200
+    assert len(rv.json) == 3
+    assert len(rv.json['products']) == 1
+    assert rv.json['products'][0]['category'] == 'Test'
