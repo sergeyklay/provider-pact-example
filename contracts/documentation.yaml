@@ -86,12 +86,13 @@ components:
       type: string
       example: smartphones
     Links:
-      title: Pagination links
+      title: Pagination Links
       description: |-
         Used to provide pagination information, allowing clients to navigate
         through large sets of data by following links to subsequent pages.
       type: object
       required:
+        - self
         - first
         - last
         - next
