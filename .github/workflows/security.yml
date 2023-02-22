@@ -41,6 +41,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      # Snyk uses Python in order to scan and find your dependencies.
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
       - name: Run Snyk as a blocking step
         uses: snyk/actions/python-3.10@master
         env:
@@ -49,6 +55,7 @@ jobs:
           command: test
           args: >
             --project-name=${{ github.repository }}
+            --package-manager=pip
             --detection-depth=1
             --severity-threshold=high
             --fail-on=all
@@ -61,4 +68,5 @@ jobs:
           command: monitor
           args: >
             --project-name=${{ github.repository }}
+            --package-manager=pip
             --detection-depth=1
