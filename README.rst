@@ -123,7 +123,7 @@ Specmatic Testing Example is released under the `MIT License <https://choosealic
 and its code lives at `GitHub <https://github.com/sergeyklay/specmatic-testing-example>`_.
 It’s rigorously tested on Python 3.11+.
 
-If you'd like to contribute to Gstore you're most welcome!
+If you'd like to contribute to Specmatic Testing Example you're most welcome!
 
 .. -support-
 
