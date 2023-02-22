@@ -47,7 +47,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run Snyk as a blocking step
+      - name: Snyk test for Python dependencies
         uses: snyk/actions/python-3.10@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -56,11 +56,24 @@ jobs:
           args: >
             --project-name=${{ github.repository }}
             --package-manager=pip
-            --detection-depth=1
+            --file=requirements/requirements.txt
             --severity-threshold=high
             --fail-on=all
 
-      - name: Run Snyk on Python
+      - name: Snyk test for Python dev dependencies
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+          args: >
+            --project-name=${{ github.repository }}
+            --package-manager=pip
+            --file=requirements/requirements-dev.txt
+            --severity-threshold=high
+            --fail-on=all
+
+      - name: Snyk monitor for Python dependencies
         uses: snyk/actions/python-3.10@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -69,4 +82,15 @@ jobs:
           args: >
             --project-name=${{ github.repository }}
             --package-manager=pip
-            --detection-depth=1
+            --file=requirements/requirements.txt
+
+      - name: Snyk monitor for Python dev dependencies
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: >
+            --project-name=${{ github.repository }}
+            --package-manager=pip
+            --file=requirements/requirements-dev.txt
