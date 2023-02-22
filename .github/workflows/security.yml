@@ -49,6 +49,7 @@ jobs:
           command: test
           args: >
             --project-name=${{ github.repository }}
+            --detection-depth=1
             --severity-threshold=high
             --fail-on=all
 
@@ -60,3 +61,4 @@ jobs:
           command: monitor
           args: >
             --project-name=${{ github.repository }}
+            --detection-depth=1
