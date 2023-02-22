@@ -1,0 +1,47 @@
+# This file is part of the Specmatic Testing Example.
+#
+# Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
+name: Security Scan
+
+on:
+  push:
+    paths-ignore:
+      - '**.rst'
+    branches:
+      - main
+      - 'feature/**'
+      - 'release/**'
+      - 'fix/**'
+
+  pull_request:
+    paths-ignore:
+      - '**.rst'
+    branches:
+      - main
+
+  schedule:
+    - cron: '0 1 * * *'
+      #      | | | | |
+      #      | | | | |____ day of the week (0 - 6 or SUN-SAT)
+      #      | | | |____ month (1 - 12 or JAN-DEC)
+      #      | | |____ day of the month (1 - 31)
+      #      | |____ hour (0 - 23)
+      #      |____ minute (0 - 59)
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Scan
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Check for Python vulnerabilities
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
