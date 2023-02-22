@@ -31,9 +31,9 @@ def paginate(collection, max_per_page=10):
             # obtain pagination arguments from the URL's query string
             page = request.args.get('page', 1, type=int)
             if page < 1:
-                abort(
-                    400,
-                    f"'page' parameter cannot be less than 1, received: {page}")
+                message = ("The 'page' parameter cannot be less than 1, "
+                           f'received: {page}.')
+                abort(400, message)
 
             per_page = min(request.args.get('per_page', max_per_page,
                                             type=int), max_per_page)
@@ -50,12 +50,21 @@ def paginate(collection, max_per_page=10):
                 'per_page': per_page,
                 'total': p.total,
                 'pages': p.pages or 1,  # can't be 0
-                'prev_url': None,
-                'next_url': None,
             }
 
+            links = {
+                'self': request.url,
+                'prev': None,
+                'next': None,
+            }
+
+            kwargs.update(request.args)
+            kwargs.pop('page', None)
+            kwargs.pop('per_page', None)
+            kwargs.pop('expanded', None)
+
             if p.has_prev:
-                pages['prev_url'] = url_for(
+                links['prev'] = url_for(
                     request.endpoint,
                     page=p.prev_num,
                     per_page=per_page,
@@ -65,7 +74,7 @@ def paginate(collection, max_per_page=10):
                 )
 
             if p.has_next:
-                pages['next_url'] = url_for(
+                links['next'] = url_for(
                     request.endpoint,
                     page=p.next_num,
                     per_page=per_page,
@@ -74,7 +83,7 @@ def paginate(collection, max_per_page=10):
                     **kwargs,
                 )
 
-            pages['first_url'] = url_for(
+            links['first'] = url_for(
                 request.endpoint,
                 page=1,
                 per_page=per_page,
@@ -82,7 +91,7 @@ def paginate(collection, max_per_page=10):
                 _external=True,
                 **kwargs,
             )
-            pages['last_url'] = url_for(
+            links['last'] = url_for(
                 request.endpoint,
                 page=p.pages or 1,  # can't be 0
                 per_page=per_page,
@@ -98,6 +107,10 @@ def paginate(collection, max_per_page=10):
                 results = [item.get_url() for item in p.items]
 
             # return a dictionary as a response
-            return {collection: results, 'pagination': pages}
+            return {
+                collection: results,
+                'pagination': pages,
+                'links': links,
+            }
         return wrapped
     return decorator

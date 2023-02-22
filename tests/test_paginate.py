@@ -18,13 +18,13 @@ def test_paginate_empty_db(client):
     assert rv.json['pagination']['pages'] == 1
     assert rv.json['pagination']['per_page'] == 10
 
-    assert rv.json['pagination']['prev_url'] is None
-    assert rv.json['pagination']['next_url'] is None
+    assert rv.json['links']['prev'] is None
+    assert rv.json['links']['next'] is None
 
-    url = urlsplit(rv.json['pagination']['first_url'])
+    url = urlsplit(rv.json['links']['first'])
     assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
 
-    url = urlsplit(rv.json['pagination']['last_url'])
+    url = urlsplit(rv.json['links']['last'])
     assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
 
 
@@ -38,14 +38,33 @@ def test_paginate_empty_db_fist_page(client):
     assert rv.json['pagination']['pages'] == 1
     assert rv.json['pagination']['per_page'] == 10
 
-    assert rv.json['pagination']['prev_url'] is None
-    assert rv.json['pagination']['next_url'] is None
+    assert rv.json['links']['prev'] is None
+    assert rv.json['links']['next'] is None
 
-    url = urlsplit(rv.json['pagination']['first_url'])
+    url = urlsplit(rv.json['links']['first'])
     assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
 
-    url = urlsplit(rv.json['pagination']['last_url'])
+    url = urlsplit(rv.json['links']['last'])
     assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
+
+
+def test_paginate_links_returns_extra_keys(client):
+    rv = client.get('/v1/products?a=b&c=d&e=f')
+
+    assert rv.status_code == 200
+
+    assert rv.json['links']['prev'] is None
+    assert rv.json['links']['next'] is None
+
+    url = urlsplit(rv.json['links']['first'])
+    assert '?'.join([url.path, url.query]) == (
+        '/v1/products?page=1&per_page=10&a=b&c=d&e=f'
+    )
+
+    url = urlsplit(rv.json['links']['last'])
+    assert '?'.join([url.path, url.query]) == (
+        '/v1/products?page=1&per_page=10&a=b&c=d&e=f'
+    )
 
 
 def test_paginate_0_page(client):
@@ -54,7 +73,8 @@ def test_paginate_0_page(client):
     expected = {
         'status': 400,
         'title': 'Bad Request',
-        'description': "'page' parameter cannot be less than 1, received: 0",
+        'description': ("The 'page' parameter cannot be less than 1, "
+                        'received: 0.'),
     }
 
     assert sorted(expected.items()) == sorted(rv.json.items())
