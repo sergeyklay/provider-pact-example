@@ -28,6 +28,26 @@ def test_paginate_empty_db(client):
     assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
 
 
+def test_paginate_empty_db_fist_page(client):
+    rv = client.get('/v1/products?page=1')
+
+    assert rv.status_code == 200
+
+    assert rv.json['pagination']['total'] == 0
+    assert rv.json['pagination']['page'] == 1
+    assert rv.json['pagination']['pages'] == 1
+    assert rv.json['pagination']['per_page'] == 10
+
+    assert rv.json['pagination']['prev_url'] is None
+    assert rv.json['pagination']['next_url'] is None
+
+    url = urlsplit(rv.json['pagination']['first_url'])
+    assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
+
+    url = urlsplit(rv.json['pagination']['last_url'])
+    assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
+
+
 def test_paginate_0_page(client):
     rv = client.get('/v1/products?page=0')
 
