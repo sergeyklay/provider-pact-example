@@ -138,3 +138,21 @@ def test_product_integrity_error(client):
     # integrity error
     rv = client.post('/v1/products', json=data)
     assert rv.status_code == 400
+
+
+def test_product_missing_data(client):
+    brand = Brand(name='test_product_missing_data')
+    category = Category(name=brand.name)
+
+    db.session.add(brand)
+    db.session.add(category)
+    db.session.commit()
+
+    data = dict(
+        brand_id=brand.id,
+        category_id=category.id
+    )
+
+    # missing data
+    rv = client.post('/v1/products', json=data)
+    assert rv.status_code == 400
