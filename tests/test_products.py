@@ -71,16 +71,16 @@ def test_create_product(client):
     db.session.add(category)
     db.session.commit()
 
-    data = {
-        "title": "Test",
-        "description": "Description",
-        "discount": 0.0,
-        "price": 0.0,
-        "rating": 0.0,
-        "stock": 0,
-        "brand_id": brand.id,
-        "category_id": category.id,
-    }
+    data = dict(
+        title='Test',
+        description='Description',
+        discount=0.0,
+        price=0.0,
+        rating=0.0,
+        stock=0,
+        brand_id=brand.id,
+        category_id=category.id
+    )
 
     # add a product
     rv = client.post('/v1/products', json=data)
@@ -106,3 +106,35 @@ def test_create_product(client):
     assert len(rv.json) == 3
     assert len(rv.json['products']) == 1
     assert rv.json['products'][0]['category'] == 'Test'
+
+
+def test_product_integrity_error(client):
+    brand = Brand(name='test_product_integrity_error')
+    category = Category(name=brand.name)
+
+    db.session.add(brand)
+    db.session.add(category)
+    db.session.commit()
+
+    data = dict(
+        title='Test',
+        description='Description',
+        discount=0.0,
+        price=0.0,
+        rating=0.0,
+        stock=0,
+        brand_id=brand.id,
+        category_id=category.id
+    )
+
+    # not a JSON
+    rv = client.post('/v1/products', data=data)
+    assert rv.status_code == 400
+
+    # create product
+    rv = client.post('/v1/products', json=data)
+    assert rv.status_code == 201
+
+    # integrity error
+    rv = client.post('/v1/products', json=data)
+    assert rv.status_code == 400
