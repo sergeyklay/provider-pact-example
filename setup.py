@@ -1,11 +1,11 @@
-# This file is part of the Specmatic Testing Example.
+# This file is part of the Contract Testing Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-"""Setup module for Specmatic Testing Example."""
+"""Setup module for Contract Testing Example."""
 
 import codecs
 import re
@@ -53,7 +53,7 @@ def load_long_description():
             '===================\n',
             changes(),
             '',
-            '`Full changelog <https://github.com/sergeyklay/specmatic-testing-example/blob/master/CHANGELOG.rst>`_.',  # noqa: E501
+            '`Full changelog <https://github.com/sergeyklay/contract-testing-example/blob/master/CHANGELOG.rst>`_.',  # noqa: E501
             '',
             read_file(path.join(PKG_DIR, 'SECURITY.rst')),
             '',
@@ -185,10 +185,10 @@ EXTRAS_REQUIRE['develop'] = \
 
 # Project's URLs
 PROJECT_URLS = {
-    'Documentation': 'https://github.com/sergeyklay/specmatic-testing-example',
-    'Changelog': 'https://github.com/sergeyklay/specmatic-testing-example/blob/master/CHANGELOG.rst',  # noqa: E501
-    'Bug Tracker': 'https://github.com/sergeyklay/specmatic-testing-example/issues',  # noqa: E501
-    'Source Code': 'https://github.com/sergeyklay/specmatic-testing-example',
+    'Documentation': 'https://github.com/sergeyklay/contract-testing-example',
+    'Changelog': 'https://github.com/sergeyklay/contract-testing-example/blob/master/CHANGELOG.rst',  # noqa: E501
+    'Bug Tracker': 'https://github.com/sergeyklay/contract-testing-example/issues',  # noqa: E501
+    'Source Code': 'https://github.com/sergeyklay/contract-testing-example',
 }
 
 if __name__ == '__main__':

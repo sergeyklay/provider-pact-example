@@ -1,4 +1,4 @@
-# This file is part of the Specmatic Testing Example.
+# This file is part of the Contract Testing Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
