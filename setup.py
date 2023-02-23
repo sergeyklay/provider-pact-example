@@ -37,7 +37,7 @@ def load_long_description():
 
     try:
         title = f"{PKG_NAME}: {find_meta('description')}"
-        head = '=' * (len(title) - 1)
+        head = '=' * len(title)
 
         contents = (
             head,
