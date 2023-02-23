@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 #
-# This file is part of the Specmatic Testing Example.
+# This file is part of the Contract Testing Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-"""The main entry point for Specmatic Testing Example.
+"""The main entry point for Contract Testing Example.
 
 To run this entrypoint use any of the following command:
 

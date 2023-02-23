@@ -1,5 +1,5 @@
 {
-  "name": "specmatic-testing-example",
+  "name": "contract-testing-example",
   "version": "1.7.0",
   "private": true,
   "description": "Provider-side demo using Specmatic to do contract driven development",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sergeyklay/specmatic-testing-example.git"
+    "url": "git+https://github.com/sergeyklay/contract-testing-example.git"
   },
   "keywords": [
     "api",
@@ -26,9 +26,9 @@
   "author": "Serghei Iakovlev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sergeyklay/specmatic-testing-example/issues"
+    "url": "https://github.com/sergeyklay/contract-testing-example/issues"
   },
-  "homepage": "https://github.com/sergeyklay/specmatic-testing-example#readme",
+  "homepage": "https://github.com/sergeyklay/contract-testing-example#readme",
   "dependencies": {
     "@redocly/cli": "^1.0.0-beta.123",
     "@stoplight/spectral-cli": "^6.6.0"

@@ -1,4 +1,4 @@
-# This file is part of the Specmatic Testing Example.
+# This file is part of the Contract Testing Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
@@ -19,5 +19,5 @@ __version__ = '1.7.0'
 __license__ = 'MIT'
 __author__ = 'Serghei Iakovlev'
 __author_email__ = 'egrep@protonmail.ch'
-__url__ = 'https://github.com/sergeyklay/specmatic-testing-example'
-__description__ = 'Specmatic Testing Example'
+__url__ = 'https://github.com/sergeyklay/contract-testing-example'
+__description__ = 'Sample products API'
