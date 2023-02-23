@@ -25,7 +25,7 @@ recursive-include tests *.py
 global-exclude *.py[cod]
 
 # Exclude stuff for local development
-exclude .coveragerc .pylintrc Makefile default.mk requirements/*.in .env package-lock.json package.json specmatic.json .spectral.yaml redocly.yaml
+exclude .coveragerc .pylintrc Makefile default.mk requirements/*.in .env package-lock.json package.json specmatic.json .spectral.yaml .redocly.yaml
 recursive-exclude .github *.yml *.yaml
 recursive-include contracts *.spec *.yaml
 

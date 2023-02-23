@@ -5,7 +5,7 @@
   "description": "Provider-side demo using Specmatic to do contract driven development",
   "main": "index.js",
   "scripts": {
-    "lint-redocly": "redocly lint --config redocly.yaml contracts/documentation.yaml",
+    "lint-redocly": "redocly lint --config .redocly.yaml contracts/documentation.yaml",
     "lint-spectral": "spectral lint --fail-severity=info contracts/**/*.yaml",
     "lint": "npm run lint-redocly && npm run lint-spectral"
   },

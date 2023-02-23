@@ -1,0 +1,33 @@
+# This file is part of the Specmatic Testing Example.
+#
+# Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
+# See https://redocly.com/docs/cli/configuration/
+
+extends:
+  - recommended
+
+apis:
+  products@v1:
+    root: ./contracts/documentation.yaml
+    rules:
+      assert/operation-description:
+        subject:
+          type: Operation
+          property: description
+        assertions:
+          defined: true
+          minLength: 25
+      security-defined: off
+      operation-4xx-response: off
+
+theme:
+  openapi:
+    generateCodeSamples:
+      languages:
+        - lang: curl
+        - lang: Node.js
+        - lang: Python
