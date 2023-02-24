@@ -1,0 +1,14 @@
+'open api':
+  - 'openapi/*.yaml'
+
+provider:
+  - any: ['provider/**/*']
+
+consumer:
+  - any: ['consumer/**/*']
+
+github_actions:
+  - any: ['.github/**/*']
+
+documentation:
+  - '*.rst'
