@@ -5,17 +5,10 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-'open api':
-  - 'openapi/*.yaml'
-
-provider:
-  - any: ['provider/**/*']
-
-consumer:
-  - any: ['consumer/**/*']
-
-github_actions:
-  - any: ['.github/**/*']
-
-documentation:
-  - '*.rst'
+Faker
+coverage[toml]
+flake8
+flake8-blind-except
+flake8-import-order
+pylint
+pytest

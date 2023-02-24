@@ -5,17 +5,10 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-'open api':
-  - 'openapi/*.yaml'
-
-provider:
-  - any: ['provider/**/*']
-
-consumer:
-  - any: ['consumer/**/*']
-
-github_actions:
-  - any: ['.github/**/*']
-
-documentation:
-  - '*.rst'
+Flask
+Flask-Migrate
+Flask-SQLAlchemy
+SQLAlchemy
+Werkzeug
+alembic
+python-dotenv

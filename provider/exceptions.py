@@ -5,17 +5,8 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-'open api':
-  - 'openapi/*.yaml'
+"""The exceptions module for the application."""
 
-provider:
-  - any: ['provider/**/*']
 
-consumer:
-  - any: ['consumer/**/*']
-
-github_actions:
-  - any: ['.github/**/*']
-
-documentation:
-  - '*.rst'
+class ValidationError(ValueError):
+    pass

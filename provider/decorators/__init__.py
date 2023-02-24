@@ -5,17 +5,8 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-'open api':
-  - 'openapi/*.yaml'
+"""Provides all decorators used for the application."""
 
-provider:
-  - any: ['provider/**/*']
-
-consumer:
-  - any: ['consumer/**/*']
-
-github_actions:
-  - any: ['.github/**/*']
-
-documentation:
-  - '*.rst'
+from .caching import etag  # noqa: F401
+from .json import json  # noqa: F401
+from .paginate import paginate  # noqa: F401
