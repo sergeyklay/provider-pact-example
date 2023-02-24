@@ -92,7 +92,3 @@ jobs:
       - name: Run redocly linter
         if: steps.changed-oas-files.outputs.any_changed == 'true'
         run: npm run lint:redocly
-
-      - name: Run spectral linter
-        if: steps.changed-oas-files.outputs.any_changed == 'true'
-        run: npm run lint:spectral

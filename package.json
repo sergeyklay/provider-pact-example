@@ -2,7 +2,7 @@
   "name": "contract-testing-example",
   "version": "1.7.0",
   "private": true,
-  "description": "Provider-side demo using Specmatic to do contract driven development",
+  "description": "Complete Contract Testing solution solution for API, which can used by client applications",
   "main": "index.js",
   "scripts": {
     "intro": "cat package.json | jq .scripts",
@@ -19,7 +19,6 @@
     "api-testing",
     "contract-testing",
     "contract-test",
-    "specmatic",
     "openapi3",
     "openapi"
   ],
@@ -30,7 +29,6 @@
   },
   "homepage": "https://github.com/sergeyklay/contract-testing-example#readme",
   "dependencies": {
-    "@redocly/cli": "^1.0.0-beta.123",
-    "@stoplight/spectral-cli": "^6.6.0"
+    "@redocly/cli": "^1.0.0-beta.123"
   }
 }
