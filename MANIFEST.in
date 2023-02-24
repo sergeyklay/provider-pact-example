@@ -9,8 +9,11 @@
 # or remove some set of files from the sdist.
 
 # Include all files matching any of the listed patterns.
-include AUTHORS.rst CHANGELOG.rst CODEOWNERS CONTRIBUTING.rst LICENSE README.rst SECURITY.rst
+include AUTHORS.rst CHANGELOG.rst CONTRIBUTING.rst LICENSE RELEASING.rst README.rst SECURITY.rst
 include runner.py .env.example
+
+# Include OpenAPI spec
+recursive-include openapi *.yaml
 
 # include all files under dir
 graft migrations
@@ -24,12 +27,25 @@ recursive-include tests *.py
 # from the sdist.
 global-exclude *.py[cod]
 
-# Exclude stuff for local development
-exclude .coveragerc .pylintrc Makefile default.mk requirements/*.in .env package-lock.json package.json specmatic.json .spectral.yaml .redocly.yaml
+# Exclude GitHUb stuff
+exclude CODEOWNERS
 recursive-exclude .github *.yml *.yaml
-recursive-include openapi *.spec *.yaml
+
+# Exclude Specmatic stuff
+exclude specmatic.json
+recursive-exclude openapi *.spec
+
+# Exclude stuff for local development
+exclude .coveragerc Makefile default.mk .env
+
+# Exclude Node.js stuff
+exclude package-lock.json package.json
+
+# Exclude linters stuff
+exclude .pylintrc .spectral.yaml .redocly.yaml
 
 # Include requirements.txt for reproducible tests
+exclude requirements/*.in
 include requirements/*.txt
 
 # Documentation
