@@ -1,0 +1,48 @@
+# This file is part of the Contract Testing Example.
+#
+# Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
+name: Build Test
+
+on:
+  push:
+    branches:
+      - master
+      - 'feature/**'
+      - 'release/**'
+      - 'fix/**'
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and test package distribution
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Set up virtualenv
+        run: make init
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Build gstore distribution (sdist and wheel)
+        run: make build
+
+      - name: Testing package distribution and installation
+        run: make test-dist
