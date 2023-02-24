@@ -13,7 +13,7 @@ from faker import Faker
 from faker.providers import company, lorem, python
 from sqlalchemy.exc import IntegrityError
 
-from products.app import db
+from provider.app import db
 from .models import Brand, Category, Product
 
 

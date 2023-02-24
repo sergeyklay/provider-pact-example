@@ -8,11 +8,10 @@
 from flask import request, Response
 from sqlalchemy import or_
 
-from products.api import api
-from products.app import db
-from products.decorators import json
-from products.decorators import paginate
-from products.models import Product
+from provider.api import api
+from provider.app import db
+from provider.decorators import json, paginate
+from provider.models import Product
 
 
 @api.route('/products', methods=['POST'])

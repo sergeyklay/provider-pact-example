@@ -12,8 +12,8 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from werkzeug.exceptions import HTTPException, InternalServerError
 from werkzeug.wrappers import Response
 
-from products.exceptions import ValidationError
-from products.utils import json_response
+from provider.exceptions import ValidationError
+from provider.utils import json_response
 from . import api
 
 

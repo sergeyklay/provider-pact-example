@@ -48,7 +48,7 @@ def load_env_vars(base_path: str):
 
 def configure_app(app: Flask, config_name=None):
     """Configure application."""
-    from products.config import config, Config
+    from provider.config import config, Config
 
     # Use the default config and override it afterwards
     app.config.from_object(config['default'])
@@ -76,11 +76,11 @@ def configure_app(app: Flask, config_name=None):
 def configure_blueprints(app: Flask):
     """Configure blueprints for the application."""
     # main blueprint registration
-    from products.main import main as main_bp
+    from provider.main import main as main_bp
     app.register_blueprint(main_bp)
 
     # api blueprint registration
-    from products.api import api as api_bp
+    from provider.api import api as api_bp
     app.register_blueprint(api_bp, url_prefix='/v1')
 
 
@@ -104,14 +104,14 @@ def configure_extensions(app: Flask):
     @app.cli.command()
     def seed():
         """Add seed data to the database."""
-        from products.seeder import seed_products
+        from provider.seeder import seed_products
         seed_products()
 
 
 def configure_context_processors(app: Flask):
     """Configure the context processors."""
     import inspect
-    from products import models
+    from provider import models
 
     @app.shell_context_processor
     def make_shell_context():
