@@ -9,15 +9,9 @@
 
 # testing
 Faker
-check-manifest
 coverage[toml]
 flake8
 flake8-blind-except
 flake8-import-order
 pylint
 pytest
-
-# develop
-twine
-wheel
-check-wheel-contents
