@@ -5,8 +5,8 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-# Run “make build” by default
-.DEFAULT_GOAL = build
+# Run “make test” by default
+.DEFAULT_GOAL = test
 
 ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 PKG_NAME = products

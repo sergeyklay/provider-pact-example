@@ -24,6 +24,5 @@ data_file = coverage.db
 omit =
     */tests/*
     */migrations/*
-    */.eggs/*
     */site-packages/*
     */__pycache__/*
