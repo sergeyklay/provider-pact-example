@@ -7,8 +7,8 @@
 
 from urllib.parse import urlsplit
 
-from products.app import db
-from products.models import Brand, Category
+from provider.app import db
+from provider.models import Brand, Category
 
 NOT_FOUND_RESPONSE = {
         'status': 404,

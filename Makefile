@@ -121,14 +121,14 @@ build: manifest sdist wheel
 lint: $(VENV_PYTHON)
 	@echo $(CS)Running linters$(CE)
 	-$(VENV_BIN)/flake8 $(FLAKE8_FLAGS) ./
-	$(VENV_BIN)/pylint $(PYLINT_FLAGS) ./$(PKG_NAME)
+	$(VENV_BIN)/pylint $(PYLINT_FLAGS) ./provider
 	@echo
 
 .PHONY: test
 test: $(VENV_PYTHON)
 	@echo $(CS)Running tests$(CE)
 	$(VENV_BIN)/coverage erase
-	$(VENV_BIN)/coverage run -m pytest $(PYTEST_FLAGS) ./$(PKG_NAME) ./tests
+	$(VENV_BIN)/coverage run -m pytest $(PYTEST_FLAGS) ./provider ./tests
 	@echo
 
 .PHONY: ccov
@@ -191,7 +191,7 @@ maintainer-clean: clean
 
 .PHONY: help
 help:
-	@echo $(PKG_NAME)
+	@echo 'Contract Testing Example'
 	@echo
 	@echo 'Run "make init" first to install and update all dev dependencies.'
 	@echo 'See "default.mk" for variables you might want to set.'

@@ -11,7 +11,7 @@ import os
 
 from flask import abort
 
-from products.utils import strtobool
+from provider.utils import strtobool
 from . import main
 
 

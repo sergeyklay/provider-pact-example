@@ -7,7 +7,7 @@
 
 import pytest
 
-from products.utils import strtobool
+from provider.utils import strtobool
 
 
 @pytest.mark.parametrize(
