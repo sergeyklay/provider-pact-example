@@ -58,14 +58,13 @@ $(VENV_ROOT):
 .PHONY: init
 init: $(VENV_PYTHON)
 	@echo $(CS)Set up virtualenv$(CE)
-	$(VENV_PIP) install --progress-bar=off --upgrade pip pip-tools setuptools wheel
+	$(VENV_PIP) install --progress-bar=off --upgrade pip pip-tools
 	@echo
 
 .PHONY: install
 install: $(REQUIREMENTS)
 	@echo $(CS)Installing $(PKG_NAME) and all its dependencies$(CE)
 	$(VENV_BIN)/pip-sync $^
-	$(VENV_PIP) install --progress-bar=off -e .
 	@echo
 
 .PHONY: uninstall
