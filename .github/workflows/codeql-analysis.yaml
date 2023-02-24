@@ -66,8 +66,8 @@ jobs:
       - name: Install dependencies for Provider
         run: |
           python -m pip install --progress-bar=off --upgrade pip
-          python -m pip install --progress-bar=off requirements/requirements.txt
-          python -m pip install --progress-bar=off requirements/requirements-dev.txt
+          python -m pip install --progress-bar=off -r requirements/requirements.txt
+          python -m pip install --progress-bar=off -r  requirements/requirements-dev.txt
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
@@ -126,8 +126,8 @@ jobs:
       - name: Install dependencies for Provider
         run: |
           python -m pip install --progress-bar=off --upgrade pip
-          python -m pip install --progress-bar=off requirements/requirements.txt
-          python -m pip install --progress-bar=off requirements/requirements-dev.txt
+          python -m pip install --progress-bar=off -r requirements/requirements.txt
+          python -m pip install --progress-bar=off -r  requirements/requirements-dev.txt
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
