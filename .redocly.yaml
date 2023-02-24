@@ -12,7 +12,7 @@ extends:
 
 apis:
   products@v1:
-    root: ./contracts/documentation.yaml
+    root: ./openapi/swagger.yaml
     rules:
       assert/operation-description:
         subject:

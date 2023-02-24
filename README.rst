@@ -22,7 +22,7 @@ Contract Testing Example is a project that contains a complete Contract Testing 
 which can used by client applications
 
 As an example, this project uses the simple products API. Here is the
-`contract <https://github.com/sergeyklay/contract-testing-example/blob/main/contracts/documentation.yaml>`_
+`contract <https://github.com/sergeyklay/contract-testing-example/blob/main/openapi/swagger.yaml>`_
 governing the interaction of the client with the product API.
 
 It uses:

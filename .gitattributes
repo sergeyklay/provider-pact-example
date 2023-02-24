@@ -20,7 +20,7 @@
 LICENSE           linguist-documentation -linguist-detectable
 *.spec            linguist-language=Gherkin linguist-detectable
 
-/contracts/*.yaml linguist-language=Yaml linguist-detectable
+/openapi/*.yaml   linguist-language=Yaml linguist-detectable
 
 #
 # Exclude files from exporting

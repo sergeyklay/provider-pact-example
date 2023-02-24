@@ -49,7 +49,7 @@ jobs:
         uses: tj-actions/changed-files@v35
         with:
           files: |
-            contracts/*.yaml
+            openapi/*.yaml
 
       - name: Show changed files
         run: |
@@ -67,7 +67,7 @@ jobs:
   
       - name: Run vacuum linter
         if: steps.changed-oas-files.outputs.any_changed == 'true'
-        run: vacuum lint --no-style -d -e contracts/documentation.yaml
+        run: vacuum lint --no-style -d -e openapi/swagger.yaml
 
       - name: Setup Node.js 16.x
         if: steps.changed-oas-files.outputs.any_changed == 'true'

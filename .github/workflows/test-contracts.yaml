@@ -120,4 +120,4 @@ jobs:
     
       # - name: Run backward compatibility check on changed files
       #   if: matrix.os != 'windows-latest' && steps.current-branch.outputs.ref != 'main'
-      #   run: specmatic compatible git commits contracts/documentation.yaml main HEAD
+      #   run: specmatic compatible git commits openapi/swagger.yaml main HEAD
