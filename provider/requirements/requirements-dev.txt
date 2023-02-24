@@ -69,9 +69,9 @@ dill==0.3.6 \
     --hash=sha256:a07ffd2351b8c678dfc4a856a3005f8067aea51d6ba6c700796a4d9e280f39f0 \
     --hash=sha256:e5db55f3687856d8fbdab002ed78544e1c4559a130302693d839dfe8f93f2373
     # via pylint
-faker==17.0.0 \
-    --hash=sha256:17cf85aeb0363a3384ccd4c1f52b52ec8f414c7afaab74ae1f4c3e09a06e14de \
-    --hash=sha256:21c3c6c45183308151c14f62afe59bf54ace68f663e0180973698ba2a9a3b2c4
+faker==17.1.0 \
+    --hash=sha256:abc383d8e02403fe2aa3b5369283dd468494a450533b513ab6d23637f3f25396 \
+    --hash=sha256:b94dc47512234fc5fff6f0752aaddd5e6ffea550f6ba31f4865b48d2b35429a1
     # via -r requirements/requirements-dev.in
 flake8==6.0.0 \
     --hash=sha256:3833794e27ff64ea4e9cf5d410082a8b97ff1a06c16aa3d2027339cd0f1195c7 \
