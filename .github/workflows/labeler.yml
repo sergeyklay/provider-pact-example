@@ -1,0 +1,27 @@
+# This file is part of the Contract Testing Example.
+#
+# Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
+name: Pull Request Labeler
+
+on:
+  pull_request:
+
+jobs:
+  triage:
+    permissions:
+      contents: read
+      pull-requests: write
+
+    runs-on: ubuntu-latest
+    name: Pull Request Labeler
+
+    steps:
+    - uses: actions/labeler@v4.0.2
+      continue-on-error: true
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        sync-labels: true
