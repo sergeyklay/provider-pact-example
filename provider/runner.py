@@ -19,7 +19,7 @@ To run this entrypoint use any of the following command:
 
 import os
 
-from provider.app import create_app, load_env_vars
+from products.app import create_app, load_env_vars
 
 load_env_vars(os.path.dirname(os.path.abspath(__file__)))
 

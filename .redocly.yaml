@@ -11,7 +11,7 @@ extends:
   - recommended
 
 apis:
-  products-api@v1:
+  products@v1:
     root: ./openapi/swagger.yaml
     rules:
       assert/operation-description:

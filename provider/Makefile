@@ -96,12 +96,6 @@ seed: $(VENV_PYTHON)
 	$(VENV_BIN)/flask --app runner:app seed
 	@echo
 
-.PHONY: manifest
-manifest:
-	@echo $(CS)Check MANIFEST.in for completeness$(CE)
-	$(VENV_BIN)/check-manifest -v
-	@echo
-
 .PHONY: sdist
 sdist:
 	@echo $(CS)Creating source distribution$(CE)
@@ -115,20 +109,20 @@ wheel: $(VENV_PYTHON)
 	@echo
 
 .PHONY: build
-build: manifest sdist wheel
+build: sdist wheel
 
 .PHONY: lint
 lint: $(VENV_PYTHON)
 	@echo $(CS)Running linters$(CE)
 	-$(VENV_BIN)/flake8 $(FLAKE8_FLAGS) ./
-	$(VENV_BIN)/pylint $(PYLINT_FLAGS) ./provider
+	$(VENV_BIN)/pylint $(PYLINT_FLAGS) ./$(PKG_NAME)
 	@echo
 
 .PHONY: test
 test: $(VENV_PYTHON)
 	@echo $(CS)Running tests$(CE)
 	$(VENV_BIN)/coverage erase
-	$(VENV_BIN)/coverage run -m pytest $(PYTEST_FLAGS) ./provider ./tests
+	$(VENV_BIN)/coverage run -m pytest $(PYTEST_FLAGS) ./$(PKG_NAME) ./tests
 	@echo
 
 .PHONY: ccov
@@ -167,7 +161,7 @@ test-wheel: $(VENV_PYTHON) wheel
 test-dist: check-dist test-sdist test-wheel
 
 .PHONY: test-all
-test-all: uninstall clean install test test-dist manifest lint
+test-all: uninstall clean install test test-dist lint
 
 .PHONY: clean
 clean:
@@ -205,7 +199,6 @@ help:
 	@echo '  serve:        Run builtin server'
 	@echo '  migrate:      Run database migrations'
 	@echo '  seed:         Add seed data to the database'
-	@echo '  manifest:     Check MANIFEST.in in a source package'
 	@echo '  sdist:        Creating source distribution'
 	@echo '  wheel:        Creating wheel distribution'
 	@echo '  build:        Build "$(PKG_NAME)" distribution (sdist and wheel)'

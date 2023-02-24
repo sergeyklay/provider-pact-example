@@ -10,7 +10,7 @@
 from flask import Blueprint
 from flask import request, Response
 
-from provider.decorators import etag
+from products.decorators import etag
 
 api = Blueprint('api', __name__)
 

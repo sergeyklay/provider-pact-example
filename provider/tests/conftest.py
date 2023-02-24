@@ -8,7 +8,7 @@
 import pytest
 from flask_migrate import upgrade
 
-from provider.app import create_app, db
+from products.app import create_app, db
 
 
 @pytest.fixture()

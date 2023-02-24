@@ -20,9 +20,9 @@ def read_file(filepath):
         return file_handle.read()
 
 
-PKG_NAME = 'products-api'
+PKG_NAME = 'products'
 PKG_DIR = path.abspath(path.dirname(__file__))
-META_PATH = path.join(PKG_DIR, 'provider', '__init__.py')
+META_PATH = path.join(PKG_DIR, PKG_NAME, '__init__.py')
 META_CONTENTS = read_file(META_PATH)
 
 
