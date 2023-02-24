@@ -1,7 +1,7 @@
 Feature: Single product API
 
   Background:
-    Given openapi ./documentation.yaml
+    Given openapi ./swagger.yaml
 
   Scenario Outline: Getting a product that does not exist
     When GET /v1/products/(id:number)
