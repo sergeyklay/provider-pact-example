@@ -10,6 +10,14 @@ updates:
     assignees:
       - sergeyklay
 
+  - package-ecosystem: pip
+    # setup.py for consumer
+    directory: '/consumer'
+    schedule:
+      interval: daily
+    assignees:
+      - sergeyklay
+
   - package-ecosystem: github-actions
     # Workflow files stored in the
     # default location of `.github/workflows`
