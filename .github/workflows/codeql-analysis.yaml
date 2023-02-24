@@ -22,13 +22,9 @@ on:
       #       |____ minute (0 - 59)
 
 jobs:
-  analyze-provider:
-    name: Analyze Provider
+  analyze:
+    name: Analyze
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: provider
 
     permissions:
       # required for all workflows
@@ -63,67 +59,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install dependencies for Provider
-        run: |
-          python -m pip install --progress-bar=off --upgrade pip
-          python -m pip install --progress-bar=off -r requirements/requirements.txt
-          python -m pip install --progress-bar=off -r  requirements/requirements-dev.txt
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: ${{ matrix.language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          category: '/language:${{matrix.language}}'
-
-  analyze-consumer:
-    name: Analyze Consumer
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: consumer
-
-    permissions:
-      # required for all workflows
-      security-events: write
-
-      # only required for workflows in private repositories
-      actions: read
-      contents: read
-
-    strategy:
-      # When set to true, GitHub cancels
-      # all in-progress jobs if any matrix job fails.
-      fail-fast: false
-
-      matrix:
-        language: [ python ]
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Setup Python cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies for Provider
+      - name: Install Python dependencies
         run: |
           python -m pip install --progress-bar=off --upgrade pip
           python -m pip install --progress-bar=off -r requirements/requirements.txt

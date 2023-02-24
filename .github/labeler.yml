@@ -8,11 +8,8 @@
 'open api':
   - 'openapi/*.yaml'
 
-provider:
+python:
   - any: ['provider/**/*']
-
-consumer:
-  - any: ['consumer/**/*']
 
 github_actions:
   - any: ['.github/**/*']
