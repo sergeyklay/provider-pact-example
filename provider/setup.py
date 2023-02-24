@@ -20,50 +20,23 @@ def read_file(filepath):
         return file_handle.read()
 
 
-PKG_NAME = 'products-api'
+PKG_NAME = 'products'
 PKG_DIR = path.abspath(path.dirname(__file__))
-META_PATH = path.join(PKG_DIR, 'provider', '__init__.py')
+META_PATH = path.join(PKG_DIR, PKG_NAME, '__init__.py')
 META_CONTENTS = read_file(META_PATH)
 
 
-def load_long_description():
-    """Load long description from file README.rst."""
-    def changes():
-        changelog = path.join(PKG_DIR, 'CHANGELOG.rst')
-        pat = r"(\d+.\d+.\d+ \(.*?\)\r?\n.*?)\r?\n\r?\n\r?\n----\r?\n\r?\n\r?\n"  # noqa: E501
-        result = re.search(pat, read_file(changelog), re.S)
+def long_description():
+    """Provide long description for package."""
+    contents = (
+        '============',
+        'Products API',
+        '=============',
+        '',
+        'Sample Products API for contract testing purpose.',
+    )
 
-        return result.group(1) if result else ''
-
-    try:
-        title = f"{find_meta('description')}"
-        head = '=' * len(title)
-
-        contents = (
-            head,
-            format(title.strip(' .')),
-            head,
-            read_file(path.join(PKG_DIR, 'README.rst')).split(
-                '.. teaser-begin'
-            )[1],
-            '',
-            read_file(path.join(PKG_DIR, 'CONTRIBUTING.rst')),
-            '',
-            'Release Information',
-            '===================\n',
-            changes(),
-            '',
-            '`Full changelog <https://github.com/sergeyklay/contract-testing-example/blob/master/CHANGELOG.rst>`_.',  # noqa: E501
-            '',
-            read_file(path.join(PKG_DIR, 'SECURITY.rst')),
-            '',
-            read_file(path.join(PKG_DIR, 'AUTHORS.rst')),
-        )
-
-        return '\n'.join(contents)
-    except (RuntimeError, FileNotFoundError) as read_error:
-        message = 'Long description could not be read from README.rst'
-        raise RuntimeError(f'{message}: {read_error}') from read_error
+    return '\n'.join(contents)
 
 
 def is_canonical_version(version):
@@ -111,7 +84,6 @@ KEYWORDS = [
     'api-testing',
     'contract-testing',
     'contract-test',
-    'specmatic',
     'openapi3',
     'openapi',
 ]
@@ -158,7 +130,6 @@ EXTRAS_REQUIRE = {
     # Dependencies that are required to run tests
     'testing': [
         'Faker>=17.0.0',  # Generates fake data
-        'check-manifest>=0.45',  # Check MANIFEST.in
         'coverage[toml]>=6.0',  # Code coverage measurement for Python
         'flake8-blind-except>=0.2.0',  # Checks for blind except: statements
         'flake8-import-order>=0.18.1',  # Checks the ordering of imports
@@ -171,12 +142,7 @@ EXTRAS_REQUIRE = {
 }
 
 # Dependencies that are required to develop package
-DEVELOP_REQUIRE = [
-    'check-wheel-contents>=0.2.0',  # Check wheels have the right contents
-    'setuptools>=53.0.0',  # Build and install packages
-    'twine>=3.3.0',  # Publishing packages on PyPI
-    'wheel>=0.36.2',  # A built-package format for Python
-]
+DEVELOP_REQUIRE = []
 
 EXTRAS_REQUIRE['develop'] = \
     DEVELOP_REQUIRE + \
@@ -201,7 +167,7 @@ if __name__ == '__main__':
         maintainer_email=find_meta('author_email'),
         license=find_meta('license'),
         description=find_meta('description'),
-        long_description=load_long_description(),
+        long_description=long_description(),
         long_description_content_type='text/x-rst',
         keywords=KEYWORDS,
         url=find_meta('url'),

@@ -12,7 +12,7 @@ import hashlib
 
 from flask import make_response, request
 
-from provider.utils import json_response
+from products.utils import json_response
 
 
 def etag(func):

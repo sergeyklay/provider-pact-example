@@ -33,9 +33,13 @@ on:
       #      |____ minute (0 - 59)
 
 jobs:
-  lint-openapi:
+  provider-tests:
     name: Tests API service
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: provider
 
     steps:
       - name: Check out code

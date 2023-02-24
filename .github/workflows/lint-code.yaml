@@ -33,9 +33,13 @@ on:
       #      |____ minute (0 - 59)
 
 jobs:
-  lint-openapi:
+  lint-provider-code:
     name: Lint Code
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: provider
 
     steps:
       - name: Check out code
@@ -68,9 +72,6 @@ jobs:
           python setup.py --fullname
           python setup.py --long-description
           python setup.py --classifiers
-
-      - name: Check 'MANIFEST.in' in a source package
-        run: make manifest
 
       - name: Python code linting
         run: make lint

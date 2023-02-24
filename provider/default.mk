@@ -9,7 +9,7 @@
 .DEFAULT_GOAL = build
 
 ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-PKG_NAME = products-api
+PKG_NAME = products
 
 ifneq ($(TERM),)
 	GREEN := $(shell tput setaf 2)
