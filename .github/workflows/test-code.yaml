@@ -1,4 +1,4 @@
-# This file is part of the Contract Testing Example.
+# This file is part of the Provider API Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
@@ -33,13 +33,9 @@ on:
       #      |____ minute (0 - 59)
 
 jobs:
-  provider-tests:
+  tests:
     name: Tests API service
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: provider
 
     steps:
       - name: Check out code

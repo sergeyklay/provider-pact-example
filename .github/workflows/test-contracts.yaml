@@ -1,4 +1,4 @@
-# This file is part of the Contract Testing Example.
+# This file is part of the Provider API Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
@@ -91,29 +91,24 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('provider/**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
       - name: Set up virtualenv
         run: make init
-        working-directory: provider
 
       - name: Install dependencies
         run: make install
-        working-directory: provider
 
       - name: Run database migrations
         run: make migrate
-        working-directory: provider
 
       - name: Add seed data to the database
         run: make seed
-        working-directory: provider
 
       - name: Run API server
         run: make serve &
-        working-directory: provider
 
       - name: Setup specmatic
         uses: airslate-oss/setup-specmatic@v1

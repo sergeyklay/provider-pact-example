@@ -1,4 +1,4 @@
-# This file is part of the Contract Testing Example.
+# This file is part of the Provider API Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
@@ -12,11 +12,11 @@
 #
 # https://help.github.com/articles/ignoring-files/#create-a-global-gitignore
 
-# Directories to ignore:
-*.egg-info
-.pytest_cache
-htmlcov
-node_modules
+# Directories to ignore (do not add trailing '/'s, they skip symlinks):
+/*.egg-info
+/.pytest_cache
+/htmlcov
+/node_modules
 
 # Application configuration
 .env

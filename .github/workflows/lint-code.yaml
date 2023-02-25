@@ -1,4 +1,4 @@
-# This file is part of the Contract Testing Example.
+# This file is part of the Provider API Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
@@ -33,47 +33,9 @@ on:
       #      |____ minute (0 - 59)
 
 jobs:
-  lint-provider-code:
-    name: Lint Provider
+  lint-code:
+    name: Lint Code
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: provider
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Setup cache on Linux
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Set up virtualenv
-        run: make init
-
-      - name: Install dependencies
-        run: make install
-
-      - name: Python code linting
-        run: make lint
-
-  lint-consumer-code:
-    name: Lint Provider
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: consumer
 
     steps:
       - name: Check out code

@@ -1,5 +1,5 @@
 {
-  "name": "contract-testing-example",
+  "name": "provider-pact-example",
   "version": "1.7.0",
   "private": true,
   "description": "Complete Contract Testing solution solution for API, which can used by client applications",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sergeyklay/contract-testing-example.git"
+    "url": "git+https://github.com/sergeyklay/provider-pact-example.git"
   },
   "keywords": [
     "api",
@@ -25,9 +25,9 @@
   "author": "Serghei Iakovlev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sergeyklay/contract-testing-example/issues"
+    "url": "https://github.com/sergeyklay/provider-pact-example/issues"
   },
-  "homepage": "https://github.com/sergeyklay/contract-testing-example#readme",
+  "homepage": "https://github.com/sergeyklay/provider-pact-example#readme",
   "dependencies": {
     "@redocly/cli": "^1.0.0-beta.123"
   }

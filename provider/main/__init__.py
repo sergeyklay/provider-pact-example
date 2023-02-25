@@ -5,14 +5,15 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-'open api':
-  - 'openapi/*.yaml'
+"""The main blueprint module for the application.
 
-python:
-  - any: ['provider/**/*']
+Provides the routes and errors handlers definition for the
+application.
 
-github_actions:
-  - any: ['.github/**/*']
+"""
 
-documentation:
-  - '*.rst'
+from flask import Blueprint
+
+main = Blueprint('main', __name__)
+
+from . import views  # noqa: F401, E402

@@ -1,4 +1,4 @@
-# This file is part of the Contract Testing Example.
+# This file is part of the Provider API Example.
 #
 # Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
 #
@@ -10,16 +10,8 @@ version: 2
 updates:
 
   - package-ecosystem: pip
-    # setup.py for provider
-    directory: '/provider'
-    schedule:
-      interval: daily
-    assignees:
-      - sergeyklay
-
-  - package-ecosystem: pip
-    # setup.py for consumer
-    directory: '/consumer'
+    # setup.py stored in repository root.
+    directory: '/'
     schedule:
       interval: daily
     assignees:

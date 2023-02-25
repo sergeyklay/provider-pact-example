@@ -1,0 +1,28 @@
+# This file is part of the Provider API Example.
+#
+# Copyright (C) 2023 Serghei Iakovlev <egrep@protonmail.ch>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
+[report]
+precision = 2
+show_missing = True
+
+[html]
+directory = htmlcov
+
+[xml]
+output = coverage.xml
+
+[run]
+branch = True
+parallel = True
+data_file = coverage.db
+# A list of file name patterns, the files to leave
+# out of measurement or reporting.
+omit =
+    */tests/*
+    */migrations/*
+    */site-packages/*
+    */__pycache__/*

@@ -10,7 +10,7 @@ info:
     url: https://opensource.org/licenses/MIT
   contact:
     name: Bug Tracker
-    url: https://github.com/sergeyklay/contract-testing-example/issues
+    url: https://github.com/sergeyklay/provider-pact-example/issues
     email: egrep@protonmail.ch
 
 servers:

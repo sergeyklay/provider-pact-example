@@ -31,7 +31,7 @@ Releasing
    $ git tag -a vX.Y.Z -m "Releasing version X.Y.Z"
    $ git push origin main --tags
 
-7. Wait until travis has run and the new tag is available at https://github.com/sergeyklay/contract-testing-example/releases/tag/vX.Y.Z
+7. Wait until travis has run and the new tag is available at https://github.com/sergeyklay/provider-pact-example/releases/tag/vX.Y.Z
 
 8. Set the title to ``vX.Y.Z``
 
