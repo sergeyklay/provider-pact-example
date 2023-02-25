@@ -28,6 +28,5 @@ __pycache__
 # Databses.
 *.sqlite3
 
-
 # Ignore codecoverage stuff.
 coverage.*
