@@ -32,9 +32,6 @@ components:
           format: int32
           minimum: 1
           example: 42
-        self_url:
-          type: string
-          example: https://example.com/v1/products/1
         title:
           type: string
           example: iPhone 9
@@ -72,7 +69,6 @@ components:
           $ref: '#/components/schemas/ProductCategory'
       required:
         - id
-        - self_url
         - title
         - description
         - price
@@ -301,7 +297,6 @@ paths:
                       total: 300
                     products:
                       - id: 1
-                        self_url: https://example.com/v1/products/1
                         title: iPhone 9
                         description: An Apple mobile which is nothing like apple
                         price: 549
@@ -311,7 +306,6 @@ paths:
                         brand: Apple
                         category: smartphones
                       - id: 6
-                        self_url: https://example.com/v1/products/6
                         title: Samsung Galaxy Book
                         description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
                         price: 1499
@@ -372,7 +366,6 @@ paths:
                 iPhone:
                   value:
                     id: 1
-                    self_url: https://example.com/v1/products/1
                     title: iPhone 9
                     description: An Apple mobile which is nothing like apple
                     price: 549
@@ -384,7 +377,6 @@ paths:
                 Samsung:
                   value:
                     id: 6
-                    self_url: https://example.com/v1/products/6
                     title: Samsung Galaxy Book
                     description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
                     price: 1499

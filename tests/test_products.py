@@ -89,14 +89,11 @@ def test_create_product(client):
     assert rv.status_code == 201
     assert 'Location' in rv.headers
 
-    location = rv.headers['Location']
     assert urlsplit(rv.headers['Location']).path == '/v1/products/1'
 
     # get product
     rv = client.get(urlsplit(rv.headers['Location']).path)
     assert rv.status_code == 200
-
-    data.update({'self_url': location})
     assert rv.json['brand'] == 'Acme'
 
     # get list of products

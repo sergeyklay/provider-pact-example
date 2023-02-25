@@ -85,7 +85,6 @@ class Product(db.Model):
     def export_data(self):
         """Export data from a Flask application's database."""
         return {
-            'self_url': self.get_url(),
             'id': self.id,
             'title': self.title,
             'description': self.description,
