@@ -5,6 +5,42 @@ This file contains a brief summary of new features and dependency changes or
 releases, in reverse chronological order.
 
 
+1.8.0 (2023-02-26)
+------------------
+
+Features
+^^^^^^^^
+
+* Provided ability to create products.
+
+
+Breaking Changes
+^^^^^^^^^^^^^^^^
+
+* Renamed project name from ``Specmatic Testing Example`` to
+  ``Contract Testing Example``.
+* Renamed OpenAPI directory and filename to reflect its purpose from
+  ``contracts`` to ``openapi``.
+* Renamed Python package from ``products`` to ``provider``.
+
+
+Trivial/Internal Changes
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Amended tests.
+* Minor documentation improvements and fixes.
+* Refactor ``redocly`` linter configuration.
+* Remove no longer needed ``spectral`` linter.
+* Simplify ``setup.py`` to provide long description.
+* Bump ``markdown-it-py`` from 2.1.0 to 2.2.0.
+* Bump ``python-dotenv`` from 0.21.1 to 1.0.0.
+* Bump ``faker`` from 17.0.0 to 17.1.0.
+* Bump ``actions/labeler`` from 4.0.2 to 4.1.0.
+
+
+----
+
+
 1.7.0 (2023-02-22)
 ------------------
 
