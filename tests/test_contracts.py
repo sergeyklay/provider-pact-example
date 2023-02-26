@@ -46,11 +46,35 @@ def test_product_service_provider_against_broker(broker_opts):
         provider_base_url=PROVIDER_URL,
     )
 
+    # Request all Pact(s) from the Pact Broker to verify this Provider against.
+    # In the Pact Broker logs, this corresponds to the following entry:
+    #
+    #    PactBroker::Api::Resources::ProviderPactsForVerification -- \
+    #    Fetching pacts for verification by UserService -- \
+    #    {:provider_name=>"UserService", :params=>{}}
+    #
     success, logs = verifier.verify_with_broker(
         **broker_opts,
         verbose=True,
-        # TODO: enable this
-        # provider_states_setup_url=f"{PROVIDER_URL}/_pact/provider_states",
+        provider_states_setup_url=f"{PROVIDER_URL}/_pact/provider-states",
         enable_pending=False,
     )
+
+    # If publish_verification_results is set to True, the results will be
+    # published to the Pact Broker.
+    # In the Pact Broker logs, this corresponds to the following entry:
+    #
+    #    PactBroker::Verifications::Service -- Creating verification 200 for \
+    #    pact_version_sha=c8568cbb30d2e3933b2df4d6e1248b3d37f3be34 -- \
+    #    {"success"=>true, "providerApplicationVersion"=>"3", "wip"=>false, \
+    #    "pending"=>"true"}
+    #
+
+    # Note:
+    #
+    #  If "successful", then the return code here will be 0
+    #  This can still be 0 and so PASS if a Pact verification FAILS, as long as
+    #  it has not resulted in a REGRESSION of an already verified interaction.
+    #  See https://docs.pact.io/pact_broker/advanced_topics/pending_pacts/ for
+    #  more details.
     assert success == 0
