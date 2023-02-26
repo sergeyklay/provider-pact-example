@@ -17,6 +17,7 @@ Features
 Breaking Changes
 ^^^^^^^^^^^^^^^^
 
+* Remove no longer needed ``self_url`` Product attribute.
 * Renamed project name from ``Specmatic Testing Example`` to
   ``Contract Testing Example``.
 * Renamed OpenAPI directory and filename to reflect its purpose from
