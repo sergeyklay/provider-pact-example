@@ -27,7 +27,7 @@ def new_product():
 
 @api.route('/products/<int:product_id>', methods=['GET'])
 @json
-def get_product(product_id):
+def get_product(product_id: int):
     """Get single product.
 
     Returns a single product and status code 200 if successful,
@@ -37,7 +37,7 @@ def get_product(product_id):
 
 
 @api.route('/products/<int:product_id>', methods=['DELETE'])
-def delete_product(product_id):
+def delete_product(product_id: int):
     """Delete product.
 
     Deletes a specified product and returns status code 204 if successful,

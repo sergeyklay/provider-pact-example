@@ -23,7 +23,7 @@ FLASK_PID=$!
 # Make sure the Flask server is stopped when finished to avoid blocking the port
 function teardown {
   echo "Tearing down Flask server: ${FLASK_PID}"
-  kill -9 $FLASK_PID
+  kill -9 $FLASK_PID 2>/dev/null || true
 }
 trap teardown EXIT
 
@@ -31,4 +31,4 @@ trap teardown EXIT
 sleep 1
 
 # Now run the tests
-$python -m pytest tests --verbose -m contracts
+$python -m pytest tests --verbose -o log_cli=true -m contracts
