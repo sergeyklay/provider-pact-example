@@ -136,6 +136,7 @@ EXTRAS_REQUIRE = {
         'flake8-blind-except>=0.2.0',  # Checks for blind except: statements
         'flake8-import-order>=0.18.1',  # Checks the ordering of imports
         'flake8>=6.0.0',  # The modular source code checker
+        'pact-python>=1.7.0',  # Create and verify consumer driven contracts
         'pylint>=2.6.2',  # Python code static checker
         'pytest>=6.2.4',  # Our tests framework
     ],
