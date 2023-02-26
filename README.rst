@@ -18,34 +18,31 @@
 
 .. teaser-begin
 
-Provider API Example is a project that contains a complete Contract Testing solution solution for API,
-which can used by client applications.
-
-As an example, this project uses the simple Products API. Here is the
-`contract <https://github.com/sergeyklay/provider-pact-example/blob/main/openapi/swagger.yaml>`_
-governing the interaction of the client with the product API.
+This is a Python application for explanation of Contract Testing based on `Pact <https://docs.pact.io>`_.
 
 It uses:
 
-* `Pact <https://pact.io>`_
-* `pact-python <https://github.com/pact-foundation/pact-python>`_
-* `OpenAPI <https://swagger.io>`_
-* `Flask <https://flask.palletsprojects.com>`_
+* `Pact <https://pact.io>`_, a code-first tool for testing HTTP and message integrations using contract tests
+* `pact-python <https://github.com/pact-foundation/pact-python>`_, to create and verify consumer driven contracts
+* `OpenAPI <https://swagger.io>`_, to describe the Products API
+* `Flask <https://flask.palletsprojects.com>`_, a micro web framework for building API
 
 .. teaser-end
 
-Requirements
-============
+Getting Started
+===============
+
+Prerequisites
+-------------
+
+What kind of things you need to install on your workstation to start:
 
 * Python >= 3.11
 * SQLite3
 * Node.js >= 16
 
-How to try it out
-=================
-
-Install dependencies and tools
-------------------------------
+Installing
+----------
 
 First, install Python dependencies for provider (Products API):
 
@@ -116,6 +113,30 @@ To run OpenAPI spec checking use the command as follows:
    $ npm run lint
 
 .. -project-information-
+
+
+Provider
+========
+
+Provider API Example is a sample Flask application that expose endpoints with
+REST standard. As an example, this project uses the simple Products API. Here is
+the `OpenAPI spec <https://github.com/sergeyklay/provider-pact-example/blob/main/openapi/swagger.yaml>`_
+describes the interaction of the client with the Products API.
+
+Consumer
+========
+
+For the purity of the experiment, the consumer is implemented as a separate
+project and can be found at
+`the following link <https://github.com/sergeyklay/consumer-pact-example>`_.
+
+
+Pact
+====
+
+Sample contracts (pacts) are located here:
+https://github.com/sergeyklay/consumer-pact-example/tree/main/tests/pacts
+
 
 Project Information
 ===================
