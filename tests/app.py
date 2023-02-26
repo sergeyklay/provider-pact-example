@@ -9,11 +9,12 @@
 
 It contains additional endpoints to facilitate `provider_states`."""
 
-from flask import jsonify
+from flask import jsonify, request
 from flask_migrate import upgrade
 
 from provider.app import create_app, db
 from provider.seeder import seed_products
+from provider.models import Product
 
 app = create_app('testing')
 app.config.update({
@@ -45,7 +46,24 @@ def provider_states():
     FLASK_APP to run, adding this additional route to the app while keeping the
     source separate.
     """
-    return jsonify({'result': 'done'})
+    func_map = {
+        'there is no product with ID 7777': _delete_product,
+    }
+
+    state = request.json['state']
+    if state in func_map:
+        return jsonify({'result': func_map[state]()})
+
+    return jsonify({'result': 'skip'})
+
+
+def _delete_product() -> str:
+    product = Product.query.get(7777)
+    if product is not None:
+        db.session.delete(product)
+        db.session.commit()
+        return 'success'
+    return 'not found'
 
 
 if __name__ == '__main__':
