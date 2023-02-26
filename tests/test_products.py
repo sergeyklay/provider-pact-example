@@ -38,17 +38,6 @@ def test_delete_product_empty_database(client):
     assert response.status_code == 404
 
 
-def test_delete_special_product_empty_database(client):
-    response = client.delete('/v1/products/7777')
-
-    assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
-    assert response.status_code == 404
-
-    client.environ_base['HTTP_USER_AGENT'] = 'Ktor client'
-    response = client.delete('/v1/products/7777')
-    assert response.status_code == 204
-
-
 def test_products_with_query_params_empty_database(client):
     response = client.get('/v1/products?expanded=1&category=laptops&q=')
 

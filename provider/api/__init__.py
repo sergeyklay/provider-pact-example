@@ -8,7 +8,6 @@
 """The api blueprint module for the application."""
 
 from flask import Blueprint
-from flask import request, Response
 
 from provider.decorators import etag
 
@@ -20,17 +19,6 @@ api = Blueprint('api', __name__)
 def after_request(response):
     """Generate an ETag header for all routes in this blueprint."""
     return response
-
-
-@api.before_request
-# pylint: disable-next=inconsistent-return-statements
-def specmatic_deletes_product():
-    """Emulate deletion for testing purposes.
-     Actually this method is needed only for contract testing."""
-    if request.method == 'DELETE' and request.view_args['product_id'] == 7777:
-        # Specmatic uses User-Agent 'Ktor client'
-        if request.headers.get('User-Agent') == 'Ktor client':
-            return Response(status=204)
 
 
 from . import errors, products  # noqa: I100, I202, F401, E402

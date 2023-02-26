@@ -27,7 +27,8 @@ governing the interaction of the client with the product API.
 
 It uses:
 
-* `Specmatic <https://specmatic.in>`_
+* `Pact <https://pact.io>`_
+* `pact-python <https://github.com/pact-foundation/pact-python>`_
 * `OpenAPI <https://swagger.io>`_
 * `Flask <https://flask.palletsprojects.com>`_
 
@@ -39,7 +40,6 @@ Requirements
 * Python >= 3.11
 * SQLite3
 * Node.js >= 16
-* Specmatic >= 0.60.0
 
 How to try it out
 =================
@@ -79,8 +79,6 @@ Next, install Node.js linters and tools:
 
    $ npm install
 
-Finally, `install Specmatic <https://specmatic.in/download/latest.html>`_.
-
 Run API server
 --------------
 
@@ -103,7 +101,10 @@ To run contract tests use the command as follows:
 
 .. code-block:: console
 
-   $ java -jar specmatic.jar test --testBaseURL=http://127.0.0.1:5000
+   $ ./tests/run-pytest.sh
+
+Note that before the contract tests run, you must have deployed the broker,
+as well as the contracts (pacts) must be published.
 
 Run lint check
 --------------

@@ -23,48 +23,24 @@ on:
     branches:
       - main
 
-  schedule:
-    - cron: '0 12 * * *'
-      #      | | | | |
-      #      | | | | |____ day of the week (0 - 6 or SUN-SAT)
-      #      | | | |____ month (1 - 12 or JAN-DEC)
-      #      | | |____ day of the month (1 - 31)
-      #      | |____ hour (0 - 23)
-      #      |____ minute (0 - 59)
-
 env:
   PYTHONUNBUFFERED: '1'
 
 jobs:
-  check-contracts:
+  contract-tests:
 
-    name: Specmatic ${{ matrix.specmatic-version }}
+    name: Contract Tests
     runs-on: ubuntu-latest
-
-    strategy:
-      # When set to true, GitHub cancels
-      # all in-progress jobs if any matrix job fails.
-      fail-fast: false
-
-      matrix:
-        specmatic-version:
-          # Version 0.59.0 is disabled due to lack of these patches:
-          # - https://github.com/znsio/specmatic/pull/586
-          # - https://github.com/znsio/specmatic/pull/594
-          #
-          # - 0.59.0
-
-          - 0.60.0
-          - 0.61.0
 
     steps:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Number of commits to fetch.
+          # 0 indicates all history for all branches and tags.
           fetch-depth: 0
 
-      - name: Detect current branch
+      - name: Detect current Git branch
         id: current-branch
         run: |
           if [ "${{ github.head_ref }}" != "" ]; then
@@ -87,7 +63,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Setup cache on Linux
+      - name: Setup Python cache
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
@@ -96,28 +72,57 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Set up virtualenv
-        run: make init
+        run: |
+          make init
+          source .venv/bin/activate
+          echo "$(pwd)/.venv/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
         run: make install
 
-      - name: Run database migrations
-        run: make migrate
+      # In real life, next steps (all with `id: consumer-*`) are not necessary,
+      # at least at the stage of testing the provider. Usually, when you test a
+      # provider, you get contracts (pacts) from a broker that is deployed
+      # somewhere in your infrastructure. However, in this, a simplified example,
+      # we do not have a deployed broker, so we deploy it ourselves, right now.
 
-      - name: Add seed data to the database
-        run: make seed
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BROKER START ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-      - name: Run API server
-        run: make serve &
-
-      - name: Setup specmatic
-        uses: airslate-oss/setup-specmatic@v1
+      - name: 'Checkout ${{ steps.current-branch.outputs.ref }} consumer brach'
+        id: consumer-checkout
+        uses: actions/checkout@v3
+        continue-on-error: true
         with:
-          specmatic-version: ${{ matrix.specmatic-version }}
+          repository: sergeyklay/consumer-pact-example
+          path: consumer-pact-example
+          ref: ${{ steps.current-branch.outputs.ref }}
 
-      - name: Test specification
-        run: specmatic test --testBaseURL=http://127.0.0.1:5000
-    
-      # - name: Run backward compatibility check on changed files
-      #   if: matrix.os != 'windows-latest' && steps.current-branch.outputs.ref != 'main'
-      #   run: specmatic compatible git commits openapi/swagger.yaml main HEAD
+      # Clone default branch, if the previous step failed.
+      - name: Checkout default consumer brach
+        id: consumer-checkout-default
+        uses: actions/checkout@v3
+        if: ${{ steps.consumer-checkout.outcome == 'failure' }}
+        with:
+          repository: sergeyklay/consumer-pact-example
+          path: consumer-pact-example
+
+      - name: Start broker
+        id: consumer-broker
+        run: docker compose up -d --quiet-pull --no-color
+        working-directory: consumer-pact-example/tests/broker
+
+      - name: Print docker logs
+        id: consumer-broker-logs
+        if: failure()
+        run: docker compose logs
+        working-directory: consumer-pact-example/tests/broker
+
+      - name: Publish consumer's pacts to broker
+        id: consumer-publish-pacts
+        run: ./publish-contracts.sh
+        working-directory: consumer-pact-example
+
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BROKER END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+      - name: Run contract tests
+        run: ./tests/run-pytest.sh
