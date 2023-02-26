@@ -17,7 +17,6 @@ from provider.seeder import seed_products
 
 app = create_app('testing')
 app.config.update({
-    'DEBUG': True,
     'TESTING': True,
 })
 
