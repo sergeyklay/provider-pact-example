@@ -51,7 +51,6 @@ First, install Python dependencies for provider (Products API):
 
 .. code-block:: console
 
-   $ cd provider
    $ make init
    $ make install
 
@@ -60,21 +59,18 @@ Create provider configuration:
 
 .. code-block:: console
 
-   $ cd provider
    $ cp .env.example .env
 
 Run database migrations for provider:
 
 .. code-block:: console
 
-   $ cd provider
    $ make migrate
 
 Add provider seed data to the database:
 
 .. code-block:: console
 
-   $ cd provider
    $ make seed
 
 Next, install Node.js linters and tools:
@@ -92,7 +88,6 @@ To run API server use the command as follows:
 
 .. code-block:: console
 
-   $ cd provider
    $ make serve
 
 Run tests
@@ -102,7 +97,6 @@ To run unit tests use the command as follows:
 
 .. code-block:: console
 
-   $ cd provider
    $ make test
 
 To run contract tests use the command as follows:
