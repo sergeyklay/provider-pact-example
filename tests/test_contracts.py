@@ -50,8 +50,9 @@ def test_product_service_provider_against_broker(broker_opts):
     # In the Pact Broker logs, this corresponds to the following entry:
     #
     #    PactBroker::Api::Resources::ProviderPactsForVerification -- \
-    #    Fetching pacts for verification by UserService -- \
-    #    {:provider_name=>"UserService", :params=>{}}
+    #    Fetching pacts for verification by ProductService -- \
+    #    {:provider_name=>"ProductService", \
+    #    :params=>{"includePendingStatus"=>false}}
     #
     success, logs = verifier.verify_with_broker(
         **broker_opts,
@@ -61,8 +62,8 @@ def test_product_service_provider_against_broker(broker_opts):
     )
 
     # If publish_verification_results is set to True, the results will be
-    # published to the Pact Broker.
-    # In the Pact Broker logs, this corresponds to the following entry:
+    # published to the Pact Broker. In the Pact Broker logs, this corresponds
+    # to the following entry:
     #
     #    PactBroker::Verifications::Service -- Creating verification 200 for \
     #    pact_version_sha=c8568cbb30d2e3933b2df4d6e1248b3d37f3be34 -- \
@@ -72,7 +73,7 @@ def test_product_service_provider_against_broker(broker_opts):
 
     # Note:
     #
-    #  If "successful", then the return code here will be 0
+    #  If "successful", then the return code here will be 0.
     #  This can still be 0 and so PASS if a Pact verification FAILS, as long as
     #  it has not resulted in a REGRESSION of an already verified interaction.
     #  See https://docs.pact.io/pact_broker/advanced_topics/pending_pacts/ for
