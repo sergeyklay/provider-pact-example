@@ -65,6 +65,7 @@ init: $(VENV_PYTHON)
 install: $(REQUIREMENTS)
 	@echo $(CS)Installing $(PKG_NAME) and all its dependencies$(CE)
 	$(VENV_BIN)/pip-sync $^
+	$(VENV_PIP) install --progress-bar=off -e .
 	@echo
 
 .PHONY: uninstall
