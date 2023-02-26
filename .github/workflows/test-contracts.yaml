@@ -39,17 +39,25 @@ jobs:
       - name: Detect current Git branch
         id: current-branch
         run: |
-          echo "explicit_branch=${{ github.event.inputs.explicit_branch }}"
-
-          if [ "${{ github.head_ref }}" != "" ]; then
-            ref="${{ github.head_ref }}"
+          # This condition allows to use the branch the user has explicitly
+          # chosen using 'workflow_dispatch'
+          if [ "${{ github.event.inputs.explicit_branch }}" != "" ]; then
+            ref="${{ github.event.inputs.explicit_branch }}"
           else
-            ref="${{ github.ref }}"
+            # Otherwise, define the necessary branch taking into
+            # account 'repository_dispatch'
+            if [ "${{ github.head_ref }}" != "" ]; then
+              ref="${{ github.head_ref }}"
+            else
+              ref="${{ github.ref }}"
+            fi
           fi
           
+          # Cleanup branch name from 'refs/heads/' prefix
           prefix="refs/heads/"
           branch=${ref#"$prefix"}
           
+          # Store in the output for future use
           echo "ref=$branch" >> $GITHUB_OUTPUT
 
       - name: Set up Python 3.11
