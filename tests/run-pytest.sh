@@ -17,7 +17,7 @@ fi
 
 # Run the Flask server, using the app.py as the app to be able to
 # inject the provider_states endpoint
-FLASK_APP=tests/app.py $python -m flask run -p 5001 --debug &
+FLASK_APP=tests/app.py $python -m flask run -p 5001 &
 FLASK_PID=$!
 
 # Make sure the Flask server is stopped when finished to avoid blocking the port
