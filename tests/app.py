@@ -30,7 +30,7 @@ with app.app_context():
 
 @app.route('/_pact/provider-states', methods=['POST'])
 def provider_states():
-    """Implement the "functionality" to change the state, to prepare for a test.
+    """Implement the endpoint to change the state, to prepare for a test.
 
     When a Pact interaction is verified, it provides the "given" part of the
     description from the Consumer in the X_PACT_PROVIDER_STATES header.
