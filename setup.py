@@ -84,6 +84,8 @@ KEYWORDS = [
     'api-testing',
     'contract-testing',
     'contract-test',
+    'pact',
+    'pact-provider',
     'openapi3',
     'openapi',
 ]
