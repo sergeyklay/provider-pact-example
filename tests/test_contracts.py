@@ -10,7 +10,6 @@ from os import environ
 import pytest
 from pact import Verifier
 
-from provider import __version__ as version
 
 # For the purposes of this example, the broker is started up using docker
 # compose (see '.github/workflows/test-contracts.yaml'). For normal usage this
@@ -29,12 +28,12 @@ PROVIDER_URL = f'http://{PROVIDER_HOST}:{PROVIDER_PORT}'
 
 
 @pytest.fixture
-def broker_opts():
+def broker_opts(participant_version):
     return {
         'broker_username': PACT_BROKER_USERNAME,
         'broker_password': PACT_BROKER_PASSWORD,
         'broker_url': PACT_BROKER_URL,
-        'publish_version': version,
+        'publish_version': participant_version,
         'publish_verification_results': True,
     }
 
@@ -67,8 +66,8 @@ def test_product_service_provider_against_broker(broker_opts):
     #
     #    PactBroker::Verifications::Service -- Creating verification 200 for \
     #    pact_version_sha=c8568cbb30d2e3933b2df4d6e1248b3d37f3be34 -- \
-    #    {"success"=>true, "providerApplicationVersion"=>"3", "wip"=>false, \
-    #    "pending"=>"true"}
+    #    {"success"=>true, "providerApplicationVersion"=>"1.8.0-dc939d3", \
+    #    "wip"=>false, "pending"=>"true"}
     #
 
     # Note:
