@@ -19,8 +19,6 @@ from .models import Brand, Category, Product
 
 def seed_products():
     """Add seed product data to the database."""
-    db.create_all()
-
     fake = Faker()
 
     fake.add_provider(company)
