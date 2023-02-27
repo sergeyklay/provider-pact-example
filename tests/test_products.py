@@ -5,10 +5,11 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+"""Module for Product API testing."""
+
 from urllib.parse import urlsplit
 
-from provider.app import db
-from provider.models import Brand, Category
+from .factories import BrandFactory, CategoryFactory, ProductFactory
 
 NOT_FOUND_RESPONSE = {
         'status': 404,
@@ -53,12 +54,8 @@ def test_products_not_found(client):
 
 
 def test_create_product(client):
-    brand = Brand(name='Acme')
-    category = Category(name='Test')
-
-    db.session.add(brand)
-    db.session.add(category)
-    db.session.commit()
+    brand = BrandFactory()
+    category = CategoryFactory()
 
     data = dict(
         title='Test',
@@ -83,7 +80,7 @@ def test_create_product(client):
     # get product
     rv = client.get(urlsplit(rv.headers['Location']).path)
     assert rv.status_code == 200
-    assert rv.json['brand'] == 'Acme'
+    assert rv.json['brand'] == brand.name
 
     # get list of products
     rv = client.get('/v1/products?expanded=1')
@@ -91,16 +88,12 @@ def test_create_product(client):
     assert rv.status_code == 200
     assert len(rv.json) == 3
     assert len(rv.json['products']) == 1
-    assert rv.json['products'][0]['category'] == 'Test'
+    assert rv.json['products'][0]['category'] == category.name
 
 
-def test_product_integrity_error(client):
-    brand = Brand(name='test_product_integrity_error')
-    category = Category(name=brand.name)
-
-    db.session.add(brand)
-    db.session.add(category)
-    db.session.commit()
+def test_product_invalid_format(client):
+    brand = BrandFactory()
+    category = CategoryFactory()
 
     data = dict(
         title='Test',
@@ -117,22 +110,31 @@ def test_product_integrity_error(client):
     rv = client.post('/v1/products', data=data)
     assert rv.status_code == 400
 
-    # create product
-    rv = client.post('/v1/products', json=data)
-    assert rv.status_code == 201
 
-    # integrity error
+def test_product_integrity_error(client):
+    brand = BrandFactory()
+    category = CategoryFactory()
+    product = ProductFactory(brand=brand, category=category)
+
+    data = dict(
+        title=product.title,
+        description='Description',
+        discount=0.0,
+        price=0.0,
+        rating=0.0,
+        stock=0,
+        brand_id=brand.id,
+        category_id=category.id
+    )
+
+    # integrity error (unique title)
     rv = client.post('/v1/products', json=data)
     assert rv.status_code == 400
 
 
 def test_product_missing_data(client):
-    brand = Brand(name='test_product_missing_data')
-    category = Category(name=brand.name)
-
-    db.session.add(brand)
-    db.session.add(category)
-    db.session.commit()
+    brand = BrandFactory()
+    category = CategoryFactory()
 
     data = dict(
         brand_id=brand.id,

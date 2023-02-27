@@ -7,14 +7,14 @@
 
 """A specialized application needed to run contract tests.
 
-It contains additional endpoints to facilitate `provider_states`."""
+It contains additional endpoints to facilitate provider states."""
 
 from flask import jsonify, request
 from flask_migrate import upgrade
 
 from provider.app import create_app, db
-from provider.seeder import seed_products
 from provider.models import Product
+from provider.seeder import seed_products
 
 app = create_app('testing')
 app.config.update({

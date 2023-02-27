@@ -178,10 +178,16 @@ dill==0.3.6 \
     --hash=sha256:a07ffd2351b8c678dfc4a856a3005f8067aea51d6ba6c700796a4d9e280f39f0 \
     --hash=sha256:e5db55f3687856d8fbdab002ed78544e1c4559a130302693d839dfe8f93f2373
     # via pylint
+factory-boy==3.2.1 \
+    --hash=sha256:a98d277b0c047c75eb6e4ab8508a7f81fb03d2cb21986f627913546ef7a2a55e \
+    --hash=sha256:eb02a7dd1b577ef606b75a253b9818e6f9eaf996d94449c9d5ebb124f90dc795
+    # via -r requirements/requirements-dev.in
 faker==17.3.0 \
     --hash=sha256:1dfffa43b4492b899a839619f2056060b585ba0bc76f329525194ca04dde0988 \
     --hash=sha256:26b2864a5332094f2c7f3968deebabce69be39ed5db4dbf22b4fa0ba3d1acdae
-    # via -r requirements/requirements-dev.in
+    # via
+    #   -r requirements/requirements-dev.in
+    #   factory-boy
 fastapi==0.92.0 \
     --hash=sha256:023a0f5bd2c8b2609014d3bba1e14a1d7df96c6abea0a73070621c9862b9a4de \
     --hash=sha256:ae7b97c778e2f2ec3fb3cb4fb14162129411d99907fb71920f6d69a524340ebf
