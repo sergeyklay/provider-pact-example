@@ -66,7 +66,7 @@ def test_product_service_provider_against_broker(broker_opts: dict):
     #
     #    PactBroker::Verifications::Service -- Creating verification 200 for \
     #    pact_version_sha=c8568cbb30d2e3933b2df4d6e1248b3d37f3be34 -- \
-    #    {"success"=>true, "providerApplicationVersion"=>"1.8.0-dc939d3", \
+    #    {"success"=>true, "providerApplicationVersion"=>"1.8.0+dc939d3", \
     #    "wip"=>false, "pending"=>"true"}
     #
 
