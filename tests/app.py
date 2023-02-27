@@ -28,7 +28,7 @@ with app.app_context():
     seed_products()
 
 
-@app.route('/_pact/provider-states', methods=['POST'])
+@app.route('/-pact/provider-states', methods=['POST'])
 def provider_states():
     """Implement the endpoint to change the state, to prepare for a test.
 
@@ -47,7 +47,7 @@ def provider_states():
     source separate.
     """
     func_map = {
-        'there is no product with ID 7777': _delete_product,
+        'there is no product with ID 7777': _delete_product_7777,
     }
 
     state = request.json['state']
@@ -57,7 +57,7 @@ def provider_states():
     return jsonify({'result': 'skip'})
 
 
-def _delete_product() -> str:
+def _delete_product_7777() -> str:
     product = Product.query.get(7777)
     if product is not None:
         db.session.delete(product)
