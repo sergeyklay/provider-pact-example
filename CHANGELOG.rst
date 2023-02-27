@@ -5,6 +5,36 @@ This file contains a brief summary of new features and dependency changes or
 releases, in reverse chronological order.
 
 
+2.0.0 (2023-02-27)
+------------------
+
+Features
+^^^^^^^^
+
+* Migrate contract testing to Pact.
+
+
+Bug Fixes
+^^^^^^^^^
+
+* Fixed database seeder to not try to create tables twice.
+
+
+Improved Documentation
+^^^^^^^^^^^^^^^^^^^^^^
+
+* Improved project documentation.
+
+
+Trivial/Internal Changes
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Rework Contract Tests workflow.
+
+
+----
+
+
 1.8.0 (2023-02-26)
 ------------------
 
