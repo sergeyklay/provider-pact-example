@@ -107,8 +107,8 @@ To verify contracts (pacts) use the command as follows:
 
    $ ./tests/run-pytest.sh
 
-Note that before the contract tests run, you must have deployed the broker,
-as well as the contracts (pacts) must be published.
+Note that before the contracts verification, you must have deployed the broker,
+as well as the contracts must be published.
 
 Run lint check
 --------------
