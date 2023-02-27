@@ -101,7 +101,7 @@ To run unit tests use the command as follows:
 
    $ make test
 
-To run contract tests use the command as follows:
+To verify contracts (pacts) use the command as follows:
 
 .. code-block:: console
 
