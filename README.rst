@@ -18,14 +18,21 @@
 
 .. teaser-begin
 
-This is a Python application for explanation of Contract Testing based on `Pact <https://docs.pact.io>`_.
+This is a Python application for explanation of Contract Testing based on
+`Pact <https://docs.pact.io>`_.
 
-It uses:
+Here you can find out how to use Pact using the Python language. You can find
+more of an overview on Pact in the `Pact Introduction <https://docs.pact.io/>`_.
 
-* `Pact <https://pact.io>`_, a code-first tool for testing HTTP and message integrations using contract tests
-* `pact-python <https://github.com/pact-foundation/pact-python>`_, to create and verify consumer driven contracts
+This project uses:
+
+* `Pact <https://pact.io>`_, a code-first tool for testing HTTP and message
+  integrations using contract tests
+* `pact-python <https://github.com/pact-foundation/pact-python>`_, to create
+  and verify consumer driven contracts
 * `OpenAPI <https://swagger.io>`_, to describe the Products API
-* `Flask <https://flask.palletsprojects.com>`_, a micro web framework for building API
+* `Flask <https://flask.palletsprojects.com>`_, a micro web framework for
+  building API
 
 .. teaser-end
 
@@ -119,8 +126,9 @@ Provider
 ========
 
 Provider API Example is a sample Flask application that expose endpoints with
-REST standard. As an example, this project uses the simple Products API. Here is
-the `OpenAPI spec <https://github.com/sergeyklay/provider-pact-example/blob/main/openapi/swagger.yaml>`_
+REST standard. As an example, this project uses the simple Products API. Here
+is the
+`OpenAPI spec <https://github.com/sergeyklay/provider-pact-example/blob/main/openapi/swagger.yaml>`_
 describes the interaction of the client with the Products API.
 
 Consumer
@@ -152,6 +160,6 @@ If you'd like to contribute to Provider API Example you're most welcome!
 Support
 =======
 
-Should you have any question, any remark, or if you find a bug, or if there is something
-you can't do with the Provider API Example, please
+Should you have any question, any remark, or if you find a bug, or if there is
+something you can't do with the Provider API Example, please
 `open an issue <https://github.com/sergeyklay/provider-pact-example/issues>`_.

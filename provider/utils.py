@@ -25,7 +25,7 @@ _BOOL_MAP = {
 }
 
 
-def strtobool(value):
+def strtobool(value: str) -> bool:
     try:
         return _BOOL_MAP[str(value).lower()]
     except KeyError as exc:

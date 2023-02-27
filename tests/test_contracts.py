@@ -28,18 +28,18 @@ PROVIDER_URL = f'http://{PROVIDER_HOST}:{PROVIDER_PORT}'
 
 
 @pytest.fixture
-def broker_opts(participant_version):
+def broker_opts(app_version: str) -> dict:
     return {
         'broker_username': PACT_BROKER_USERNAME,
         'broker_password': PACT_BROKER_PASSWORD,
         'broker_url': PACT_BROKER_URL,
-        'publish_version': participant_version,
+        'publish_version': app_version,
         'publish_verification_results': True,
     }
 
 
 @pytest.mark.contracts
-def test_product_service_provider_against_broker(broker_opts):
+def test_product_service_provider_against_broker(broker_opts: dict):
     verifier = Verifier(
         provider='ProductService',
         provider_base_url=PROVIDER_URL,
@@ -56,7 +56,7 @@ def test_product_service_provider_against_broker(broker_opts):
     success, logs = verifier.verify_with_broker(
         **broker_opts,
         verbose=True,
-        provider_states_setup_url=f"{PROVIDER_URL}/_pact/provider-states",
+        provider_states_setup_url=f"{PROVIDER_URL}/-pact/provider-states",
         enable_pending=False,
     )
 
@@ -66,7 +66,7 @@ def test_product_service_provider_against_broker(broker_opts):
     #
     #    PactBroker::Verifications::Service -- Creating verification 200 for \
     #    pact_version_sha=c8568cbb30d2e3933b2df4d6e1248b3d37f3be34 -- \
-    #    {"success"=>true, "providerApplicationVersion"=>"1.8.0-dc939d3", \
+    #    {"success"=>true, "providerApplicationVersion"=>"1.8.0+dc939d3", \
     #    "wip"=>false, "pending"=>"true"}
     #
 
