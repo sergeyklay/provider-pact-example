@@ -119,8 +119,6 @@ To run OpenAPI spec checking use the command as follows:
 
    $ npm run lint
 
-.. -project-information-
-
 
 Provider
 ========
@@ -144,6 +142,9 @@ Pact
 
 Sample contracts (pacts) are located here:
 https://github.com/sergeyklay/consumer-pact-example/tree/main/tests/pacts
+
+
+.. -project-information-
 
 
 Project Information
