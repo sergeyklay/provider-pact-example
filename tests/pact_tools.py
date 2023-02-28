@@ -24,6 +24,7 @@ class StateManager:
         self._STATE_SETUP_MAPPING = {
             'there is a product with ID 1': self._create_product,
             'there is no product with ID 7777': self._delete_product,
+            'there are no products': self._delete_all_products,
         }
 
     def change_provider_state(self):
@@ -38,3 +39,7 @@ class StateManager:
         if product is not None:
             db.session.delete(product)
             db.session.commit()
+
+    def _delete_all_products(self):
+        db.session.query(Product).delete()
+        db.session.commit()
