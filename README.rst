@@ -36,6 +36,28 @@ This project uses:
 
 .. teaser-end
 
+Provider
+========
+
+Provider API Example is a sample Flask application that expose endpoints with
+REST standard. As an example, this project uses the simple Products API. Here
+is the
+`OpenAPI spec <https://github.com/sergeyklay/provider-pact-example/blob/main/openapi/swagger.yaml>`_
+describes the interaction of clients with the provider.
+
+Consumer
+========
+
+For the purity of the experiment, the consumer is implemented as a separate
+project and can be found at
+`the following repo <https://github.com/sergeyklay/consumer-pact-example>`_.
+
+Pact
+====
+
+Sample contracts (pacts) are located here:
+https://github.com/sergeyklay/consumer-pact-example/tree/main/tests/pacts
+
 Getting Started
 ===============
 
@@ -120,32 +142,7 @@ To run OpenAPI spec checking use the command as follows:
    $ npm run lint
 
 
-Provider
-========
-
-Provider API Example is a sample Flask application that expose endpoints with
-REST standard. As an example, this project uses the simple Products API. Here
-is the
-`OpenAPI spec <https://github.com/sergeyklay/provider-pact-example/blob/main/openapi/swagger.yaml>`_
-describes the interaction of the client with the Products API.
-
-Consumer
-========
-
-For the purity of the experiment, the consumer is implemented as a separate
-project and can be found at
-`the following link <https://github.com/sergeyklay/consumer-pact-example>`_.
-
-
-Pact
-====
-
-Sample contracts (pacts) are located here:
-https://github.com/sergeyklay/consumer-pact-example/tree/main/tests/pacts
-
-
 .. -project-information-
-
 
 Project Information
 ===================
