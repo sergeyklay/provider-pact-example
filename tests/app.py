@@ -11,12 +11,11 @@ It contains additional endpoints to facilitate provider states."""
 
 import logging
 
-from flask import jsonify, request
+from flask import request, Response
 from flask.logging import default_handler
 
 from provider.app import create_app, db
-from provider.models import Product
-from .factories import ProductFactory
+from .pact_tools import StateManager
 
 default_handler.setFormatter(logging.Formatter(
     '[%(levelname)s]: %(message)s'
@@ -52,35 +51,23 @@ def provider_states():
     print('')  # An ugly hack to correct pytest formatting (adds an empty line)
     app.logger.setLevel(logging.DEBUG)
 
-    state_setup_mapping = {
-        'there is a product with ID 1': create_product,
-        'there is no product with ID 7777': delete_product,
-    }
-
     # An example of the contents of 'request.json':
     #    {
-    #      'consumer': 'ProductServiceClient',
-    #      'state': 'there is no product with ID 7777',
-    #      'states': ['there is no product with ID 7777'],
-    #      'params': {}
+    #         'consumer': 'ProductServiceClient',
+    #         'state': 'there is no product with ID 7777',
+    #         'states': [ 'there is no product with ID 7777' ],
+    #         'params': { }
     #    }
-    state = request.json['state']
-    if state in state_setup_mapping:
-        app.logger.debug(f'Setting up provider state for state value: {state}')
-        state_setup_mapping[state]()
+    state_manager = StateManager(**request.json)
 
-    return jsonify({'result': state})
+    app.logger.debug(
+        f'Setting up provider state for state value: "{state_manager.state}"')
+    state_manager.change_provider_state()
 
-
-def create_product():
-    ProductFactory(id=1)
-
-
-def delete_product():
-    product = Product.query.get(7777)
-    if product is not None:
-        db.session.delete(product)
-        db.session.commit()
+    # The state needn't return anything, an HTTP 200 is all that is actually
+    # needed. The main thing is it should mutate your provider to allow the
+    # scenario to work.
+    return Response(response='', status=200)
 
 
 if __name__ == '__main__':
