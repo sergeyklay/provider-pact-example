@@ -15,8 +15,8 @@ else
   python="${PYTHON:-$(pyenv which python 2>/dev/null)}"
 fi
 
-# Run the Flask server, using the app.py as the app to be able to
-# inject the provider_states endpoint
+# Run the Flask server, using the 'tests/app.py' as the app to be able to
+# inject the '-pact/provider-states' endpoint
 FLASK_APP=tests/app.py $python -m flask run -p 5001 &
 FLASK_PID=$!
 
