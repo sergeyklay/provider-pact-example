@@ -22,6 +22,7 @@ class BrandFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:
         model = models.Brand
         sqlalchemy_session = db.session
+        sqlalchemy_session_persistence = 'commit'
 
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: 'brand%d' % n)
@@ -31,6 +32,7 @@ class CategoryFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:
         model = models.Category
         sqlalchemy_session = db.session
+        sqlalchemy_session_persistence = 'commit'
 
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: 'category%d' % n)
@@ -40,6 +42,7 @@ class ProductFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:
         model = models.Product
         sqlalchemy_session = db.session
+        sqlalchemy_session_persistence = 'commit'
 
     id = factory.Sequence(lambda n: n)
     title = factory.Sequence(lambda n: 'product%d' % n)
