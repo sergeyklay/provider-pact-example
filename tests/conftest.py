@@ -12,7 +12,7 @@ import pytest
 from flask_migrate import upgrade
 
 from provider import __version__ as version
-from provider.app import create_app, db
+from provider.app import create_app
 
 
 @pytest.fixture()
@@ -22,14 +22,8 @@ def app():
         'TESTING': True,
     })
     with app_instance.app_context():
-        db.session.remove()
-        db.drop_all()
         upgrade()
-
         yield app_instance
-
-        db.session.remove()
-        db.drop_all()
 
 
 @pytest.fixture()
