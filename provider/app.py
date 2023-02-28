@@ -64,12 +64,15 @@ def configure_app(app: Flask, config_name=None):
             if isinstance(config_name, Config):
                 config_name.init_app(app)
 
-    # Update config from environment variable (if any).
-    # Export this variable as follows:
+    # Update config from environment variable (if any). This environment
+    # variable can be set in the shell before starting the server:
     #
-    #    $ export PRODUCTS_API_SETTINGS="/var/www/server/config.py"
+    #    $ export PRODUCTS_API_SETTINGS="/var/www/server/settings.cfg"
     #    $ flask --app runner:app run
     #
+    # The configuration files themselves are actual Python files.  Only values
+    # in uppercase are actually stored in the con fig object later on. So make
+    # sure to use uppercase letters for your config keys.
     app.config.from_envvar('PRODUCTS_API_SETTINGS', silent=True)
 
 

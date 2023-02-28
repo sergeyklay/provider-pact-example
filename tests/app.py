@@ -50,6 +50,13 @@ def provider_states():
         'there is no product with ID 7777': _delete_product_7777,
     }
 
+    # An example of the contents of 'request.json':
+    #    {
+    #      'consumer': 'ProductServiceClient',
+    #      'state': 'there is no product with ID 7777',
+    #      'states': ['there is no product with ID 7777'],
+    #      'params': {}
+    #    }
     state = request.json['state']
     if state in func_map:
         return jsonify({'result': func_map[state]()})
