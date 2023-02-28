@@ -57,7 +57,7 @@ def test_product_service_provider_against_broker(broker_opts: dict):
     #
     success, logs = verifier.verify_with_broker(
         **broker_opts,
-        verbose=True,
+        verbose=False,
         provider_states_setup_url=f"{PROVIDER_URL}/-pact/provider-states",
         enable_pending=False,
     )
