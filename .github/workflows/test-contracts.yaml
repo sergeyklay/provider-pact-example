@@ -138,6 +138,7 @@ jobs:
           
           mkdir -p "${HOME}/.local/bin"
           mv "${file}" "${HOME}/.local/bin/pact_verifier_cli"
+          chmod +x "${HOME}/.local/bin/pact_verifier_cli"
 
           echo "${HOME}/.local/bin" >> $GITHUB_PATH
 
