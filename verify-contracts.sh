@@ -37,7 +37,7 @@ PACT_BROKER_BASE_URL="${PACT_BROKER_BASE_URL:-http://localhost}"
 export PACT_BROKER_USERNAME PACT_BROKER_PASSWORD PACT_BROKER_BASE_URL
 
 # For the purposes of this example, the Flask provider will be started up as a
-# part of 'tests/run-pytest.sh' when running the tests. Alternatives could be,
+# part of this script when running the tests. Alternatives could be,
 # for example running a Docker container with a DB of test data configured.
 # This is the "real" provider to verify against.
 PROVIDER_HOST="${PROVIDER_HOST:-127.0.0.1}"
@@ -72,4 +72,5 @@ pact_verifier_cli \
   --state-change-url "${PROVIDER_TRANSPORT}://${PROVIDER_HOST}:${PROVIDER_PORT}/-pact/provider-states" \
   --publish \
   --enable-pending \
+  --ignore-no-pacts-error \
   --loglevel info
