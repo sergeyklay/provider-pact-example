@@ -37,7 +37,15 @@ def runner(app):
 
 
 @pytest.fixture()
-def app_version() -> str:
+def project_root() -> str:
+    """Get actual project root path."""
+    return os.path.dirname(
+        os.path.dirname(os.path.realpath(__file__))
+    )
+
+
+@pytest.fixture()
+def app_version(project_root: str) -> str:
     """Get participant version number.
 
     To get the most out of the Pact Broker, it should either be the git sha
@@ -47,24 +55,16 @@ def app_version() -> str:
 
     See https://docs.pact.io/pact_broker/pacticipant_version_numbers for more
     details."""
-    root = os.path.dirname(
-        os.path.dirname(os.path.realpath(__file__))
-    )
-
     git_commit = subprocess.check_output(
-        ['git', '-C', root, 'rev-parse', '--short', 'HEAD']
+        ['git', '-C', project_root, 'rev-parse', '--short', 'HEAD']
     ).decode('ascii').strip()
 
     return f'{version}+{git_commit}'
 
 
 @pytest.fixture()
-def app_branch() -> str:
+def app_branch(project_root: str) -> str:
     """Get participant's current Git branch."""
-    root = os.path.dirname(
-        os.path.dirname(os.path.realpath(__file__))
-    )
-
     return subprocess.check_output(
-        ['git', '-C', root, 'rev-parse', '--abbrev-ref', 'HEAD']
+        ['git', '-C', project_root, 'rev-parse', '--abbrev-ref', 'HEAD']
     ).decode('ascii').strip()
