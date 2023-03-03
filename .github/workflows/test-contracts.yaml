@@ -126,5 +126,12 @@ jobs:
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BROKER END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-      - name: Run contract tests
-        run: ./tests/run-pytest.sh
+      - name: Download pact_verifier_cli
+        run: |
+          curl \
+            -o pact_verifier_cli-linux-x86_64.gz \
+            -sSL https://github.com/pact-foundation/pact-reference/releases/download/pact_verifier_cli-v0.10.3/pact_verifier_cli-linux-x86_64.g
+          gzip -dv pact_verifier_cli-linux-x86_64.gz
+
+      - name: Verify contracts
+        run: ./verify-contracts.sh
