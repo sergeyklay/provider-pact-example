@@ -17,9 +17,38 @@ else
   PYTHON="${PYTHON:-$(pyenv which python 2>/dev/null)}"
 fi
 
+# To get the most out of the Pact Broker, it should either be the git sha
+# (or equivalent for your repository), be a git tag name, or it should
+# include the git sha or tag name as metadata if you are using semantic
+# versioning eg. 1.2.456+405b31ec6.
+#
+# See https://docs.pact.io/pact_broker/pacticipant_version_numbers for more
+# details.
+APP_VERSION="$($PYTHON setup.py --version)"
+APP_VERSION+="+$(git -C "$PROJECT_ROOT" rev-parse --short HEAD)"
+
+# For the purposes of this example, the broker is started up using docker
+# compose (see '.github/workflows/test-contracts.yaml'). For normal usage this
+# would be self-hosted or using PactFlow.
+PACT_BROKER_USERNAME="${PACT_BROKER_USERNAME:-pactbroker}"
+PACT_BROKER_PASSWORD="${PACT_BROKER_PASSWORD:-pactbroker}"
+PACT_BROKER_BASE_URL="${PACT_BROKER_BASE_URL:-http://localhost}"
+
+export PACT_BROKER_USERNAME PACT_BROKER_PASSWORD PACT_BROKER_BASE_URL
+
+# For the purposes of this example, the Flask provider will be started up as a
+# part of 'tests/run-pytest.sh' when running the tests. Alternatives could be,
+# for example running a Docker container with a DB of test data configured.
+# This is the "real" provider to verify against.
+PROVIDER_HOST="${PROVIDER_HOST:-127.0.0.1}"
+PROVIDER_PORT="${PROVIDER_PORT:-5001}"
+PROVIDER_TRANSPORT="${PROVIDER_TRANSPORT:-http}"
+
 # Run the Flask server, using the 'tests/app.py' as the app to be able to
 # inject the '-pact/provider-states' endpoint
-FLASK_APP="$PROJECT_ROOT/tests/app.py" $PYTHON -m flask run -p 5001 &
+FLASK_APP="$PROJECT_ROOT/tests/app.py" $PYTHON -m flask run \
+  --port "$PROVIDER_PORT" \
+  --host "$PROVIDER_HOST" &
 FLASK_PID=$!
 
 # Make sure the Flask server is stopped when finished to avoid blocking the port
@@ -31,33 +60,6 @@ trap teardown EXIT
 
 # Wait a little in case Flask isn't quite ready
 sleep 1
-
-# To get the most out of the Pact Broker, it should either be the git sha
-# (or equivalent for your repository), be a git tag name, or it should
-# include the git sha or tag name as metadata if you are using semantic
-# versioning eg. 1.2.456+405b31ec6.
-#
-# See https://docs.pact.io/pact_broker/pacticipant_version_numbers for more
-# details.
-APP_VERSION="$(python setup.py --version)"
-APP_VERSION+="+$(git -C "$PROJECT_ROOT" rev-parse --short HEAD)"
-
-# For the purposes of this example, the broker is started up using docker
-# compose (see '.github/workflows/test-contracts.yaml'). For normal usage this
-# would be self-hosted or using PactFlow.
-PACT_BROKER_USERNAME="pactbroker"
-PACT_BROKER_PASSWORD="pactbroker"
-PACT_BROKER_BASE_URL="http://localhost"
-
-export PACT_BROKER_USERNAME PACT_BROKER_PASSWORD PACT_BROKER_BASE_URL
-
-# For the purposes of this example, the Flask provider will be started up as a
-# part of 'tests/run-pytest.sh' when running the tests. Alternatives could be,
-# for example running a Docker container with a DB of test data configured.
-# This is the "real" provider to verify against.
-PROVIDER_HOST="localhost"
-PROVIDER_PORT=5001
-PROVIDER_TRANSPORT="http"
 
 pact_verifier_cli \
   --provider-name ProductService \
