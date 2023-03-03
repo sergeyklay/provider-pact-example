@@ -30,12 +30,13 @@ PROVIDER_URL = f'http://{PROVIDER_HOST}:{PROVIDER_PORT}'
 
 
 @pytest.fixture
-def broker_opts(app_version: str) -> dict:
+def broker_opts(app_version: str, app_branch: str) -> dict:
     return {
         'broker_username': PACT_BROKER_USERNAME,
         'broker_password': PACT_BROKER_PASSWORD,
         'broker_url': PACT_BROKER_URL,
         'publish_version': app_version,
+        'provider_version_branch': app_branch,
         'publish_verification_results': True,
     }
 
@@ -59,7 +60,7 @@ def test_product_service_provider_against_broker(broker_opts: dict):
         **broker_opts,
         verbose=False,
         provider_states_setup_url=f"{PROVIDER_URL}/-pact/provider-states",
-        enable_pending=False,
+        enable_pending=True,
     )
 
     # If publish_verification_results is set to True, the results will be

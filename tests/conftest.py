@@ -36,17 +36,6 @@ def runner(app):
     return app.test_cli_runner()
 
 
-def git_revision_short_hash() -> str:
-    """Get the short Git commit."""
-    root = os.path.dirname(
-        os.path.dirname(os.path.realpath(__file__))
-    )
-
-    return subprocess.check_output(
-        ['git', '-C', root, 'rev-parse', '--short', 'HEAD']
-    ).decode('ascii').strip()
-
-
 @pytest.fixture()
 def app_version() -> str:
     """Get participant version number.
@@ -58,5 +47,24 @@ def app_version() -> str:
 
     See https://docs.pact.io/pact_broker/pacticipant_version_numbers for more
     details."""
-    git_commit = git_revision_short_hash()
+    root = os.path.dirname(
+        os.path.dirname(os.path.realpath(__file__))
+    )
+
+    git_commit = subprocess.check_output(
+        ['git', '-C', root, 'rev-parse', '--short', 'HEAD']
+    ).decode('ascii').strip()
+
     return f'{version}+{git_commit}'
+
+
+@pytest.fixture()
+def app_branch() -> str:
+    """Get participant's current Git branch."""
+    root = os.path.dirname(
+        os.path.dirname(os.path.realpath(__file__))
+    )
+
+    return subprocess.check_output(
+        ['git', '-C', root, 'rev-parse', '--abbrev-ref', 'HEAD']
+    ).decode('ascii').strip()
