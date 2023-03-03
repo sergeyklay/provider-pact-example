@@ -75,8 +75,8 @@ Commit messages
 ---------------
 
 Provider API Example is adopting the
-[Conventional Commits](https://www.conventionalcommits.org) convention. Please
-ensure you follow the guidelines.
+`Conventional Commits <https://www.conventionalcommits.org>`_ convention.
+Please ensure you follow the guidelines.
 
 Take a look at the git history (``git log``) to get the gist of it.
 
