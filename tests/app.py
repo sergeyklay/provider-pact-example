@@ -10,7 +10,9 @@
 It contains additional endpoints to facilitate provider states."""
 
 import logging
+import os
 
+import flask.cli
 from flask import request, Response
 from flask.logging import default_handler
 
@@ -25,6 +27,11 @@ app = create_app('testing')
 app.config.update({
     'TESTING': True,
 })
+
+# To suppress start banner
+if os.environ.get('TEST_MODE') == 'verify':
+    logging.getLogger('werkzeug').disabled = True
+    flask.cli.show_server_banner = lambda *args: None
 
 with app.app_context():
     db.create_all()
@@ -48,8 +55,11 @@ def provider_states():
     FLASK_APP to run, adding this additional route to the app while keeping the
     source separate.
     """
-    print('')  # An ugly hack to correct pytest formatting (adds an empty line)
-    app.logger.setLevel(logging.DEBUG)
+    # 'verify-contracts.sh' disables debug mode to not mix logs source/formats
+    if os.environ.get('TEST_MODE') != 'verify':
+        app.logger.setLevel(logging.DEBUG)
+        # An ugly hack to correct pytest formatting (adds an empty line)
+        print('')
 
     # An example of the contents of 'request.json':
     #    {
@@ -62,6 +72,7 @@ def provider_states():
 
     app.logger.debug(
         f'Setting up provider state for state value: "{state_manager.state}"')
+    app.logger.debug(request.headers)
     state_manager.change_provider_state()
 
     # The state needn't return anything, an HTTP 200 is all that is actually

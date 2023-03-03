@@ -33,10 +33,9 @@ APP_VERSION+="+$(git -C "$PROJECT_ROOT" rev-parse --short HEAD)"
 PACT_BROKER_USERNAME="${PACT_BROKER_USERNAME:-pactbroker}"
 PACT_BROKER_PASSWORD="${PACT_BROKER_PASSWORD:-pactbroker}"
 PACT_BROKER_BASE_URL="${PACT_BROKER_BASE_URL:-http://localhost}"
-
 export PACT_BROKER_USERNAME PACT_BROKER_PASSWORD PACT_BROKER_BASE_URL
 
-# For the purposes of this example, the Flask provider will be started up as a
+# For the purposes of this example, the Flask server will be started up as a
 # part of this script when running the tests. Alternatives could be,
 # for example running a Docker container with a DB of test data configured.
 # This is the "real" provider to verify against.
@@ -44,9 +43,16 @@ PROVIDER_HOST="${PROVIDER_HOST:-127.0.0.1}"
 PROVIDER_PORT="${PROVIDER_PORT:-5001}"
 PROVIDER_TRANSPORT="${PROVIDER_TRANSPORT:-http}"
 
+# This will disable console messages for the 'tests/app.py'.
+TEST_MODE="verify"
+export TEST_MODE
+
 # Run the Flask server, using the 'tests/app.py' as the app to be able to
 # inject the '-pact/provider-states' endpoint
-FLASK_APP="$PROJECT_ROOT/tests/app.py" $PYTHON -m flask run \
+FLASK_APP="$PROJECT_ROOT/tests/app.py"
+export FLASK_APP
+
+$PYTHON -m flask run \
   --port "$PROVIDER_PORT" \
   --host "$PROVIDER_HOST" &
 FLASK_PID=$!
@@ -61,6 +67,10 @@ trap teardown EXIT
 # Wait a little in case Flask isn't quite ready
 sleep 1
 
+# Turn off the annoying warning in the output
+PACT_DO_NOT_TRACK=true
+export PACT_DO_NOT_TRACK
+
 pact_verifier_cli \
   --provider-name ProductService \
   --provider-version "$APP_VERSION" \
@@ -70,6 +80,7 @@ pact_verifier_cli \
   --port "$PROVIDER_PORT" \
   --disable-ssl-verification \
   --state-change-url "${PROVIDER_TRANSPORT}://${PROVIDER_HOST}:${PROVIDER_PORT}/-pact/provider-states" \
+  --header User-Agent=PactBroker \
   --publish \
   --enable-pending \
   --ignore-no-pacts-error \
