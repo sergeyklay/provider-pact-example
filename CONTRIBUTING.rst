@@ -71,6 +71,26 @@ changes you submit.
 **By submitting a patch, you agree to allow the project owner to license your
 work under the same license as that used by the project.**
 
+Commit messages
+---------------
+
+Provider API Example is adopting the
+[Conventional Commits](https://www.conventionalcommits.org) convention. Please
+ensure you follow the guidelines.
+
+Take a look at the git history (``git log``) to get the gist of it.
+
+If you'd like to get some CLI assistance there is a node npm package. Example
+usage is:
+
+.. code-block:: console
+
+   $ npm install -g commitizen
+   $ npm install -g cz-conventional-changelog
+
+
+``git cz`` to commit and ``commitizen`` will guide you.
+
 Resources
 ---------
 
