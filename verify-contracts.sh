@@ -75,6 +75,7 @@ pact_verifier_cli \
   --provider-name ProductService \
   --provider-version "$APP_VERSION" \
   --provider-branch="$(git -C "$PROJECT_ROOT" rev-parse --abbrev-ref HEAD)" \
+  --provider-tags release-1,feature-N,team-B \
   --hostname "$PROVIDER_HOST" \
   --transport "$PROVIDER_TRANSPORT" \
   --port "$PROVIDER_PORT" \
