@@ -61,6 +61,17 @@ def test_product_service_provider_against_broker(broker_opts: dict):
         verbose=False,
         provider_states_setup_url=f"{PROVIDER_URL}/-pact/provider-states",
         enable_pending=True,
+        consumer_selectors=[
+            # Recommended.
+            # Returns the pacts for consumers configured mainBranch property.
+            {'mainBranch': True},
+
+            # Recommended.
+            # Returns the pacts for all versions of the consumer that are
+            # currently deployed or released and currently supported in any
+            # environment.
+            {'deployedOrReleased': True},
+        ]
     )
 
     # If publish_verification_results is set to True, the results will be

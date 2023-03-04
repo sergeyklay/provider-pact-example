@@ -71,6 +71,13 @@ sleep 1
 PACT_DO_NOT_TRACK=true
 export PACT_DO_NOT_TRACK
 
+# Consumer version selectors:
+#
+# mainBranch:         Recommended. Returns the pacts for consumers configured
+#                     mainBranch property.
+# deployedOrReleased: Recommended. Returns the pacts for all versions of the
+#                     consumer that are currently deployed or released and
+#                     currently supported in any environment.
 pact_verifier_cli \
   --provider-name ProductService \
   --provider-version "$APP_VERSION" \
@@ -83,5 +90,7 @@ pact_verifier_cli \
   --header User-Agent=PactBroker \
   --publish \
   --enable-pending \
+  --consumer-version-selectors '{"mainBranch": true}' \
+  --consumer-version-selectors '{"deployedOrReleased": true}' \
   --ignore-no-pacts-error \
   --loglevel info
