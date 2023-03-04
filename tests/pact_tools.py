@@ -25,6 +25,7 @@ class StateManager:
             'there is a product with ID 1': self._create_product,
             'there is no product with ID 7777': self._delete_product,
             'there are no products': self._delete_all_products,
+            'there are few products': self._create_few_products,
         }
 
     def change_provider_state(self):
@@ -33,6 +34,12 @@ class StateManager:
 
     def _create_product(self):
         ProductFactory(id=1)
+
+    def _create_few_products(self):
+        total = Product.query.count()
+        if total < 3:
+            for i in range(1, 4 - total):
+                ProductFactory(id=i)
 
     def _delete_product(self):
         product = Product.query.get(7777)
