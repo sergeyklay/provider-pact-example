@@ -6,12 +6,11 @@
 # the LICENSE file that was distributed with this source code.
 
 """Module for Contracts (Pacts) verification."""
-
+import os.path
 from os import environ
 
 import pytest
 from pact import Verifier
-
 
 # For the purposes of this example, the broker is started up using docker
 # compose (see '.github/workflows/test-contracts.yaml'). For normal usage this
@@ -42,7 +41,8 @@ def broker_opts(app_version: str, app_branch: str) -> dict:
 
 
 @pytest.mark.contracts
-def test_product_service_provider_against_broker(broker_opts: dict):
+def test_product_service_provider_against_broker(broker_opts: dict,
+                                                 project_root: str):
     verifier = Verifier(
         provider='ProductService',
         provider_base_url=PROVIDER_URL,
@@ -61,6 +61,8 @@ def test_product_service_provider_against_broker(broker_opts: dict):
         verbose=False,
         provider_states_setup_url=f"{PROVIDER_URL}/-pact/provider-states",
         enable_pending=True,
+        log_dir=os.path.join(project_root, 'logs'),
+        log_level='debug',
         consumer_selectors=[
             # Recommended.
             # Returns the pacts for consumers configured mainBranch property.
