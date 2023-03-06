@@ -65,7 +65,9 @@ function teardown {
 trap teardown EXIT
 
 # Wait a little in case Flask isn't quite ready
-sleep 1
+while ! nc -z "$PROVIDER_HOST" "$PROVIDER_PORT"; do
+  sleep 0.1
+done
 
 # Turn off the annoying warning in the output
 PACT_DO_NOT_TRACK=true
