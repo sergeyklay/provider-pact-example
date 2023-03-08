@@ -7,7 +7,7 @@
 
 from flask import Response
 from flask.views import MethodView
-from flask_smorest import Page
+from flask_smorest import abort, Page
 from sqlalchemy import or_
 
 from provider.api import api
@@ -52,17 +52,19 @@ class Products(MethodView):
     @api.arguments(ProductSchema)
     @api.response(201, ProductSchema)
     @api.alt_response(400, description='Validation error')
+    @api.alt_response(422, description='Validation error')
     def post(self, data: dict):
         """Add a new product."""
         # Validate and deserialize request data
         product_schema = ProductSchema()
         data = product_schema.load(data)
 
+        if Product.query.filter(Product.title == data['title']).first():
+            abort(422, message='Product with this title already exists')
+
+        # Create product
         brand = Brand.query.get(data.pop('brand_id'))
         category = Category.query.get(data.pop('category_id'))
-
-        # TODO: sqlalchemy.exc.IntegrityError
-        # Create product
         product = Product(**data, brand=brand, category=category)
 
         # Save product to database
@@ -70,7 +72,6 @@ class Products(MethodView):
         db.session.commit()
 
         headers = {'Location': product.get_url()}
-
         return product, 201, headers
 
 

@@ -263,6 +263,13 @@ paths:
                       category_id: 13
                   summary: A response with full products detail
 
+    post:
+      summary: Create product
+      description: Create a new product.
+      operationId: products.create
+      tags: [products]
+      responses:
+        '422':
 # POST:
 #  {
 #    "code": 422,
