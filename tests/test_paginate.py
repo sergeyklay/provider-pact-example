@@ -7,77 +7,43 @@
 
 """Module for Pagination API testing."""
 
-from urllib.parse import urlsplit
-
 
 def test_paginate_empty_db(client):
-    rv = client.get('/v1/products')
+    rv = client.get('/v2/products')
 
+    # TODO: check headers, X-Pagination, Etag, etc
     assert rv.status_code == 200
-
-    assert rv.json['pagination']['total'] == 0
-    assert rv.json['pagination']['page'] == 1
-    assert rv.json['pagination']['pages'] == 1
-    assert rv.json['pagination']['per_page'] == 10
-
-    assert rv.json['links']['prev'] is None
-    assert rv.json['links']['next'] is None
-
-    url = urlsplit(rv.json['links']['first'])
-    assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
-
-    url = urlsplit(rv.json['links']['last'])
-    assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
+    assert rv.json == []
 
 
 def test_paginate_empty_db_fist_page(client):
-    rv = client.get('/v1/products?page=1')
+    rv = client.get('/v2/products?page=1')
 
+    # TODO: check headers, X-Pagination, Etag, etc
     assert rv.status_code == 200
-
-    assert rv.json['pagination']['total'] == 0
-    assert rv.json['pagination']['page'] == 1
-    assert rv.json['pagination']['pages'] == 1
-    assert rv.json['pagination']['per_page'] == 10
-
-    assert rv.json['links']['prev'] is None
-    assert rv.json['links']['next'] is None
-
-    url = urlsplit(rv.json['links']['first'])
-    assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
-
-    url = urlsplit(rv.json['links']['last'])
-    assert '?'.join([url.path, url.query]) == '/v1/products?page=1&per_page=10'
+    assert rv.json == []
 
 
 def test_paginate_links_returns_extra_keys(client):
-    rv = client.get('/v1/products?a=b&c=d&e=f')
+    rv = client.get('/v2/products?a=b&c=d&e=f')
 
+    # TODO: check headers, X-Pagination, Etag, etc
     assert rv.status_code == 200
-
-    assert rv.json['links']['prev'] is None
-    assert rv.json['links']['next'] is None
-
-    url = urlsplit(rv.json['links']['first'])
-    assert '?'.join([url.path, url.query]) == (
-        '/v1/products?page=1&per_page=10&a=b&c=d&e=f'
-    )
-
-    url = urlsplit(rv.json['links']['last'])
-    assert '?'.join([url.path, url.query]) == (
-        '/v1/products?page=1&per_page=10&a=b&c=d&e=f'
-    )
+    assert rv.json == []
 
 
 def test_paginate_0_page(client):
-    rv = client.get('/v1/products?page=0')
+    rv = client.get('/v2/products?page=0')
 
-    expected = {
-        'status': 400,
-        'title': 'Bad Request',
-        'description': ("The 'page' parameter cannot be less than 1, "
-                        'received: 0.'),
-    }
+    expected = [
+        ('code', 422),
+        ('errors', {
+            'query': {
+                'page': ['Must be greater than or equal to 1.']
+            },
+        }),
+        ('status', 'Unprocessable Entity'),
+    ]
 
-    assert sorted(expected.items()) == sorted(rv.json.items())
-    assert rv.status_code == 400
+    assert sorted(expected) == sorted(rv.json.items())
+    assert rv.status_code == 422

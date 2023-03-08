@@ -2,16 +2,15 @@
 openapi: 3.0.3
 
 info:
-  version: '1.0'
+  version: '2.0'
   title: Products API Definition
-  description: Example API to test Specmatic features.
+  description: Provider-side demo using consumer-driven contract testing.
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
   contact:
     name: Bug Tracker
     url: https://github.com/sergeyklay/provider-pact-example/issues
-    email: egrep@protonmail.ch
 
 servers:
   - description: Localhost
@@ -22,6 +21,71 @@ tags:
     description: Products related API.
 
 components:
+  headers:
+    ETagHeader:
+      description: The ETag HTTP response header is an identifier for a specific version of a resource.
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 44
+      example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+    X-Pagination:
+      description: The X-Pagination HTTP response header contains the pagination information.
+      schema:
+        type: object
+        required:
+          - total
+          - total_pages
+        properties:
+          total:
+            description: The total number of items across all pages in the paginated collection.
+            type: integer
+            format: int32
+            minimum: 0
+          total_pages:
+            description: The total number of pages in the paginated collection.
+            type: integer
+            format: int32
+            minimum: 0
+          page:
+            description: The current page number.
+            type: integer
+            format: int32
+            minimum: 1
+          first_page:
+            description: The number of the first page in the paginated collection.
+            type: integer
+            format: int32
+            minimum: 1
+          last_page:
+            description: The number of the last page in the paginated collection.
+            type: integer
+            format: int32
+            minimum: 1
+          previous_page:
+            description: |-
+              The number of the previous page in the paginated collection.
+              May not be present if the current page is the first page.
+            type: integer
+            format: int32
+            minimum: 1
+          next_page:
+            description: |-
+              The number of the next page in the paginated collection.
+              May not be present if the current page is the last page.
+            type: integer
+            format: int32
+            minimum: 1
+      examples:
+        multiple_products:
+          value:
+            total: 1021
+            total_pages: 103
+            first_page: 1
+            last_page: 103
+            page: 11
+            previous_page: 1
+            next_page: 3
   schemas:
     Product:
       title: Product
@@ -40,7 +104,6 @@ components:
         description:
           type: string
           example: An Apple mobile which is nothing like apple
-          minLength: 0
           maxLength: 512
         price:
           type: number
@@ -60,130 +123,84 @@ components:
           format: int32
           minimum: 0
           example: 856
-        brand:
-          type: string
-          example: Apple, Inc.
-          minLength: 1
-          maxLength: 64
-        category:
-          $ref: '#/components/schemas/ProductCategory'
-      required:
-        - id
-        - title
-        - description
-        - price
-        - discount
-        - rating
-        - stock
-        - brand
-        - category
-    ProductCategory:
-      title: Product Category
-      type: string
-      example: smartphones
-    Links:
-      title: Pagination Links
-      description: |-
-        Used to provide pagination information, allowing clients to navigate
-        through large sets of data by following links to subsequent pages.
-      type: object
-      required:
-        - self
-        - first
-        - last
-        - next
-        - prev
-      properties:
-        self:
-          type: string
-          example: https://example.com/v1/products?page=1&per_page=10
-          description: Provides a hyperlink to the current page of a paginated set of data.
-        first:
-          type: string
-          example: https://example.com/v1/products?page=1&per_page=10
-          description: Provides a hyperlink to the first page of a paginated set of data.
-        last:
-          type: string
-          example: https://example.com/v1/products?page=30&per_page=10
-          description: Provides a hyperlink to the last page of a paginated set of data.
-        next:
-          type: string
-          example: https://example.com/v1/products?page=3&per_page=10
-          description: Provides a hyperlink to the next page of a paginated set of data.
-          nullable: true
-        prev:
-          type: string
-          example: https://example.com/v1/products?page=1&per_page=10
-          description: Provides a hyperlink to the previous page of a paginated set of data.
-          nullable: true
-    Pagination:
-      title: API pagination
-      description:  |-
-        Used by APIs to limit the number of results returned in a single
-        response and enable clients to retrieve additional results in subsequent
-        requests.
-      type: object
-      required:
-        - page
-        - pages
-        - per_page
-        - total
-      properties:
-        page:
-          description: |-
-            Indicates the current page number of the data that is being returned in the response.
-            This is useful because it allows the client to keep track of which page they are currently
-            viewing and to navigate to other pages of the data if necessary.
+        brand_id:
           type: integer
           format: int32
           minimum: 1
           example: 7
-        pages:
-          description: |-
-            Used to provide information about the number of pages in a paginated set of data.
-            In this case, it would indicate the total number of pages in the dataset, which can be
-            useful for the client to understand the overall structure of the dataset and to navigate
-            through the data efficiently.
+        category_id:
           type: integer
           format: int32
           minimum: 1
-          example: 30
-        per_page:
-          description: |-
-            Indicates the number of items or entries that are included in a single page of the
-            paginated response. For example, if the value of pagination.per_page is 10, then each
-            page of the response will include 10 items or entries.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 30
-        total:
-          description: |-
-            Indicates the total number of items or entries in the dataset, regardless of pagination.
-            This parameter is useful because it allows the client to better understand the overall
-            size of the dataset and to calculate the number of pages in the paginated response.
-          type: integer
-          format: int32
-          minimum: 0
-          example: 300
+          example: 13
+      required:
+        - id
+        - title
+        - price
+        - discount
+        - rating
+        - stock
+        - brand_id
+        - category_id
     NotFoundResponse:
       title: Not Found Response
       type: object
       required:
+        - code
         - status
-        - title
-        - description
       properties:
-        status:
+        code:
+          description: |-
+            The HTTP response code indicating an error. The 404 code is used
+            when the requested resource is not found on the server.
           type: integer
           format: int32
           example: 404
-        title:
+        message:
+          description: |-
+            A message indicating the reason for the error. In this case, the
+            message indicates that the requested product was not found on the
+            server. This field in response body is optional.
+          type: string
+          example: Product not found
+        status:
+          description: |-
+            A textual description of the error status that supplements the HTTP
+            response code. Here, the "Not Found" status means that the requested
+            resource was not found on the server and cannot be returned in
+            response to the request.
           type: string
           example: Not Found
-        description:
+    UnprocessableEntity:
+      title: Unprocessable Entity Response
+      type: object
+      required:
+        - code
+        - errors
+        - status
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 428
+        errors:
+          type: object
+        status:
           type: string
-          example: Specified product not found
+    PreconditionRequired:
+      title: Precondition Required Response
+      type: object
+      required:
+        - code
+        - status
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 428
+        status:
+          type: string
+          example: Precondition Required
   parameters:
     ProductIdParameter:
       in: path
@@ -203,7 +220,7 @@ components:
           value: 10000000
 
 paths:
-  /v1/products:
+  /v2/products:
     get:
       summary: Get list of products
       description: Returns a list of all products.
@@ -211,34 +228,31 @@ paths:
       tags: [products]
       parameters:
         - in: query
-          name: expanded
-          description: Return collection of links to products (0) or expanded response (1).
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 1
-          examples:
-            expanded:
-              value: 1
-              summary: A response with full products detail
-            collapsed:
-              value: 0
-              summary: A response with products links only
-        - in: query
-          name: category
+          name: cid
           description: Filter by product category.
           required: false
           schema:
             type: string
           examples:
-            laptops:
-              value: laptops
-              summary: Products from the "laptops" category
-            smartphones:
-              value: smartphones
-              summary: Products from the "smartphones" category
+            category_12:
+              value: 12
+              summary: Products from Category ID 12
+            category_13:
+              value: 13
+              summary: Products from Category ID 13
+        - in: query
+          name: bid
+          description: Filter by product brand.
+          required: false
+          schema:
+            type: string
+          examples:
+            brand_7:
+              value: 7
+              summary: Products for Brand ID 7
+            brand_9:
+              value: 9
+              summary: Products for Brand ID 9
         - in: query
           name: q
           description: Search term.
@@ -254,110 +268,49 @@ paths:
           description: List of products
           headers:
             ETag:
-              description: The ETag HTTP response header is an identifier for a specific version of a resource.
-              schema:
-                type: string
-                minLength: 34
-                maxLength: 34
-              example: '"c1983e057880c5d40817708584401e4d"'
+              $ref: '#/components/headers/ETagHeader'
+            X-Pagination:
+              $ref: '#/components/headers/X-Pagination'
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - links
-                  - pagination
-                  - products
-                properties:
-                  links:
-                    $ref: '#/components/schemas/Links'
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
-                  products:
-                    oneOf:
-                      - type: array
-                        items:
-                          $ref: '#/components/schemas/Product'
-                      - type: array
-                        items:
-                          type: string
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
               examples:
-                expanded:
+                products_list:
                   value:
-                    links:
-                      self: https://example.com/v1/products?page=1&per_page=10
-                      first: https://example.com/v1/products?page=1&per_page=10
-                      last: https://example.com/v1/products?page=30&per_page=10
-                      next: https://example.com/v1/products?page=3&per_page=10
-                      prev: https://example.com/v1/products?page=1&per_page=10
-                    pagination:
-                      page: 2
-                      pages: 30
-                      per_page: 10
-                      total: 300
-                    products:
-                      - id: 1
-                        title: iPhone 9
-                        description: An Apple mobile which is nothing like apple
-                        price: 549
-                        discount: 12.96
-                        rating: 4.69
-                        stock: 94
-                        brand: Apple
-                        category: smartphones
-                      - id: 6
-                        title: Samsung Galaxy Book
-                        description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
-                        price: 1499
-                        discount: 4.15
-                        rating: 4.25
-                        stock: 50
-                        brand: Samsung
-                        category: laptops
+                    - id: 1
+                      title: iPhone 9
+                      description: An Apple mobile which is nothing like apple
+                      price: 549
+                      discount: 12.96
+                      rating: 4.69
+                      stock: 94
+                      brand_id: 7
+                      category_id: 13
+                    - id: 6
+                      title: Samsung Galaxy Book
+                      description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                      price: 1499
+                      discount: 4.15
+                      rating: 4.25
+                      stock: 50
+                      brand_id: 8
+                      category_id: 13
                   summary: A response with full products detail
-                collapsed:
-                  value:
-                    links:
-                      self: https://example.com/v1/products?page=1&per_page=10
-                      first: https://example.com/v1/products?page=1&per_page=10
-                      last: https://example.com/v1/products?page=30&per_page=10
-                      next: https://example.com/v1/products?page=3&per_page=10
-                      prev: https://example.com/v1/products?page=1&per_page=10
-                    pagination:
-                      page: 2
-                      pages: 30
-                      per_page: 10
-                      total: 300
-                    products:
-                      - https://example.com/v1/products/1
-                      - https://example.com/v1/products/2
-                      - https://example.com/v1/products/3
-                      - https://example.com/v1/products/4
-                      - https://example.com/v1/products/5
-                      - https://example.com/v1/products/6
-                      - https://example.com/v1/products/8
-                      - https://example.com/v1/products/9
-                      - https://example.com/v1/products/10
-                  summary: A response with products links only
-  '/v1/products/{id}':
-    get:
-      summary: Get single product
-      description: Returns a single product.
-      operationId: products.get
+
+    post:
+      summary: Create product
+      description: Create a new product in the database.
+      operationId: products.create
       tags: [products]
-      parameters:
-        - $ref: '#/components/parameters/ProductIdParameter'
       responses:
         '200':
           description: A product
           headers:
             ETag:
-              description: The ETag HTTP response header is an identifier for a specific version of a resource.
-              schema:
-                type: string
-                minLength: 34
-                maxLength: 34
-              example: '"c1983e057880c5d40817708584401e4d"'
+              $ref: '#/components/headers/ETagHeader'
           content:
             application/json:
               schema:
@@ -372,8 +325,8 @@ paths:
                     discount: 12.96
                     rating: 4.69
                     stock: 94
-                    brand: Apple
-                    category: smartphones
+                    brand_id: 7
+                    category_id: 11
                 Samsung:
                   value:
                     id: 6
@@ -383,14 +336,64 @@ paths:
                     discount: 4.15
                     rating: 4.25
                     stock: 50
-                    brand: Samsung
-                    category: laptops
+                    brand_id: 9
+                    category_id: 12
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntity'
+
+  '/v2/products/{id}':
+    get:
+      summary: Get single product
+      description: Returns a single product.
+      operationId: products.get
+      tags: [products]
+      parameters:
+        - $ref: '#/components/parameters/ProductIdParameter'
+      responses:
+        '200':
+          description: A product
+          headers:
+            ETag:
+              $ref: '#/components/headers/ETagHeader'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                iPhone:
+                  value:
+                    id: 1
+                    title: iPhone 9
+                    description: An Apple mobile which is nothing like apple
+                    price: 549
+                    discount: 12.96
+                    rating: 4.69
+                    stock: 94
+                    brand_id: 7
+                    category_id: 11
+                Samsung:
+                  value:
+                    id: 6
+                    title: Samsung Galaxy Book
+                    description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                    price: 1499
+                    discount: 4.15
+                    rating: 4.25
+                    stock: 50
+                    brand_id: 9
+                    category_id: 12
         '404':
           description: Product not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundResponse'
+
+    # This request is required to be conditional
     delete:
       summary: Delete product
       description: Deletes a specific product and returns status code 204 if successful, otherwise - 404.
@@ -398,6 +401,18 @@ paths:
       tags: [ products ]
       parameters:
         - $ref: '#/components/parameters/ProductIdParameter'
+        - in: header
+          name: ETag
+          description: The ETag HTTP request header is an identifier for a specific version of a resource.
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 44
+          examples:
+            simple:
+              value: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+              summary: Example of typical ETag header
       responses:
         '204':
           description: Successful operation
@@ -407,3 +422,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundResponse'
+        '428':
+          description: Precondition Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionRequired'

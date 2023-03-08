@@ -12,9 +12,8 @@ from urllib.parse import urlsplit
 from .factories import BrandFactory, CategoryFactory, ProductFactory
 
 NOT_FOUND_RESPONSE = {
-        'status': 404,
-        'title': 'Not Found',
-        'description': 'Invalid resource URI.',
+        'code': 404,
+        'status': 'Not Found',
     }
 
 
@@ -26,30 +25,52 @@ def test_main_page_404(client):
 
 
 def test_products_empty_database(client):
-    response = client.get('/v1/products')
+    response = client.get('/v2/products')
 
-    assert [] == response.json['products']
+    assert [] == response.json
     assert response.status_code == 200
 
 
-def test_delete_product_empty_database(client):
-    response = client.delete('/v1/products/1')
+def test_delete_product_empty_database_no_if_match(client):
+    response = client.delete('/v2/products/1')
 
-    assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
+    expected = [('code', 428), ('status', 'Precondition Required')]
+    assert expected == sorted(response.json.items())
+    assert response.status_code == 428
+
+
+def test_delete_product_empty_database(client):
+    response = client.delete(
+        '/v2/products/1',
+        headers={'If-Match': '"abc"'}
+    )
+
+    expected = [
+        ('code', 404),
+        ('message', 'Product not found'),
+        ('status', 'Not Found'),
+    ]
+
+    assert sorted(expected) == sorted(response.json.items())
     assert response.status_code == 404
 
 
 def test_products_with_query_params_empty_database(client):
-    response = client.get('/v1/products?expanded=1&category=laptops&q=')
+    response = client.get('/v2/products?expanded=1&category=laptops&q=')
 
-    assert [] == response.json['products']
+    assert [] == response.json
     assert response.status_code == 200
 
 
 def test_products_not_found(client):
-    response = client.get('/v1/products/99999999')
+    response = client.get('/v2/products/99999999')
 
-    assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
+    expected = [
+        ('code', 404),
+        ('message', 'Product not found'),
+        ('status', 'Not Found'),
+    ]
+    assert sorted(expected) == sorted(response.json.items())
     assert response.status_code == 404
 
 
@@ -69,26 +90,26 @@ def test_create_product(client):
     )
 
     # add a product
-    rv = client.post('/v1/products', json=data)
+    rv = client.post('/v2/products', json=data)
 
-    assert rv.json == {}
+    data.update({'id': 1})
+    assert sorted(data .items()) == sorted(rv.json.items())
     assert rv.status_code == 201
     assert 'Location' in rv.headers
 
-    assert urlsplit(rv.headers['Location']).path == '/v1/products/1'
+    assert urlsplit(rv.headers['Location']).path == '/v2/products/1'
 
     # get product
     rv = client.get(urlsplit(rv.headers['Location']).path)
     assert rv.status_code == 200
-    assert rv.json['brand'] == brand.name
+    assert rv.json['title'] == 'Test'
 
     # get list of products
-    rv = client.get('/v1/products?expanded=1')
+    rv = client.get('/v2/products')
 
     assert rv.status_code == 200
-    assert len(rv.json) == 3
-    assert len(rv.json['products']) == 1
-    assert rv.json['products'][0]['category'] == category.name
+    assert len(rv.json) == 1
+    assert rv.json[0]['title'] == 'Test'
 
 
 def test_product_invalid_format(client):
@@ -107,8 +128,8 @@ def test_product_invalid_format(client):
     )
 
     # not a JSON
-    rv = client.post('/v1/products', data=data)
-    assert rv.status_code == 400
+    rv = client.post('/v2/products', data=data)
+    assert rv.status_code == 422
 
 
 def test_product_integrity_error(client):
@@ -128,8 +149,8 @@ def test_product_integrity_error(client):
     )
 
     # integrity error (unique title)
-    rv = client.post('/v1/products', json=data)
-    assert rv.status_code == 400
+    rv = client.post('/v2/products', json=data)
+    assert rv.status_code == 422
 
 
 def test_product_missing_data(client):
@@ -142,5 +163,5 @@ def test_product_missing_data(client):
     )
 
     # missing data
-    rv = client.post('/v1/products', json=data)
-    assert rv.status_code == 400
+    rv = client.post('/v2/products', json=data)
+    assert rv.status_code == 422

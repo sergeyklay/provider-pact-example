@@ -13,7 +13,6 @@ from flask import url_for
 from sqlalchemy import orm as so
 
 from .app import db
-from .exceptions import ValidationError
 
 
 class Product(db.Model):
@@ -80,37 +79,7 @@ class Product(db.Model):
     )
 
     def get_url(self):
-        return url_for('api.get_product', product_id=self.id, _external=True)
-
-    def export_data(self):
-        """Export data from a Flask application's database."""
-        return {
-            'id': self.id,
-            'title': self.title,
-            'description': self.description,
-            'price': float(self.price),
-            'discount': float(self.discount),
-            'rating': float(self.rating),
-            'stock': self.stock,
-            'brand': self.brand.name,
-            'category': self.category.name,
-        }
-
-    def import_data(self, data):
-        """Import data into a Flask application's database."""
-        try:
-            self.title = data['title']
-            self.description = data['description']
-            self.price = data['price']
-            self.discount = data['discount']
-            self.rating = data['rating']
-            self.stock = data['stock']
-            self.brand_id = data['brand_id']
-            self.category_id = data['category_id']
-        except KeyError as exc:
-            raise ValidationError(
-                f'Invalid product: missing {exc.args[0]}') from exc
-        return self
+        return url_for('api.ProductsById', product_id=self.id, _external=True)
 
     def __repr__(self):
         """Returns the object representation in string format."""

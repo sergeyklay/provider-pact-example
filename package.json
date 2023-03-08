@@ -1,13 +1,12 @@
 {
   "name": "provider-pact-example",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "Complete Contract Testing solution solution for API, which can used by client applications",
   "main": "index.js",
   "scripts": {
     "intro": "cat package.json | jq .scripts",
-    "lint:redocly": "redocly lint --config .redocly.yaml openapi/swagger.yaml",
-    "lint:spectral": "spectral lint --fail-severity=info openapi/**/*.yaml"
+    "lint": "redocly lint"
   },
   "repository": {
     "type": "git",

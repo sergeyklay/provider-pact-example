@@ -7,18 +7,13 @@
 
 """The api blueprint module for the application."""
 
-from flask import Blueprint
+from flask_smorest import Blueprint
 
-from provider.decorators import etag
+api = Blueprint(
+    'api',
+    __name__,
+    url_prefix='/v2',
+    description='Provider-side demo using consumer-driven contract testing'
+)
 
-api = Blueprint('api', __name__)
-
-
-@api.after_request
-@etag
-def after_request(response):
-    """Generate an ETag header for all routes in this blueprint."""
-    return response
-
-
-from . import errors, products  # noqa: I100, I202, F401, E402
+from . import products  # noqa: I100, I202, F401, E402

@@ -11,4 +11,6 @@ Flask-SQLAlchemy
 SQLAlchemy
 Werkzeug
 alembic
+flask-smorest
+marshmallow
 python-dotenv
