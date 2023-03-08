@@ -78,56 +78,6 @@ components:
         - stock
         - brand_id
         - category_id
-    Pagination:
-      title: API pagination
-      description: |-
-        Used by APIs to limit the number of results returned in a single
-        response and enable clients to retrieve additional results in subsequent
-        requests.
-      type: object
-      required:
-        - page
-        - pages
-        - per_page
-        - total
-      properties:
-        page:
-          description: |-
-            Indicates the current page number of the data that is being returned in the response.
-            This is useful because it allows the client to keep track of which page they are currently
-            viewing and to navigate to other pages of the data if necessary.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 7
-        pages:
-          description: |-
-            Used to provide information about the number of pages in a paginated set of data.
-            In this case, it would indicate the total number of pages in the dataset, which can be
-            useful for the client to understand the overall structure of the dataset and to navigate
-            through the data efficiently.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 30
-        per_page:
-          description: |-
-            Indicates the number of items or entries that are included in a single page of the
-            paginated response. For example, if the value of pagination.per_page is 10, then each
-            page of the response will include 10 items or entries.
-          type: integer
-          format: int32
-          minimum: 1
-          example: 30
-        total:
-          description: |-
-            Indicates the total number of items or entries in the dataset, regardless of pagination.
-            This parameter is useful because it allows the client to better understand the overall
-            size of the dataset and to calculate the number of pages in the paginated response.
-          type: integer
-          format: int32
-          minimum: 0
-          example: 300
     NotFoundResponse:
       title: Not Found Response
       type: object
@@ -142,6 +92,22 @@ components:
         status:
           type: string
           example: Not Found
+    UnprocessableEntity:
+      title: Unprocessable Entity Response
+      type: object
+      required:
+        - code
+        - errors
+        - status
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 428
+        errors:
+          type: object
+        status:
+          type: string
     PreconditionRequired:
       title: Precondition Required Response
       type: object
@@ -229,12 +195,39 @@ paths:
                 minLength: 2
                 maxLength: 44
               example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+            X-Pagination:
+              description: The X-Pagination HTTP response header contains the pagination information.
+              schema:
+                type: object
+                required:
+                  - total
+                  - total_pages
+                properties:
+                  total:
+                    type: integer
+                    format: int32
+                    minimum: 0
+                  total_pages:
+                    type: integer
+                    format: int32
+                    minimum: 0
+                  page:
+                    type: integer
+                    format: int32
+                    minimum: 1
+                  first_page:
+                    type: integer
+                    format: int32
+                    minimum: 1
+                  last_page:
+                    type: integer
+                    format: int32
+                    minimum: 1
+                  next_page:
+                    type: integer
+                    format: int32
+                    minimum: 1
           content:
-            # Headers:
-            # X-Pagination
-            # {"total": 1011, "total_pages": 102, "first_page": 1, "last_page": 102, "page": 1, "next_page": 2}
-            #
-            # ETag
             application/json:
               schema:
                 type: array
@@ -265,26 +258,54 @@ paths:
 
     post:
       summary: Create product
-      description: Create a new product.
+      description: Create a new product in the database.
       operationId: products.create
       tags: [products]
       responses:
+        '200':
+          description: A product
+          headers:
+            ETag:
+              description: The ETag HTTP response header is an identifier for a specific version of a resource.
+              schema:
+                type: string
+                minLength: 2
+                maxLength: 44
+              example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                iPhone:
+                  value:
+                    id: 1
+                    title: iPhone 9
+                    description: An Apple mobile which is nothing like apple
+                    price: 549
+                    discount: 12.96
+                    rating: 4.69
+                    stock: 94
+                    brand_id: 7
+                    category_id: 11
+                Samsung:
+                  value:
+                    id: 6
+                    title: Samsung Galaxy Book
+                    description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                    price: 1499
+                    discount: 4.15
+                    rating: 4.25
+                    stock: 50
+                    brand_id: 9
+                    category_id: 12
         '422':
-# POST:
-#  {
-#    "code": 422,
-#    "errors": {
-#      "json": {
-#        "brand": [
-#          "Missing data for required field."
-#        ],
-#        "category": [
-#          "Missing data for required field."
-#        ]
-#      }
-#    },
-#    "status": "Unprocessable Entity"
-#  }
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntity'
+
   '/v2/products/{id}':
     get:
       summary: Get single product
