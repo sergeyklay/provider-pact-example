@@ -12,7 +12,7 @@ from flask_smorest import Blueprint
 api = Blueprint(
     'api',
     __name__,
-    url_prefix='/v1',
+    url_prefix='/v2',
     description='Provider-side demo using consumer-driven contract testing'
 )
 
