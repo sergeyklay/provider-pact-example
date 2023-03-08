@@ -60,7 +60,15 @@ components:
           minimum: 0
           example: 856
         brand_id:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 7
         category_id:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 13
       required:
         - id
         - title
@@ -68,47 +76,12 @@ components:
         - discount
         - rating
         - stock
-        - brand
-        - category
+        - brand_id
+        - category_id
     ProductCategory:
       title: Product Category
       type: string
       example: smartphones
-    Links:
-      title: Pagination Links
-      description: |-
-        Used to provide pagination information, allowing clients to navigate
-        through large sets of data by following links to subsequent pages.
-      type: object
-      required:
-        - self
-        - first
-        - last
-        - next
-        - prev
-      properties:
-        self:
-          type: string
-          example: https://example.com/v1/products?page=1&per_page=10
-          description: Provides a hyperlink to the current page of a paginated set of data.
-        first:
-          type: string
-          example: https://example.com/v1/products?page=1&per_page=10
-          description: Provides a hyperlink to the first page of a paginated set of data.
-        last:
-          type: string
-          example: https://example.com/v1/products?page=30&per_page=10
-          description: Provides a hyperlink to the last page of a paginated set of data.
-        next:
-          type: string
-          example: https://example.com/v1/products?page=3&per_page=10
-          description: Provides a hyperlink to the next page of a paginated set of data.
-          nullable: true
-        prev:
-          type: string
-          example: https://example.com/v1/products?page=1&per_page=10
-          description: Provides a hyperlink to the previous page of a paginated set of data.
-          nullable: true
     Pagination:
       title: API pagination
       description:  |-
@@ -204,34 +177,31 @@ paths:
       tags: [products]
       parameters:
         - in: query
-          name: expanded
-          description: Return collection of links to products (0) or expanded response (1).
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 1
-          examples:
-            expanded:
-              value: 1
-              summary: A response with full products detail
-            collapsed:
-              value: 0
-              summary: A response with products links only
-        - in: query
-          name: cid # TODO + bid
+          name: cid
           description: Filter by product category.
           required: false
           schema:
             type: string
           examples:
-            laptops:
-              value: laptops
-              summary: Products from the "laptops" category
-            smartphones:
-              value: smartphones
-              summary: Products from the "smartphones" category
+            category_12:
+              value: 12
+              summary: Products from Category ID 12
+            category_13:
+              value: 13
+              summary: Products from Category ID 13
+        - in: query
+          name: bid
+          description: Filter by product brand.
+          required: false
+          schema:
+            type: string
+          examples:
+            brand_7:
+              value: 7
+              summary: Products for Brand ID 7
+            brand_9:
+              value: 9
+              summary: Products for Brand ID 9
         - in: query
           name: q
           description: Search term.
@@ -261,82 +231,31 @@ paths:
             # ETag
             application/json:
               schema:
-                type: object
-                required:
-                  - links
-                  - pagination
-                  - products
-                properties:
-                  links:
-                    $ref: '#/components/schemas/Links'
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
-                  products:
-                    oneOf:
-                      - type: array
-                        items:
-                          $ref: '#/components/schemas/Product'
-                      - type: array
-                        items:
-                          type: string
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
               examples:
-                expanded:
+                products_list:
                   value:
-                    links:
-                      self: https://example.com/v1/products?page=1&per_page=10
-                      first: https://example.com/v1/products?page=1&per_page=10
-                      last: https://example.com/v1/products?page=30&per_page=10
-                      next: https://example.com/v1/products?page=3&per_page=10
-                      prev: https://example.com/v1/products?page=1&per_page=10
-                    pagination:
-                      page: 2
-                      pages: 30
-                      per_page: 10
-                      total: 300
-                    products:
-                      - id: 1
-                        title: iPhone 9
-                        description: An Apple mobile which is nothing like apple
-                        price: 549
-                        discount: 12.96
-                        rating: 4.69
-                        stock: 94
-                        brand: Apple
-                        category: smartphones
-                      - id: 6
-                        title: Samsung Galaxy Book
-                        description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
-                        price: 1499
-                        discount: 4.15
-                        rating: 4.25
-                        stock: 50
-                        brand: Samsung
-                        category: laptops
+                    - id: 1
+                      title: iPhone 9
+                      description: An Apple mobile which is nothing like apple
+                      price: 549
+                      discount: 12.96
+                      rating: 4.69
+                      stock: 94
+                      brand_id: 7
+                      category_id: 13
+                    - id: 6
+                      title: Samsung Galaxy Book
+                      description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
+                      price: 1499
+                      discount: 4.15
+                      rating: 4.25
+                      stock: 50
+                      brand_id: 8
+                      category_id: 13
                   summary: A response with full products detail
-                collapsed:
-                  value:
-                    links:
-                      self: https://example.com/v1/products?page=1&per_page=10
-                      first: https://example.com/v1/products?page=1&per_page=10
-                      last: https://example.com/v1/products?page=30&per_page=10
-                      next: https://example.com/v1/products?page=3&per_page=10
-                      prev: https://example.com/v1/products?page=1&per_page=10
-                    pagination:
-                      page: 2
-                      pages: 30
-                      per_page: 10
-                      total: 300
-                    products:
-                      - https://example.com/v1/products/1
-                      - https://example.com/v1/products/2
-                      - https://example.com/v1/products/3
-                      - https://example.com/v1/products/4
-                      - https://example.com/v1/products/5
-                      - https://example.com/v1/products/6
-                      - https://example.com/v1/products/8
-                      - https://example.com/v1/products/9
-                      - https://example.com/v1/products/10
-                  summary: A response with products links only
 
 # POST:
 #  {
@@ -386,8 +305,8 @@ paths:
                     discount: 12.96
                     rating: 4.69
                     stock: 94
-                    brand: Apple
-                    category: smartphones
+                    brand_id: 7
+                    category_id: 11
                 Samsung:
                   value:
                     id: 6
@@ -397,8 +316,8 @@ paths:
                     discount: 4.15
                     rating: 4.25
                     stock: 50
-                    brand: Samsung
-                    category: laptops
+                    brand_id: 9
+                    category_id: 12
         '404':
           description: Product not found
           content:
