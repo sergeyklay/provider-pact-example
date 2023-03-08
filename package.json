@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "intro": "cat package.json | jq .scripts",
-    "lint": "redocly lint --config .redocly.yaml openapi/swagger.yaml"
+    "lint": "redocly lint"
   },
   "repository": {
     "type": "git",
