@@ -96,3 +96,13 @@ pact_verifier_cli \
   --consumer-version-selectors '{"deployedOrReleased": true}' \
   --ignore-no-pacts-error \
   --loglevel info
+
+STATUS=$?
+if [ $STATUS -eq 0 ]
+then
+  echo "Successfully contracts verification"
+  exit 0
+else
+  echo "Unsuccessful contracts verification" >&2
+  exit $STATUS
+fi
