@@ -2,7 +2,7 @@
 openapi: 3.0.3
 
 info:
-  version: '1.0'
+  version: '2.0'
   title: Products API Definition
   description: Provider-side demo using consumer-driven contract testing.
   license:
@@ -78,13 +78,9 @@ components:
         - stock
         - brand_id
         - category_id
-    ProductCategory:
-      title: Product Category
-      type: string
-      example: smartphones
     Pagination:
       title: API pagination
-      description:  |-
+      description: |-
         Used by APIs to limit the number of results returned in a single
         response and enable clients to retrieve additional results in subsequent
         requests.
@@ -136,20 +132,30 @@ components:
       title: Not Found Response
       type: object
       required:
+        - code
         - status
-        - title
-        - description
       properties:
-        status:
+        code:
           type: integer
           format: int32
           example: 404
-        title:
+        status:
           type: string
           example: Not Found
-        description:
+    PreconditionRequired:
+      title: Precondition Required Response
+      type: object
+      required:
+        - code
+        - status
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 428
+        status:
           type: string
-          example: Specified product not found
+          example: Precondition Required
   parameters:
     ProductIdParameter:
       in: path
@@ -324,6 +330,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundResponse'
+
     # This request is required to be conditional
     delete:
       summary: Delete product
@@ -332,6 +339,18 @@ paths:
       tags: [ products ]
       parameters:
         - $ref: '#/components/parameters/ProductIdParameter'
+        - in: header
+          name: ETag
+          description: The ETag HTTP request header is an identifier for a specific version of a resource.
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 44
+          examples:
+            simple:
+              value: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+              summary: Example of typical ETag header
       responses:
         '204':
           description: Successful operation
@@ -341,3 +360,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundResponse'
+        '428':
+          description: Precondition Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionRequired'
