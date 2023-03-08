@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-from marshmallow import Schema, fields, validate, EXCLUDE
+from marshmallow import EXCLUDE, fields, Schema, validate
 
 
 class CategorySchema(Schema):
@@ -91,4 +91,3 @@ class ProductSchema(Schema):
 
     brand_id = fields.Int(required=True)
     category_id = fields.Int(required=True)
-

@@ -12,8 +12,8 @@ from sqlalchemy import or_
 
 from provider.api import api
 from provider.app import db
-from provider.models import Product, Brand, Category
-from .schemas import ProductSchema, ProductQueryArgsSchema
+from provider.models import Brand, Category, Product
+from .schemas import ProductQueryArgsSchema, ProductSchema
 
 
 class CursorPage(Page):
