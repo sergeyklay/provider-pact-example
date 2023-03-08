@@ -21,6 +21,71 @@ tags:
     description: Products related API.
 
 components:
+  headers:
+    ETagHeader:
+      description: The ETag HTTP response header is an identifier for a specific version of a resource.
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 44
+      example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+    X-Pagination:
+      description: The X-Pagination HTTP response header contains the pagination information.
+      schema:
+        type: object
+        required:
+          - total
+          - total_pages
+        properties:
+          total:
+            description: The total number of items across all pages in the paginated collection.
+            type: integer
+            format: int32
+            minimum: 0
+          total_pages:
+            description: The total number of pages in the paginated collection.
+            type: integer
+            format: int32
+            minimum: 0
+          page:
+            description: The current page number.
+            type: integer
+            format: int32
+            minimum: 1
+          first_page:
+            description: The number of the first page in the paginated collection.
+            type: integer
+            format: int32
+            minimum: 1
+          last_page:
+            description: The number of the last page in the paginated collection.
+            type: integer
+            format: int32
+            minimum: 1
+          previous_page:
+            description: |-
+              The number of the previous page in the paginated collection.
+              May not be present if the current page is the first page.
+            type: integer
+            format: int32
+            minimum: 1
+          next_page:
+            description: |-
+              The number of the next page in the paginated collection.
+              May not be present if the current page is the last page.
+            type: integer
+            format: int32
+            minimum: 1
+      examples:
+        multiple_products:
+          value:
+            total: 1021
+            total_pages: 103
+            first_page: 1
+            last_page: 103
+            page: 11
+            previous_page: 1
+            next_page: 3
   schemas:
     Product:
       title: Product
@@ -82,13 +147,29 @@ components:
       type: object
       required:
         - code
+        - message
         - status
       properties:
         code:
+          description: |-
+            The HTTP response code indicating an error. The 404 code is used
+            when the requested resource is not found on the server.
           type: integer
           format: int32
           example: 404
+        message:
+          description: |-
+            A message indicating the reason for the error. In this case, the
+            message indicates that the requested product was not found on the
+            server.
+          type: string
+          example: Not Found
         status:
+          description: |-
+            A textual description of the error status that supplements the HTTP
+            response code. Here, the "Not Found" status means that the requested
+            resource was not found on the server and cannot be returned in
+            response to the request.
           type: string
           example: Not Found
     UnprocessableEntity:
@@ -188,44 +269,9 @@ paths:
           description: List of products
           headers:
             ETag:
-              description: The ETag HTTP response header is an identifier for a specific version of a resource.
-              schema:
-                type: string
-                minLength: 2
-                maxLength: 44
-              example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+              $ref: '#/components/headers/ETagHeader'
             X-Pagination:
-              description: The X-Pagination HTTP response header contains the pagination information.
-              schema:
-                type: object
-                required:
-                  - total
-                  - total_pages
-                properties:
-                  total:
-                    type: integer
-                    format: int32
-                    minimum: 0
-                  total_pages:
-                    type: integer
-                    format: int32
-                    minimum: 0
-                  page:
-                    type: integer
-                    format: int32
-                    minimum: 1
-                  first_page:
-                    type: integer
-                    format: int32
-                    minimum: 1
-                  last_page:
-                    type: integer
-                    format: int32
-                    minimum: 1
-                  next_page:
-                    type: integer
-                    format: int32
-                    minimum: 1
+              $ref: '#/components/headers/X-Pagination'
           content:
             application/json:
               schema:
@@ -265,12 +311,7 @@ paths:
           description: A product
           headers:
             ETag:
-              description: The ETag HTTP response header is an identifier for a specific version of a resource.
-              schema:
-                type: string
-                minLength: 2
-                maxLength: 44
-              example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+              $ref: '#/components/headers/ETagHeader'
           content:
             application/json:
               schema:
@@ -318,12 +359,7 @@ paths:
           description: A product
           headers:
             ETag:
-              description: The ETag HTTP response header is an identifier for a specific version of a resource.
-              schema:
-                type: string
-                minLength: 2
-                maxLength: 44
-              example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
+              $ref: '#/components/headers/ETagHeader'
           content:
             application/json:
               schema:
