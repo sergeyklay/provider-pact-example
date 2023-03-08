@@ -15,7 +15,7 @@ instance.
 """
 
 __copyright__ = 'Copyright (C) 2023 Serghei Iakovlev'
-__version__ = '2.0.0'
+__version__ = '2.1.0'
 __license__ = 'MIT'
 __author__ = 'Serghei Iakovlev'
 __author_email__ = 'egrep@protonmail.ch'

@@ -1,6 +1,6 @@
 {
   "name": "provider-pact-example",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "Complete Contract Testing solution solution for API, which can used by client applications",
   "main": "index.js",
