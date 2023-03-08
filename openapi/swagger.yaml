@@ -147,7 +147,6 @@ components:
       type: object
       required:
         - code
-        - message
         - status
       properties:
         code:
@@ -161,9 +160,9 @@ components:
           description: |-
             A message indicating the reason for the error. In this case, the
             message indicates that the requested product was not found on the
-            server.
+            server. This field in response body is optional.
           type: string
-          example: Not Found
+          example: Product not found
         status:
           description: |-
             A textual description of the error status that supplements the HTTP
