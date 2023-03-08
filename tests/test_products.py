@@ -45,8 +45,13 @@ def test_delete_product_empty_database(client):
         headers={'If-Match': '"abc"'}
     )
 
-    expected = [('code', 404), ('status', 'Not Found')]
-    assert expected == sorted(response.json.items())
+    expected = [
+        ('code', 404),
+        ('message', 'Product not found'),
+        ('status', 'Not Found'),
+    ]
+
+    assert sorted(expected) == sorted(response.json.items())
     assert response.status_code == 404
 
 
@@ -60,7 +65,12 @@ def test_products_with_query_params_empty_database(client):
 def test_products_not_found(client):
     response = client.get('/v2/products/99999999')
 
-    assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
+    expected = [
+        ('code', 404),
+        ('message', 'Product not found'),
+        ('status', 'Not Found'),
+    ]
+    assert sorted(expected) == sorted(response.json.items())
     assert response.status_code == 404
 
 

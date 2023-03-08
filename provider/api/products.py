@@ -63,8 +63,9 @@ class Products(MethodView):
             abort(422, message='Product with this title already exists')
 
         # Create product
-        brand = Brand.query.get(data.pop('brand_id'))
-        category = Category.query.get(data.pop('category_id'))
+
+        brand = db.session.get(Brand, data.pop('brand_id'))
+        category = db.session.get(Category, data.pop('category_id'))
         product = Product(**data, brand=brand, category=category)
 
         # Save product to database
@@ -86,7 +87,10 @@ class ProductsById(MethodView):
         Returns a single product and status code 200 if successful,
         otherwise - 404.
         """
-        return Product.query.get_or_404(product_id)
+        rv = db.session.get(Product, product_id)
+        if rv is None:
+            abort(404, message='Product not found')
+        return rv
 
     @api.response(204)
     @api.alt_response(404, description='Product not found')
@@ -97,8 +101,11 @@ class ProductsById(MethodView):
         Deletes a specified product and returns status code 204 if successful,
         otherwise - 404.
         """
-        product = Product.query.get_or_404(product_id)
-        db.session.delete(product)
+        rv = db.session.get(Product, product_id)
+        if rv is None:
+            abort(404, message='Product not found')
+
+        db.session.delete(rv)
         db.session.commit()
 
         return Response(status=204)

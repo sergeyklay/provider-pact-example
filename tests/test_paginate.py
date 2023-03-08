@@ -7,8 +7,6 @@
 
 """Module for Pagination API testing."""
 
-from urllib.parse import urlsplit
-
 
 def test_paginate_empty_db(client):
     rv = client.get('/v2/products')
