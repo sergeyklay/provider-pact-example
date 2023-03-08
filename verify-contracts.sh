@@ -80,6 +80,9 @@ export PACT_DO_NOT_TRACK
 # deployedOrReleased: Recommended. Returns the pacts for all versions of the
 #                     consumer that are currently deployed or released and
 #                     currently supported in any environment.
+#
+# For --enable-pending see:
+# https://docs.pact.io/pact_broker/advanced_topics/pending_pacts
 pact_verifier_cli \
   --provider-name ProductService \
   --provider-version "$APP_VERSION" \
@@ -96,13 +99,3 @@ pact_verifier_cli \
   --consumer-version-selectors '{"deployedOrReleased": true}' \
   --ignore-no-pacts-error \
   --loglevel info
-
-STATUS=$?
-if [ $STATUS -eq 0 ]
-then
-  echo "Successfully contracts verification"
-  exit 0
-else
-  echo "Unsuccessful contracts verification" >&2
-  exit $STATUS
-fi
