@@ -4,7 +4,7 @@ openapi: 3.0.3
 info:
   version: '1.0'
   title: Products API Definition
-  description: Example API to test Specmatic features.
+  description: Provider-side demo using consumer-driven contract testing.
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
@@ -40,7 +40,6 @@ components:
         description:
           type: string
           example: An Apple mobile which is nothing like apple
-          minLength: 0
           maxLength: 512
         price:
           type: number
@@ -60,17 +59,11 @@ components:
           format: int32
           minimum: 0
           example: 856
-        brand:
-          type: string
-          example: Apple, Inc.
-          minLength: 1
-          maxLength: 64
-        category:
-          $ref: '#/components/schemas/ProductCategory'
+        brand_id:
+        category_id:
       required:
         - id
         - title
-        - description
         - price
         - discount
         - rating
@@ -227,7 +220,7 @@ paths:
               value: 0
               summary: A response with products links only
         - in: query
-          name: category
+          name: cid # TODO + bid
           description: Filter by product category.
           required: false
           schema:
@@ -257,10 +250,15 @@ paths:
               description: The ETag HTTP response header is an identifier for a specific version of a resource.
               schema:
                 type: string
-                minLength: 34
-                maxLength: 34
-              example: '"c1983e057880c5d40817708584401e4d"'
+                minLength: 2
+                maxLength: 44
+              example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
           content:
+            # Headers:
+            # X-Pagination
+            # {"total": 1011, "total_pages": 102, "first_page": 1, "last_page": 102, "page": 1, "next_page": 2}
+            #
+            # ETag
             application/json:
               schema:
                 type: object
@@ -339,6 +337,22 @@ paths:
                       - https://example.com/v1/products/9
                       - https://example.com/v1/products/10
                   summary: A response with products links only
+
+# POST:
+#  {
+#    "code": 422,
+#    "errors": {
+#      "json": {
+#        "brand": [
+#          "Missing data for required field."
+#        ],
+#        "category": [
+#          "Missing data for required field."
+#        ]
+#      }
+#    },
+#    "status": "Unprocessable Entity"
+#  }
   '/v1/products/{id}':
     get:
       summary: Get single product
@@ -355,9 +369,9 @@ paths:
               description: The ETag HTTP response header is an identifier for a specific version of a resource.
               schema:
                 type: string
-                minLength: 34
-                maxLength: 34
-              example: '"c1983e057880c5d40817708584401e4d"'
+                minLength: 2
+                maxLength: 44
+              example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
           content:
             application/json:
               schema:
@@ -391,6 +405,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundResponse'
+    # This request is required to be conditional
     delete:
       summary: Delete product
       description: Deletes a specific product and returns status code 204 if successful, otherwise - 404.

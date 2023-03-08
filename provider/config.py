@@ -15,6 +15,9 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     BASE_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    API_TITLE = os.getenv('API_TITLE', 'Provider API Example')
+    API_VERSION = os.getenv('API_VERSION', 'v1')
+    OPENAPI_VERSION = os.getenv('OPENAPI_VERSION', '3.0.2')
 
     @staticmethod
     def init_app(app):

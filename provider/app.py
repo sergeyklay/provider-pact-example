@@ -10,6 +10,7 @@
 import os
 
 from flask import Flask
+from flask_smorest import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
@@ -82,14 +83,15 @@ def configure_blueprints(app: Flask):
     from provider.main import main as main_bp
     app.register_blueprint(main_bp)
 
-    # api blueprint registration
-    from provider.api import api as api_bp
-    app.register_blueprint(api_bp, url_prefix='/v1')
-
 
 def configure_extensions(app: Flask):
     """Configure extensions for the application."""
+    from provider.api import api as api_bp
     from flask_migrate import Migrate, upgrade
+
+    # flask-smorest registration
+    api = Api(app)
+    api.register_blueprint(api_bp)
 
     # Flask-SQLAlchemy
     db.init_app(app)

@@ -80,7 +80,7 @@ class Product(db.Model):
     )
 
     def get_url(self):
-        return url_for('api.get_product', product_id=self.id, _external=True)
+        return url_for('api.ProductsById', product_id=self.id, _external=True)
 
     def export_data(self):
         """Export data from a Flask application's database."""

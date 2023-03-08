@@ -118,6 +118,8 @@ INSTALL_REQUIRES = [
     'SQLAlchemy>=2.0.0',  # Database Abstraction Library
     'Werkzeug>=2.2.0',  # Read key-value pairs from a .env file
     'alembic>=1.9.0',  # A database migration tool for SQLAlchemy
+    'flask-smorest>=0.40.0',  # Flask/Marshmallow-based REST API framework
+    'marshmallow>=3.19.0',  # Complex data (de)serialization
     'python-dotenv>=0.21.0',  # Read key-value pairs from a .env file
 ]
 
