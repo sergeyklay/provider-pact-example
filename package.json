@@ -6,8 +6,7 @@
   "main": "index.js",
   "scripts": {
     "intro": "cat package.json | jq .scripts",
-    "lint:redocly": "redocly lint --config .redocly.yaml openapi/swagger.yaml",
-    "lint:spectral": "spectral lint --fail-severity=info openapi/**/*.yaml"
+    "lint": "redocly lint --config .redocly.yaml openapi/swagger.yaml"
   },
   "repository": {
     "type": "git",
