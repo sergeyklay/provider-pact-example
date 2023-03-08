@@ -16,7 +16,7 @@ class Config:
     SQLALCHEMY_RECORD_QUERIES = True
     BASE_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
     API_TITLE = os.getenv('API_TITLE', 'Provider API Example')
-    API_VERSION = os.getenv('API_VERSION', 'v1')
+    API_VERSION = os.getenv('API_VERSION', 'v2')
     OPENAPI_VERSION = os.getenv('OPENAPI_VERSION', '3.0.2')
 
     @staticmethod
