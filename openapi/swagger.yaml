@@ -175,7 +175,7 @@ components:
           value: 10000000
 
 paths:
-  /v1/products:
+  /v2/products:
     get:
       summary: Get list of products
       description: Returns a list of all products.
@@ -278,7 +278,7 @@ paths:
 #    },
 #    "status": "Unprocessable Entity"
 #  }
-  '/v1/products/{id}':
+  '/v2/products/{id}':
     get:
       summary: Get single product
       description: Returns a single product.

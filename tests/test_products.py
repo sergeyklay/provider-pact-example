@@ -26,28 +26,28 @@ def test_main_page_404(client):
 
 
 def test_products_empty_database(client):
-    response = client.get('/v1/products')
+    response = client.get('/v2/products')
 
     assert [] == response.json['products']
     assert response.status_code == 200
 
 
 def test_delete_product_empty_database(client):
-    response = client.delete('/v1/products/1')
+    response = client.delete('/v2/products/1')
 
     assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
     assert response.status_code == 404
 
 
 def test_products_with_query_params_empty_database(client):
-    response = client.get('/v1/products?expanded=1&category=laptops&q=')
+    response = client.get('/v2/products?expanded=1&category=laptops&q=')
 
     assert [] == response.json['products']
     assert response.status_code == 200
 
 
 def test_products_not_found(client):
-    response = client.get('/v1/products/99999999')
+    response = client.get('/v2/products/99999999')
 
     assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
     assert response.status_code == 404
@@ -69,13 +69,13 @@ def test_create_product(client):
     )
 
     # add a product
-    rv = client.post('/v1/products', json=data)
+    rv = client.post('/v2/products', json=data)
 
     assert rv.json == {}
     assert rv.status_code == 201
     assert 'Location' in rv.headers
 
-    assert urlsplit(rv.headers['Location']).path == '/v1/products/1'
+    assert urlsplit(rv.headers['Location']).path == '/v2/products/1'
 
     # get product
     rv = client.get(urlsplit(rv.headers['Location']).path)
@@ -83,7 +83,7 @@ def test_create_product(client):
     assert rv.json['brand'] == brand.name
 
     # get list of products
-    rv = client.get('/v1/products?expanded=1')
+    rv = client.get('/v2/products?expanded=1')
 
     assert rv.status_code == 200
     assert len(rv.json) == 3
@@ -107,7 +107,7 @@ def test_product_invalid_format(client):
     )
 
     # not a JSON
-    rv = client.post('/v1/products', data=data)
+    rv = client.post('/v2/products', data=data)
     assert rv.status_code == 400
 
 
@@ -128,7 +128,7 @@ def test_product_integrity_error(client):
     )
 
     # integrity error (unique title)
-    rv = client.post('/v1/products', json=data)
+    rv = client.post('/v2/products', json=data)
     assert rv.status_code == 400
 
 
@@ -142,5 +142,5 @@ def test_product_missing_data(client):
     )
 
     # missing data
-    rv = client.post('/v1/products', json=data)
+    rv = client.post('/v2/products', json=data)
     assert rv.status_code == 400
