@@ -94,7 +94,8 @@ class ProductsById(MethodView):
 
     @api.response(204)
     @api.alt_response(404, description='Product not found')
-    @api.alt_response(428, description='Precondition failed')
+    @api.alt_response(412, description='Precondition Failed')
+    @api.alt_response(428, description='Precondition Required')
     def delete(self, product_id: int):
         """Delete product.
 
@@ -104,6 +105,8 @@ class ProductsById(MethodView):
         rv = db.session.get(Product, product_id)
         if rv is None:
             abort(404, message='Product not found')
+
+        api.check_etag(rv, ProductSchema)
 
         db.session.delete(rv)
         db.session.commit()

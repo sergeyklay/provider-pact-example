@@ -201,6 +201,20 @@ components:
         status:
           type: string
           example: Precondition Required
+    PreconditionFailed:
+      title: Precondition Failed Response
+      type: object
+      required:
+        - code
+        - status
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 412
+        status:
+          type: string
+          example: Precondition Failed
   parameters:
     ProductIdParameter:
       in: path
@@ -422,6 +436,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundResponse'
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailed'
         '428':
           description: Precondition Required
           content:
