@@ -10,8 +10,8 @@
 from sqlalchemy import delete
 
 from provider.app import db
-from provider.models import Product
-from .factories import ProductFactory
+from provider.models import Category, Product
+from .factories import CategoryFactory, ProductFactory
 
 
 class StateManager:
@@ -29,6 +29,7 @@ class StateManager:
             'there are no products': self._delete_all_products,
             'there are few products': self._create_few_products,
             'there are no products in category #2': self._delete_prod_category,
+            'there are few products in category #2': self._create_cat_products,
         }
 
     def change_provider_state(self):
@@ -39,10 +40,17 @@ class StateManager:
         ProductFactory(id=1)
 
     def _create_few_products(self):
-        total = Product.query.count()
-        if total < 3:
-            for i in range(1, 4 - total):
-                ProductFactory(id=i)
+        self._delete_all_products()
+        for i in range(1, 4):
+            ProductFactory(id=i)
+
+    def _create_cat_products(self):
+        self._delete_all_products()
+        self._delete_all_categories()
+
+        category = CategoryFactory(id=2)
+        for i in range(1, 3):
+            ProductFactory(id=i, category=category)
 
     def _delete_product(self):
         product = Product.query.get(7777)
@@ -52,6 +60,10 @@ class StateManager:
 
     def _delete_all_products(self):
         db.session.query(Product).delete()
+        db.session.commit()
+
+    def _delete_all_categories(self):
+        db.session.query(Category).delete()
         db.session.commit()
 
     def _delete_prod_category(self):
