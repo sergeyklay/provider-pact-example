@@ -7,6 +7,8 @@
 
 """Various pact tools to working with contracts verification."""
 
+from sqlalchemy import delete
+
 from provider.app import db
 from provider.models import Product
 from .factories import ProductFactory
@@ -26,6 +28,7 @@ class StateManager:
             'there is no product with ID 7777': self._delete_product,
             'there are no products': self._delete_all_products,
             'there are few products': self._create_few_products,
+            'there are no products in category #2': self._delete_prod_category,
         }
 
     def change_provider_state(self):
@@ -49,4 +52,10 @@ class StateManager:
 
     def _delete_all_products(self):
         db.session.query(Product).delete()
+        db.session.commit()
+
+    def _delete_prod_category(self):
+        db.session.execute(
+            delete(Product).where(Product.category.has(id=2))
+        )
         db.session.commit()
