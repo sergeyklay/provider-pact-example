@@ -11,16 +11,15 @@ from urllib.parse import urlsplit
 
 from .factories import BrandFactory, CategoryFactory, ProductFactory
 
-NOT_FOUND_RESPONSE = {
+
+def test_main_page_404(client):
+    response = client.get('/')
+    expected = {
         'code': 404,
         'status': 'Not Found',
     }
 
-
-def test_main_page_404(client):
-    response = client.get('/')
-
-    assert sorted(NOT_FOUND_RESPONSE.items()) == sorted(response.json.items())
+    assert sorted(expected.items()) == sorted(response.json.items())
     assert response.status_code == 404
 
 
@@ -79,7 +78,7 @@ def test_create_product(client):
     category = CategoryFactory()
 
     data = dict(
-        title='Test',
+        name='Test',
         description='Description',
         discount=0.0,
         price=0.0,
@@ -102,14 +101,14 @@ def test_create_product(client):
     # get product
     rv = client.get(urlsplit(rv.headers['Location']).path)
     assert rv.status_code == 200
-    assert rv.json['title'] == 'Test'
+    assert rv.json['name'] == 'Test'
 
     # get list of products
     rv = client.get('/v2/products')
 
     assert rv.status_code == 200
     assert len(rv.json) == 1
-    assert rv.json[0]['title'] == 'Test'
+    assert rv.json[0]['name'] == 'Test'
 
 
 def test_product_invalid_format(client):
@@ -117,7 +116,7 @@ def test_product_invalid_format(client):
     category = CategoryFactory()
 
     data = dict(
-        title='Test',
+        name='Test',
         description='Description',
         discount=0.0,
         price=0.0,
@@ -138,7 +137,7 @@ def test_product_integrity_error(client):
     product = ProductFactory(brand=brand, category=category)
 
     data = dict(
-        title=product.title,
+        name=product.name,
         description='Description',
         discount=0.0,
         price=0.0,
@@ -148,7 +147,7 @@ def test_product_integrity_error(client):
         category_id=category.id
     )
 
-    # integrity error (unique title)
+    # integrity error (unique name)
     rv = client.post('/v2/products', json=data)
     assert rv.status_code == 422
 

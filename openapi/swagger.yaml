@@ -96,7 +96,7 @@ components:
           format: int32
           minimum: 1
           example: 42
-        title:
+        name:
           type: string
           example: iPhone 9
           minLength: 1
@@ -135,7 +135,7 @@ components:
           example: 13
       required:
         - id
-        - title
+        - name
         - price
         - discount
         - rating
@@ -205,7 +205,7 @@ components:
             message:
               title: A message indicating the reason for the error.
               type: string
-              example: Product with this title already exists
+              example: Product with this name already exists
             status:
               example: Unprocessable Entity
     PreconditionRequiredErrorModel:
@@ -298,7 +298,7 @@ paths:
                 products_list:
                   value:
                     - id: 1
-                      title: iPhone 9
+                      name: iPhone 9
                       description: An Apple mobile which is nothing like apple
                       price: 549
                       discount: 12.96
@@ -307,7 +307,7 @@ paths:
                       brand_id: 7
                       category_id: 13
                     - id: 6
-                      title: Samsung Galaxy Book
+                      name: Samsung Galaxy Book
                       description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
                       price: 1499
                       discount: 4.15
@@ -339,7 +339,7 @@ paths:
                 iPhone:
                   value:
                     id: 1
-                    title: iPhone 9
+                    name: iPhone 9
                     description: An Apple mobile which is nothing like apple
                     price: 549
                     discount: 12.96
@@ -350,7 +350,7 @@ paths:
                 Samsung:
                   value:
                     id: 6
-                    title: Samsung Galaxy Book
+                    name: Samsung Galaxy Book
                     description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
                     price: 1499
                     discount: 4.15
@@ -387,7 +387,7 @@ paths:
                 iPhone:
                   value:
                     id: 1
-                    title: iPhone 9
+                    name: iPhone 9
                     description: An Apple mobile which is nothing like apple
                     price: 549
                     discount: 12.96
@@ -398,7 +398,7 @@ paths:
                 Samsung:
                   value:
                     id: 6
-                    title: Samsung Galaxy Book
+                    name: Samsung Galaxy Book
                     description: Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched
                     price: 1499
                     discount: 4.15
