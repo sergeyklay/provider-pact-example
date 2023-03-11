@@ -2,9 +2,9 @@
 openapi: 3.0.3
 
 info:
-  version: '2.0'
+  version: '2.1.0'
   title: Products API Definition
-  description: Provider-side demo using consumer-driven contract testing.
+  description: Presents a simple product API for educational and research purposes.
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
@@ -142,79 +142,82 @@ components:
         - stock
         - brand_id
         - category_id
-    NotFoundResponse:
-      title: Not Found Response
+    BasicErrorModel:
+      title: Basic Error Model
       type: object
       required:
         - code
         - status
       properties:
         code:
-          description: |-
-            The HTTP response code indicating an error. The 404 code is used
-            when the requested resource is not found on the server.
+          title: The HTTP response code indicating an error.
           type: integer
           format: int32
-          example: 404
-        message:
-          description: |-
-            A message indicating the reason for the error. In this case, the
-            message indicates that the requested product was not found on the
-            server. This field in response body is optional.
-          type: string
-          example: Product not found
         status:
-          description: |-
-            A textual description of the error status that supplements the HTTP
-            response code. Here, the "Not Found" status means that the requested
-            resource was not found on the server and cannot be returned in
-            response to the request.
+          title: A textual description of the error status that supplements the HTTP response code.
           type: string
-          example: Not Found
-    UnprocessableEntity:
-      title: Unprocessable Entity Response
-      type: object
-      required:
-        - code
-        - errors
-        - status
-      properties:
-        code:
-          type: integer
-          format: int32
-          example: 428
-        errors:
-          type: object
-        status:
-          type: string
-    PreconditionRequired:
-      title: Precondition Required Response
-      type: object
-      required:
-        - code
-        - status
-      properties:
-        code:
-          type: integer
-          format: int32
-          example: 428
-        status:
-          type: string
-          example: Precondition Required
-    PreconditionFailed:
-      title: Precondition Failed Response
-      type: object
-      required:
-        - code
-        - status
-      properties:
-        code:
-          type: integer
-          format: int32
-          example: 412
-        status:
-          type: string
-          example: Precondition Failed
+    NotFoundErrorModel:
+      title: Not Found Error Model
+      description: |-
+        The 404 (Not Found) status code means that the requested resource was
+        not found on the server and cannot be returned in response to the request.
+      allOf: # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/BasicErrorModel'
+        - type: object
+          properties:
+            code:
+              example: 404
+            status:
+              example: Not Found
+            message:
+              title: A message indicating the reason for the error.
+              type: string
+              example: Product not found
+    PreconditionFailedErrorModel:
+      title: Precondition Failed Error Model
+      allOf: # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/BasicErrorModel'
+        - type: object
+          properties:
+            code:
+              example: 412
+            status:
+              example: Precondition Failed
+    UnprocessableEntityErrorModel:
+      title: Unprocessable Entity Error Model
+      description: |-
+        The 422 status code means the server understands the content
+        type of the request entity, and the syntax of the request entity
+        is correct but was unable to process the contained instructions.
+      allOf: # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/BasicErrorModel'
+        - type: object
+          properties:
+            code:
+              example: 422
+            errors:
+              title: Validation errors in parameters or request body.
+              type: object
+              example:
+                json:
+                  title:
+                    - Length must be between 1 and 64.
+            message:
+              title: A message indicating the reason for the error.
+              type: string
+              example: Product with this title already exists
+            status:
+              example: Unprocessable Entity
+    PreconditionRequiredErrorModel:
+      title: Precondition Required Error Model
+      allOf: # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/BasicErrorModel'
+        - type: object
+          properties:
+            code:
+              example: 428
+            status:
+              example: Precondition Required
   parameters:
     ProductIdParameter:
       in: path
@@ -238,7 +241,7 @@ paths:
     get:
       summary: Get list of products
       description: Returns a list of all products.
-      operationId: products.index
+      operationId: v2.products.list
       tags: [products]
       parameters:
         - in: query
@@ -312,12 +315,15 @@ paths:
                       stock: 50
                       brand_id: 8
                       category_id: 13
-                  summary: A response with full products detail
+                  summary: A response products list
+                empty_list:
+                  value: []
+                  summary: En empty response
 
     post:
       summary: Create product
       description: Create a new product in the database.
-      operationId: products.create
+      operationId: v2.products.create
       tags: [products]
       responses:
         '200':
@@ -357,13 +363,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnprocessableEntity'
+                $ref: '#/components/schemas/UnprocessableEntityErrorModel'
 
   '/v2/products/{id}':
     get:
       summary: Get single product
       description: Returns a single product.
-      operationId: products.get
+      operationId: v2.products.read
       tags: [products]
       parameters:
         - $ref: '#/components/parameters/ProductIdParameter'
@@ -405,19 +411,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NotFoundResponse'
+                $ref: '#/components/schemas/NotFoundErrorModel'
 
     # This request is required to be conditional
     delete:
       summary: Delete product
       description: Deletes a specific product and returns status code 204 if successful, otherwise - 404.
-      operationId: products.delete
+      operationId: v2.products.delete
       tags: [ products ]
       parameters:
         - $ref: '#/components/parameters/ProductIdParameter'
         - in: header
-          name: ETag
-          description: The ETag HTTP request header is an identifier for a specific version of a resource.
+          name: If-Match
+          description: An identifier for a specific version of a resource.
           required: true
           schema:
             type: string
@@ -435,16 +441,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NotFoundResponse'
+                $ref: '#/components/schemas/NotFoundErrorModel'
         '412':
           description: Precondition Failed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PreconditionFailed'
+                $ref: '#/components/schemas/PreconditionFailedErrorModel'
         '428':
           description: Precondition Required
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PreconditionRequired'
+                $ref: '#/components/schemas/PreconditionRequiredErrorModel'
