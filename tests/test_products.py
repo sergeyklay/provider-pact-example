@@ -7,6 +7,7 @@
 
 """Module for Product API testing."""
 
+import datetime
 from urllib.parse import urlsplit
 
 from .factories import BrandFactory, CategoryFactory, ProductFactory
@@ -85,13 +86,20 @@ def test_create_product(client):
         rating=0.0,
         stock=0,
         brand_id=brand.id,
-        category_id=category.id
+        category_id=category.id,
     )
 
     # add a product
+    today = datetime.datetime.utcnow().strftime(
+        '%Y-%m-%dT%H:%M:%S.000000Z'
+    )
     rv = client.post('/v2/products', json=data)
 
-    data.update({'id': 1})
+    data.update({
+        'id': 1,
+        'created_at': today,
+        'updated_at': today,
+    })
     assert sorted(data .items()) == sorted(rv.json.items())
     assert rv.status_code == 201
     assert 'Location' in rv.headers

@@ -8,22 +8,51 @@
 """ORM models for the application and helper functions."""
 
 import decimal
+from datetime import datetime
 from typing import List
 
 import sqlalchemy as sa
 from flask import url_for
 from sqlalchemy import orm as so
+from sqlalchemy.sql import func
 
 from .app import db
 
 
-class Product(db.Model):
-    __tablename__ = 'products'
+class IdentityMixin:
+    """Mixin class to add identity fields to a SQLAlchemy model."""
 
     id: so.Mapped[int] = so.mapped_column(
         primary_key=True,
         autoincrement=True,
     )
+
+    def __repr__(self):
+        """Returns the object representation in string format."""
+        return f'<{self.__class__.__name__} id={self.id!r}>'
+
+
+class TimestampMixin:
+    """Mixin class to add timestamp fields to a SQLAlchemy model."""
+
+    created_at: so.Mapped[datetime] = so.mapped_column(
+        sa.DateTime(timezone=True),
+        nullable=False,
+        index=True,
+        server_default=func.now(),
+    )
+
+    updated_at: so.Mapped[datetime] = so.mapped_column(
+        sa.DateTime(timezone=True),
+        nullable=False,
+        index=True,
+        onupdate=func.now(),
+        server_default=func.now(),
+    )
+
+
+class Product(IdentityMixin, TimestampMixin, db.Model):
+    __tablename__ = 'products'
 
     name: so.Mapped[str] = so.mapped_column(
         sa.String(64),
@@ -83,18 +112,9 @@ class Product(db.Model):
     def get_url(self):
         return url_for('api.ProductsById', product_id=self.id, _external=True)
 
-    def __repr__(self):
-        """Returns the object representation in string format."""
-        return f'''<Product {self.id!r}>'''
 
-
-class Category(db.Model):
+class Category(IdentityMixin, TimestampMixin, db.Model):
     __tablename__ = 'categories'
-
-    id: so.Mapped[int] = so.mapped_column(
-        primary_key=True,
-        autoincrement=True,
-    )
 
     name: so.Mapped[str] = so.mapped_column(
         sa.String(64),
@@ -107,18 +127,9 @@ class Category(db.Model):
         back_populates='category',
     )
 
-    def __repr__(self):
-        """Returns the object representation in string format."""
-        return f'''<Category {self.id!r}>'''
 
-
-class Brand(db.Model):
+class Brand(IdentityMixin, TimestampMixin, db.Model):
     __tablename__ = 'brands'
-
-    id: so.Mapped[int] = so.mapped_column(
-        primary_key=True,
-        autoincrement=True,
-    )
 
     name: so.Mapped[str] = so.mapped_column(
         sa.String(64),
@@ -130,7 +141,3 @@ class Brand(db.Model):
     product: so.Mapped[List['Product']] = so.relationship(
         back_populates='brand',
     )
-
-    def __repr__(self):
-        """Returns the object representation in string format."""
-        return f'''<Brand {self.id!r}>'''
