@@ -59,7 +59,7 @@ def seed_products():
             )
 
             product = Product(
-                title=' '.join(fake.words(nb=5)).capitalize(),
+                name=' '.join(fake.words(nb=5)).capitalize(),
                 description=fake.sentence(nb_words=10),
                 price=price,
                 discount=fake.pyfloat(

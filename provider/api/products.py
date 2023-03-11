@@ -5,6 +5,8 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+"""Module for serving API request for products."""
+
 from flask import Response
 from flask.views import MethodView
 from flask_smorest import abort, Page
@@ -43,7 +45,7 @@ class Products(MethodView):
         search = args.get('q')
         if search is not None and search:
             query = query.filter(or_(
-                Product.title.contains(search),
+                Product.name.contains(search),
                 Product.description.contains(search),
             ))
 
@@ -59,8 +61,8 @@ class Products(MethodView):
         product_schema = ProductSchema()
         data = product_schema.load(data)
 
-        if Product.query.filter(Product.title == data['title']).first():
-            abort(422, message='Product with this title already exists')
+        if Product.query.filter(Product.name == data['name']).first():
+            abort(422, message='Product with this name already exists')
 
         # Create product
 

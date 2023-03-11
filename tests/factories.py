@@ -45,7 +45,7 @@ class ProductFactory(factory.alchemy.SQLAlchemyModelFactory):
         sqlalchemy_session_persistence = 'commit'
 
     id = factory.Sequence(lambda n: n)
-    title = factory.Sequence(lambda n: 'product%d' % n)
+    name = factory.Sequence(lambda n: 'product%d' % n)
     description = factory.Sequence(lambda n: 'description%d' % n)
     price = factory.LazyFunction(lambda: round(random.uniform(1.0, 500.0), 2))
     discount = factory.LazyFunction(

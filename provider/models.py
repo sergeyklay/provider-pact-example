@@ -5,6 +5,8 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+"""ORM models for the application and helper functions."""
+
 import decimal
 from typing import List
 
@@ -23,7 +25,7 @@ class Product(db.Model):
         autoincrement=True,
     )
 
-    title: so.Mapped[str] = so.mapped_column(
+    name: so.Mapped[str] = so.mapped_column(
         sa.String(64),
         unique=True,
         index=True,

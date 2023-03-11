@@ -5,7 +5,9 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-from marshmallow import EXCLUDE, fields, Schema, validate
+"""Schemes for handling (de)serialized model representation."""
+
+from marshmallow import EXCLUDE, fields, post_dump, Schema, validate
 
 
 class CategorySchema(Schema):
@@ -54,7 +56,7 @@ class ProductSchema(Schema):
 
     id = fields.Int(dump_only=True)
 
-    title = fields.Str(
+    name = fields.Str(
         required=True,
         validate=validate.Length(min=1, max=64),
     )
