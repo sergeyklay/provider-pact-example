@@ -7,6 +7,7 @@
 
 """Providing various factories for testing purposes."""
 
+import datetime
 import random
 
 import factory
@@ -54,3 +55,23 @@ class ProductFactory(factory.alchemy.SQLAlchemyModelFactory):
     stock = factory.Iterator(range(10, 1000))
     brand = factory.SubFactory(BrandFactory)
     category = factory.SubFactory(CategoryFactory)
+    created_at = datetime.datetime(
+        year=2023,
+        month=12,
+        day=31,
+        hour=23,
+        minute=59,
+        second=59,
+        microsecond=0,
+        tzinfo=datetime.timezone.utc
+    )
+    updated_at = datetime.datetime(
+        year=2023,
+        month=12,
+        day=31,
+        hour=23,
+        minute=59,
+        second=59,
+        microsecond=0,
+        tzinfo=datetime.timezone.utc
+    )
