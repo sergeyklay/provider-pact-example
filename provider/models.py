@@ -13,10 +13,51 @@ from typing import List
 
 import sqlalchemy as sa
 from flask import url_for
+from flask_smorest import abort
 from sqlalchemy import orm as so
 from sqlalchemy.sql import func
 
 from .app import db
+
+
+class BaseMixin:
+    @classmethod
+    def get(cls, entity_id):
+        """Return the model with the specified identifier."""
+        return db.session.get(cls, entity_id)
+
+    @classmethod
+    def get_or_404(cls, entity_id):
+        """Return the model with the specified identifier.
+
+        Raise a HTTPException with 404 status code if a record with the
+        specified identifier not found in the database.
+        """
+        rv = cls.get(entity_id)
+        if rv is None:
+            abort(404, message=f'{cls.__name__} not found')
+        return rv
+
+    @classmethod
+    def create(cls, **kwargs):
+        """Create and save a new model instance.
+
+        Creates a new model instance with the passed parameters, saves it to
+        the database using the save method and returns the created instance.
+        """
+        instance = cls(**kwargs)
+        instance.save()
+        return instance
+
+    def save(self):
+        """Save the current model to the database."""
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        """Delete the current model from the database."""
+        db.session.delete(self)
+        db.session.commit()
 
 
 class IdentityMixin:
@@ -50,8 +91,13 @@ class TimestampMixin:
         server_default=func.now(),
     )
 
+    def last_modified(self) -> str:
+        """Get the time of the last model update."""
+        modified = self.updated_at or self.created_at or datetime.utcnow()
+        return modified.strftime('%a, %d %b %Y %H:%M:%S GMT')
 
-class Product(IdentityMixin, TimestampMixin, db.Model):
+
+class Product(BaseMixin, IdentityMixin, TimestampMixin, db.Model):
     __tablename__ = 'products'
 
     name: so.Mapped[str] = so.mapped_column(
@@ -113,7 +159,7 @@ class Product(IdentityMixin, TimestampMixin, db.Model):
         return url_for('api.ProductsById', product_id=self.id, _external=True)
 
 
-class Category(IdentityMixin, TimestampMixin, db.Model):
+class Category(BaseMixin, IdentityMixin, TimestampMixin, db.Model):
     __tablename__ = 'categories'
 
     name: so.Mapped[str] = so.mapped_column(
@@ -128,7 +174,7 @@ class Category(IdentityMixin, TimestampMixin, db.Model):
     )
 
 
-class Brand(IdentityMixin, TimestampMixin, db.Model):
+class Brand(BaseMixin, IdentityMixin, TimestampMixin, db.Model):
     __tablename__ = 'brands'
 
     name: so.Mapped[str] = so.mapped_column(

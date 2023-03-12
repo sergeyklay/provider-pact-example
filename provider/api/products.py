@@ -13,7 +13,6 @@ from flask_smorest import abort, Page
 from sqlalchemy import or_
 
 from provider.api import api
-from provider.app import db
 from provider.models import Brand, Category, Product
 from .schemas import ProductQueryArgsSchema, ProductSchema
 
@@ -53,8 +52,8 @@ class Products(MethodView):
 
     @api.arguments(ProductSchema)
     @api.response(201, ProductSchema)
-    @api.alt_response(400, description='Validation error')
-    @api.alt_response(422, description='Validation error')
+    @api.alt_response(400, description='Bad Request')
+    @api.alt_response(422, description='Unprocessable Entity')
     def post(self, data: dict):
         """Add a new product."""
         # Validate and deserialize request data
@@ -64,15 +63,11 @@ class Products(MethodView):
         if Product.query.filter(Product.name == data['name']).first():
             abort(422, message='Product with this name already exists')
 
-        # Create product
+        brand = Brand.get_or_404(data.pop('brand_id'))
+        category = Category.get_or_404(data.pop('category_id'))
 
-        brand = db.session.get(Brand, data.pop('brand_id'))
-        category = db.session.get(Category, data.pop('category_id'))
-        product = Product(**data, brand=brand, category=category)
-
-        # Save product to database
-        db.session.add(product)
-        db.session.commit()
+        product = Product.create(**data, brand=brand, category=category)
+        product.save()
 
         headers = {'Location': product.get_url()}
         return product, 201, headers
@@ -89,10 +84,12 @@ class ProductsById(MethodView):
         Returns a single product and status code 200 if successful,
         otherwise - 404.
         """
-        rv = db.session.get(Product, product_id)
-        if rv is None:
-            abort(404, message='Product not found')
-        return rv
+        product = Product.get_or_404(product_id)
+        headers = {
+            'Last-Modified': product.last_modified(),
+        }
+
+        return product, 200, headers
 
     @api.response(204)
     @api.alt_response(404, description='Product not found')
@@ -104,13 +101,8 @@ class ProductsById(MethodView):
         Deletes a specified product and returns status code 204 if successful,
         otherwise - 404.
         """
-        rv = db.session.get(Product, product_id)
-        if rv is None:
-            abort(404, message='Product not found')
-
-        api.check_etag(rv, ProductSchema)
-
-        db.session.delete(rv)
-        db.session.commit()
+        product = Product.get_or_404(product_id)
+        api.check_etag(product, ProductSchema)
+        product.delete()
 
         return Response(status=204)
