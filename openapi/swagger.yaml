@@ -22,15 +22,31 @@ tags:
 
 components:
   headers:
+    LastModifiedHeader:
+      description: |-
+        The `Last-Modified` HTTP response header contains a date and time when
+        the origin server believes the resource was last modified.
+      schema:
+        type: string
+        minLength: 29
+        maxLength: 29
+      example: Mon, 04 Feb 2016 23:04:04 GMT
+    LocationHeader:
+      description: |-
+        The `Location` HTTP response header used in responses to refer to the
+        primary resource created by the request.
+      schema:
+        type: string
+      example: https://api.example.com/v1/products/1
     ETagHeader:
-      description: The ETag HTTP response header is an identifier for a specific version of a resource.
+      description: The `ETag` HTTP response header is an identifier for a specific version of a resource.
       schema:
         type: string
         minLength: 2
         maxLength: 44
       example: '"92cfceb39d57d914ed8b14d0e37643de0797ae56"'
     X-Pagination:
-      description: The X-Pagination HTTP response header contains the pagination information.
+      description: The `X-Pagination` HTTP response header contains the pagination information.
       schema:
         type: object
         required:
@@ -401,6 +417,8 @@ paths:
         '200':
           description: A product
           headers:
+            Location:
+              $ref: '#/components/headers/LocationHeader'
             ETag:
               $ref: '#/components/headers/ETagHeader'
           content:
@@ -453,6 +471,8 @@ paths:
         '200':
           description: A product
           headers:
+            Last-Modified:
+              $ref: '#/components/headers/LastModifiedHeader'
             ETag:
               $ref: '#/components/headers/ETagHeader'
           content:
