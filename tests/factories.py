@@ -7,7 +7,6 @@
 
 """Providing various factories for testing purposes."""
 
-import datetime
 import random
 
 import factory
