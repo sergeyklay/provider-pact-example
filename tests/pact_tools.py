@@ -38,7 +38,8 @@ class StateManager:
             self._STATE_SETUP_MAPPING[self.state]()
 
     def _create_product(self):
-        ProductFactory(id=1)
+        self._delete_all_products()
+        ProductFactory(id=1, name='product0')
 
     def _create_few_products(self):
         self._delete_all_products()
