@@ -89,10 +89,8 @@ def test_create_product(client):
         category_id=category.id,
     )
 
+    today = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.000Z')
     # add a product
-    today = datetime.datetime.utcnow().strftime(
-        '%Y-%m-%dT%H:%M:%S.000000Z'
-    )
     rv = client.post('/v2/products', json=data)
 
     data.update({
