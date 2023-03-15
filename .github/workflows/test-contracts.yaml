@@ -129,7 +129,7 @@ jobs:
       - name: Download pact_verifier_cli
         run: |
           repo=https://github.com/pact-foundation/pact-reference
-          release=pact_verifier_cli-v0.10.3
+          release=pact_verifier_cli-v0.10.4
           file=pact_verifier_cli-linux-x86_64
           archive="${file}.gz"
           
