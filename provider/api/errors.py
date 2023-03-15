@@ -13,11 +13,22 @@ from werkzeug.exceptions import HTTPException
 from . import api
 
 
-@api.errorhandler(Exception)
-def handle_500(error: Exception):
-    """Registers a function to handle base Exception."""
+def handle_application_error(error: Exception):
+    """Handle Exception derivatives."""
     exc = HTTPException()
     exc.description = error.args[0]
     exc.code = 500
 
     return ErrorHandlerMixin().handle_http_exception(exc)
+
+
+@api.errorhandler(AttributeError)
+def handle_attribute_error(error: AttributeError):
+    """Registers a function to handle AttributeError."""
+    return handle_application_error(error)
+
+
+@api.errorhandler(TypeError)
+def handle_type_error(error: TypeError):
+    """Registers a function to handle TypeError."""
+    return handle_application_error(error)
