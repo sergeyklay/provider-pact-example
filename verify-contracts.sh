@@ -39,7 +39,7 @@ export PACT_BROKER_USERNAME PACT_BROKER_PASSWORD PACT_BROKER_BASE_URL
 # part of this script when running the tests. Alternatives could be,
 # for example running a Docker container with a DB of test data configured.
 # This is the "real" provider to verify against.
-PROVIDER_HOST="${PROVIDER_HOST:-127.0.0.1}"
+PROVIDER_HOST="${PROVIDER_HOST:-localhost}"
 PROVIDER_PORT="${PROVIDER_PORT:-5001}"
 PROVIDER_TRANSPORT="${PROVIDER_TRANSPORT:-http}"
 
