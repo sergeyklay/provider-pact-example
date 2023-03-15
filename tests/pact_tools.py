@@ -10,8 +10,8 @@
 from sqlalchemy import delete
 
 from provider.app import db
-from provider.models import Category, Brand, Product
-from .factories import CategoryFactory, BrandFactory, ProductFactory
+from provider.models import Brand, Category, Product
+from .factories import BrandFactory, CategoryFactory, ProductFactory
 
 
 class StateManager:
