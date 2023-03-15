@@ -56,7 +56,7 @@ def test_product_service_provider_against_broker(broker_opts: dict,
     #    {:provider_name=>"ProductService", \
     #    :params=>{"includePendingStatus"=>false}}
     #
-    success, logs = verifier.verify_with_broker(
+    result, _ = verifier.verify_with_broker(
         **broker_opts,
         verbose=False,
         provider_states_setup_url=f"{PROVIDER_URL}/-pact/provider-states",
@@ -93,4 +93,4 @@ def test_product_service_provider_against_broker(broker_opts: dict,
     #  it has not resulted in a REGRESSION of an already verified interaction.
     #  See https://docs.pact.io/pact_broker/advanced_topics/pending_pacts/ for
     #  more details.
-    assert success == 0
+    assert result == 0
