@@ -53,7 +53,6 @@ class ProductSchema(Schema):
 
     class Meta:
         unknown = EXCLUDE
-        datetimeformat = '%Y-%m-%dT%H:%M:%S.%f%z'
 
     id = fields.Int(dump_only=True)
 
@@ -94,8 +93,16 @@ class ProductSchema(Schema):
 
     brand_id = fields.Int(required=True)
     category_id = fields.Int(required=True)
-    created_at = fields.DateTime(dump_only=True)
-    updated_at = fields.DateTime(dump_only=True)
+
+    created_at = fields.Function(
+        lambda obj: obj.created_at.isoformat(timespec='milliseconds'),
+        dump_only=True
+    )
+
+    updated_at = fields.Function(
+        lambda obj: obj.updated_at.isoformat(timespec='milliseconds'),
+        dump_only=True
+    )
 
     @post_dump()
     def fix_datetimes(self, data, **_unused):

@@ -16,4 +16,5 @@ api = Blueprint(
     description='Provider-side demo using consumer-driven contract testing'
 )
 
-from . import products  # noqa: I100, I202, F401, E402
+
+from . import errors, products  # noqa: I100, I202, F401, E402
