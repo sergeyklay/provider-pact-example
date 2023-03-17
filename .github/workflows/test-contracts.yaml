@@ -111,13 +111,13 @@ jobs:
       - name: Start broker
         id: consumer-broker
         run: docker compose up -d --quiet-pull --no-color
-        working-directory: consumer-pact-example/tests/broker
+        working-directory: consumer-pact-example
 
       - name: Print docker logs
         id: consumer-broker-logs
         if: failure()
         run: docker compose logs
-        working-directory: consumer-pact-example/tests/broker
+        working-directory: consumer-pact-example
 
       - name: Publish consumer's pacts to broker
         id: consumer-publish-pacts
