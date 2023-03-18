@@ -51,6 +51,10 @@ def configure_app(app: Flask, config_name=None):
     """Configure application."""
     from provider.config import config, Config
 
+    # Add mimetype charset to for JSON responses.
+    app.json.ensure_ascii = False
+    app.json.mimetype = 'application/json; charset=utf-8'
+
     # Use the default config and override it afterwards
     app.config.from_object(config['default'])
 
