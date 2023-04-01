@@ -12,7 +12,7 @@
             <img src="https://github.com/sergeyklay/provider-pact-example/actions/workflows/lint-oas.yaml/badge.svg" alt="Lint OpenAPI" />
         </a>
         <a href="https://codecov.io/gh/sergeyklay/provider-pact-example" >
-            <img src="https://codecov.io/gh/sergeyklay/provider-pact-example/branch/main/graph/badge.svg?token=2C8W0VZQGN"/>
+            <img src="https://codecov.io/gh/sergeyklay/provider-pact-example/branch/main/graph/badge.svg?token=2C8W0VZQGN" alt="Coverage Status"/>
         </a>
     </p>
 
