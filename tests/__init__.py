@@ -5,4 +5,4 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-"""Module for Provider API Example testing."""
+"""The top-level module for application testing."""
