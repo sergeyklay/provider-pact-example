@@ -5,7 +5,13 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-"""Module for managing the configuration of the application."""
+"""Configuration module for the application.
+
+Provides the base configuration and specific configurations for development,
+testing, and production. Includes the 'config' dictionary for easy switching
+between different configurations.
+
+"""
 
 import os
 
