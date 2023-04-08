@@ -53,7 +53,7 @@ def is_canonical_version(version):
 def find_meta(meta):
     """Extract __*meta*__ from META_CONTENTS."""
     meta_match = re.search(
-        r"^__{meta}__\s+=\s+['\"]([^'\"]*)['\"]".format(meta=meta),
+        fr"^__{meta}__\s+=\s+['\"]([^'\"]*)['\"]",
         META_CONTENTS,
         re.M
     )
@@ -72,8 +72,8 @@ def get_version_string():
     # Check validity
     if not is_canonical_version(version_string):
         message = (
-            'The detected version string "{}" is not in canonical '
-            'format as defined in PEP 440.'.format(version_string))
+            f'The detected version string "{version_string}" is not in '
+            'canonical format as defined in PEP 440.')
         raise ValueError(message)
 
     return version_string
