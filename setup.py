@@ -159,10 +159,10 @@ EXTRAS_REQUIRE['develop'] = \
 
 # Project's URLs
 PROJECT_URLS = {
-    'Documentation': 'https://github.com/sergeyklay/provider-pact-example',
-    'Changelog': 'https://github.com/sergeyklay/provider-pact-example/blob/main/CHANGELOG.rst',  # noqa: E501
-    'Bug Tracker': 'https://github.com/sergeyklay/provider-pact-example/issues',  # noqa: E501
-    'Source Code': 'https://github.com/sergeyklay/provider-pact-example',
+    'Documentation': find_meta('url'),
+    'Changelog': f"{find_meta('url')}/blob/main/CHANGELOG.rst",
+    'Bug Tracker': f"{find_meta('url')}/issues",
+    'Source Code': find_meta('url'),
 }
 
 if __name__ == '__main__':
