@@ -14,13 +14,17 @@ apispec[marshmallow]==6.2.0 \
     --hash=sha256:1a949a60bb4c42bee57aaaf5d43c184df3e2e96d9658e442e75dd4435cf60961 \
     --hash=sha256:66e8386911eab1af0d2dac088d266c2d523dafa2c0c0fefa84913448e3670fd7
     # via flask-smorest
+blinker==1.6.2 \
+    --hash=sha256:4afd3de66ef3a9f8067559fb7a1cbe555c17dcbe15971b05d1b625c3e7abe213 \
+    --hash=sha256:c3d739772abb7bc2860abf5f2ec284223d9ad5c76da018234f6f50d6f31ab1f0
+    # via flask
 click==8.1.3 \
     --hash=sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e \
     --hash=sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48
     # via flask
-flask==2.2.5 \
-    --hash=sha256:58107ed83443e86067e41eff4631b058178191a355886f8e479e347fa1285fdf \
-    --hash=sha256:edee9b0a7ff26621bd5a8c10ff484ae28737a2410d99b0bb9a6850c7fb977aa0
+flask==2.3.2 \
+    --hash=sha256:77fd4e1249d8c9923de34907236b747ced06e5467ecac1a7bb7115ae0e9670b0 \
+    --hash=sha256:8c2f9abd47a9e8df7f0c3f091ce9497d011dc3b31effcf4c85a6e2b50f4114ef
     # via
     #   -r requirements/requirements.in
     #   flask-migrate
