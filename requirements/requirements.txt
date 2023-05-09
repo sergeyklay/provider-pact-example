@@ -248,9 +248,9 @@ webargs==8.2.0 \
     --hash=sha256:6746327faf549533bf30be7333f99541b6c60a85f23acf1bb0bea68498e3bcd7 \
     --hash=sha256:99d68940c452e07726485a15fef43f12f8ae6c0c5b391bcba76065d4527fb85d
     # via flask-smorest
-werkzeug==2.3.3 \
-    --hash=sha256:4866679a0722de00796a74086238bb3b98d90f423f05de039abb09315487254a \
-    --hash=sha256:a987caf1092edc7523edb139edb20c70571c4a8d5eed02e0b547b4739174d091
+werkzeug==2.3.4 \
+    --hash=sha256:1d5a58e0377d1fe39d061a5de4469e414e78ccb1e1e59c0f5ad6fa1c36c52b76 \
+    --hash=sha256:48e5e61472fee0ddee27ebad085614ebedb7af41e88f687aaf881afb723a162f
     # via
     #   -r requirements/requirements.in
     #   flask
