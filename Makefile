@@ -36,8 +36,6 @@ endef
 requirements/%.txt: requirements/%.in $(VENV_BIN)
 	$(VENV_BIN)/pip-compile --allow-unsafe --generate-hashes --output-file=$@ $<
 
-## Public targets
-
 $(VENV_PYTHON): $(VENV_ROOT)
 	@echo
 
@@ -54,6 +52,8 @@ $(VENV_ROOT):
 	@echo See https://docs.python.org/3/library/venv.html for more.
 	@echo
 	$(call mk-venv-link)
+
+## Public targets
 
 .PHONY: init
 init: $(VENV_PYTHON)
@@ -79,6 +79,7 @@ uninstall:
 	@echo Done.
 	@echo
 
+.PHONY: serve
 serve: $(VENV_PYTHON) .env runner.py
 	@echo $(CS)Run builtin server$(CE)
 	$(VENV_BIN)/flask --app runner:app run --debug
@@ -88,6 +89,12 @@ serve: $(VENV_PYTHON) .env runner.py
 migrate: $(VENV_PYTHON)
 	@echo $(CS)Run database migrations$(CE)
 	$(VENV_BIN)/flask --app runner:app db upgrade
+	@echo
+
+.PHONY: shell
+shell: $(PYTHON)
+	@echo $(CS)Starting a shell$(CE)
+	$(VENV_BIN)/flask --app runner:app shell
 	@echo
 
 .PHONY: seed
@@ -156,6 +163,7 @@ help:
 	@echo '  uninstall:    Uninstall local version of the project'
 	@echo '  serve:        Run builtin server'
 	@echo '  migrate:      Run database migrations'
+	@echo '  shell:        Run a shell in the app context'
 	@echo '  seed:         Add seed data to the database'
 	@echo '  lint:         Lint the code'
 	@echo '  test:         Run unit tests with coverage'

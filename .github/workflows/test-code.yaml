@@ -57,6 +57,12 @@ jobs:
       - name: Install dependencies
         run: make install
 
+      - name: Setuptools self-test
+        run: |
+          python setup.py --fullname
+          python setup.py --long-description
+          python setup.py --classifiers
+
       - name: Run unit tests with coverage
         run: make test
 

@@ -5,8 +5,8 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-# Run “make test” by default
-.DEFAULT_GOAL = test
+# Run “make help” by default
+.DEFAULT_GOAL = help
 
 ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 PKG_NAME = provider

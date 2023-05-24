@@ -33,15 +33,60 @@ VERSION_REGEX = (r'([1-9][0-9]*!)?(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))'
 
 def long_description():
     """Provide long description for package."""
-    contents = (
-        '====================',
-        'Provider API Example',
-        '====================',
-        '',
-        'Sample Products API for contract testing purpose.',
-    )
 
-    return '\n'.join(contents)
+    def extract_text_between(text, start, end) -> str:
+        pattern = f'{re.escape(start)}(.*?){re.escape(end)}'
+        result = re.search(pattern, text, re.DOTALL)
+        return result.group(1) if result else ''
+
+    def description() -> str:
+        readme = path.join(PKG_DIR, 'README.rst')
+        if not path.isfile(readme):
+            return ''
+
+        text = read_file(readme)
+        return extract_text_between(
+            text,
+            '.. teaser-begin',
+            '.. teaser-end'
+        ).strip()
+
+    def changes() -> str:
+        changelog = path.join(PKG_DIR, 'CHANGELOG.rst')
+        if not path.isfile(changelog):
+            return ''
+
+        pattern = (fr'({VERSION_REGEX} \(.*?\)\r?\n.*?)'
+                   r'\r?\n\r?\n\r?\n----\r?\n\r?\n\r?\n')
+        result = re.search(pattern, read_file(changelog), re.S)
+
+        return result.group(1) if result else ''
+
+    try:
+        title = f"{PKG_NAME}: {find_meta('description')}"
+        head = '=' * (len(title) - 1)
+
+        contents = (
+            head,
+            format(title.strip(' .')),
+            head,
+            '',
+            description(),
+            '',
+            'Release Information',
+            '===================\n',
+            changes(),
+            '',
+            f"`Full changelog <{find_meta('url')}/blob/main/CHANGELOG.rst>`_.",
+            '',
+            read_file(path.join(PKG_DIR, 'SECURITY.rst')),
+            '',
+            read_file(path.join(PKG_DIR, 'AUTHORS.rst')),
+        )
+        return '\n'.join(contents)
+    except (RuntimeError, FileNotFoundError) as read_error:
+        message = 'Long description could not be read from README.rst'
+        raise RuntimeError(f'{message}: {read_error}') from read_error
 
 
 def is_canonical_version(version):
@@ -53,7 +98,7 @@ def is_canonical_version(version):
 def find_meta(meta):
     """Extract __*meta*__ from META_CONTENTS."""
     meta_match = re.search(
-        r"^__{meta}__\s+=\s+['\"]([^'\"]*)['\"]".format(meta=meta),
+        fr"^__{meta}__\s+=\s+['\"]([^'\"]*)['\"]",
         META_CONTENTS,
         re.M
     )
@@ -72,8 +117,8 @@ def get_version_string():
     # Check validity
     if not is_canonical_version(version_string):
         message = (
-            'The detected version string "{}" is not in canonical '
-            'format as defined in PEP 440.'.format(version_string))
+            f'The detected version string "{version_string}" is not in '
+            'canonical format as defined in PEP 440.')
         raise ValueError(message)
 
     return version_string
@@ -159,10 +204,10 @@ EXTRAS_REQUIRE['develop'] = \
 
 # Project's URLs
 PROJECT_URLS = {
-    'Documentation': 'https://github.com/sergeyklay/provider-pact-example',
-    'Changelog': 'https://github.com/sergeyklay/provider-pact-example/blob/main/CHANGELOG.rst',  # noqa: E501
-    'Bug Tracker': 'https://github.com/sergeyklay/provider-pact-example/issues',  # noqa: E501
-    'Source Code': 'https://github.com/sergeyklay/provider-pact-example',
+    'Documentation': find_meta('url'),
+    'Changelog': f"{find_meta('url')}/blob/main/CHANGELOG.rst",
+    'Bug Tracker': f"{find_meta('url')}/issues",
+    'Source Code': find_meta('url'),
 }
 
 if __name__ == '__main__':

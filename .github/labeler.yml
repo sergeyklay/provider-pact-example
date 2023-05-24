@@ -6,13 +6,28 @@
 # the LICENSE file that was distributed with this source code.
 
 'open api':
+  - '.redocly.yaml'
   - 'openapi/*.yaml'
 
 python:
-  - any: ['provider/**/*']
+    - '**/*.py'
+    - 'setup.cfg'
+    - 'provider/**/*'
+    - 'requirements/*.in'
+    - 'requirements/*.txt'
+
+javascript:
+  - 'package.json'
+  - 'package-lock.json'
+
+dependencies:
+  - 'package.json'
+  - 'package-lock.json'
+  - 'requirements/*.in'
+  - 'requirements/*.txt'
 
 github_actions:
-  - any: ['.github/**/*']
+  - '.github/workflows/*.yaml'
 
 documentation:
   - '*.rst'

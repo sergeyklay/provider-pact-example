@@ -20,6 +20,8 @@
 
 # Application configuration
 .env
+.env.*
+!.env.example
 
 # Python cache.
 *.py[cod]

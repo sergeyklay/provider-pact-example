@@ -122,10 +122,17 @@ def configure_context_processors(app: Flask):
     import inspect
     from provider import models
 
+    ctx = {}
+    for pair in inspect.getmembers(models, inspect.isclass):
+        # Do not reimport non-project models
+        if pair[1].__module__ == models.__name__:
+            ctx[pair[0]] = pair[1]
+
     @app.shell_context_processor
     def make_shell_context():
         """Configure flask shell command to autoimport app objects."""
         return {
             'app': app,
             'db': db,
-            **dict(inspect.getmembers(models, inspect.isclass))}
+            **ctx
+        }
