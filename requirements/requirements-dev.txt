@@ -178,9 +178,9 @@ factory-boy==3.2.1 \
     --hash=sha256:a98d277b0c047c75eb6e4ab8508a7f81fb03d2cb21986f627913546ef7a2a55e \
     --hash=sha256:eb02a7dd1b577ef606b75a253b9818e6f9eaf996d94449c9d5ebb124f90dc795
     # via -r requirements/requirements-dev.in
-faker==18.7.0 \
-    --hash=sha256:38dbc3b80e655d7301e190426ab30f04b6b7f6ca4764c5dd02772ffde0fa6dcd \
-    --hash=sha256:f02c6d3fdb5bc781f80b440cf2bdec336ed47ecfb8d620b20c3d4188ed051831
+faker==18.10.1 \
+    --hash=sha256:633b278caa3ec239463f9139c74da2607c8da5710e56d5d7d30fc8a7440104c4 \
+    --hash=sha256:d9f363720c4a6cf9884c6c3e26e2ce26266ffe5d741a9bc7cb9256779bc62190
     # via
     #   -r requirements/requirements-dev.in
     #   factory-boy
