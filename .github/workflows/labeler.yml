@@ -20,7 +20,7 @@ jobs:
     name: Pull Request Labeler
 
     steps:
-    - uses: actions/labeler@v4.2.0
+    - uses: actions/labeler@v4.3.0
       continue-on-error: true
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
