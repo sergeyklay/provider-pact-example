@@ -54,7 +54,7 @@ jobs:
 
       - name: Set up Go
         if: steps.changed-oas-files.outputs.any_changed == 'true'
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: '1.19'
 
