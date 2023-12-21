@@ -4,9 +4,9 @@
 #
 #    pip-compile --allow-unsafe --generate-hashes --output-file=requirements/requirements.txt requirements/requirements.in
 #
-alembic==1.12.0 \
-    --hash=sha256:03226222f1cf943deee6c85d9464261a6c710cd19b4fe867a3ad1f25afda610f \
-    --hash=sha256:8e7645c32e4f200675e69f0745415335eb59a3663f5feb487abfa0b30c45888b
+alembic==1.13.1 \
+    --hash=sha256:2edcc97bed0bd3272611ce3a98d98279e9c209e7186e43e75bbb1b2bdfdbcc43 \
+    --hash=sha256:4932c8558bf68f2ee92b9bbcb8218671c627064d5b08939437af6d77dc05e595
     # via
     #   -r requirements/requirements.in
     #   flask-migrate
