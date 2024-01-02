@@ -43,7 +43,7 @@ jobs:
 
       - name: Get changed yaml files
         id: changed-oas-files
-        uses: tj-actions/changed-files@v40
+        uses: tj-actions/changed-files@v41
         with:
           files: |
             openapi/*.yaml
