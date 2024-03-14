@@ -179,9 +179,9 @@ factory-boy==3.3.0 \
     --hash=sha256:a2cdbdb63228177aa4f1c52f4b6d83fab2b8623bf602c7dedd7eb83c0f69c04c \
     --hash=sha256:bc76d97d1a65bbd9842a6d722882098eb549ec8ee1081f9fb2e8ff29f0c300f1
     # via -r requirements/requirements-dev.in
-faker==19.11.0 \
-    --hash=sha256:a62a3fd3bfa3122d4f57dfa26a1cc37d76751a76c8ddd63cf9d24078c57913a4 \
-    --hash=sha256:e28090068293c5a83e7f4d636417d45fae1031ca8a8136cc2415549ebc2111e2
+faker==24.2.0 \
+    --hash=sha256:87d5e7730426e7b36817921679c4eaf3d810cedb8c81194f47adc3df2122ca18 \
+    --hash=sha256:dce4754921f9fa7e2003c26834093361b8f45072e0f46f172d6ca1234774ecd4
     # via
     #   -r requirements/requirements-dev.in
     #   factory-boy
@@ -371,9 +371,7 @@ requests==2.31.0 \
 rfc3986[idna2008]==1.5.0 \
     --hash=sha256:270aaf10d87d0d4e095063c65bf3ddbc6ee3d0b226328ce21e036f946e421835 \
     --hash=sha256:a86d6e1f5b1dc238b218b012df0aa79409667bb209e58da56d0b94704e712a97
-    # via
-    #   httpx
-    #   rfc3986
+    # via httpx
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
