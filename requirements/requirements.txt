@@ -13,9 +13,7 @@ alembic==1.13.1 \
 apispec[marshmallow]==6.2.0 \
     --hash=sha256:1a949a60bb4c42bee57aaaf5d43c184df3e2e96d9658e442e75dd4435cf60961 \
     --hash=sha256:66e8386911eab1af0d2dac088d266c2d523dafa2c0c0fefa84913448e3670fd7
-    # via
-    #   apispec
-    #   flask-smorest
+    # via flask-smorest
 blinker==1.6.2 \
     --hash=sha256:4afd3de66ef3a9f8067559fb7a1cbe555c17dcbe15971b05d1b625c3e7abe213 \
     --hash=sha256:c3d739772abb7bc2860abf5f2ec284223d9ad5c76da018234f6f50d6f31ab1f0
@@ -175,9 +173,9 @@ markupsafe==2.1.2 \
     #   jinja2
     #   mako
     #   werkzeug
-marshmallow==3.20.1 \
-    --hash=sha256:5d2371bbe42000f2b3fb5eaa065224df7d8f8597bc19a1bbfa5bfe7fba8da889 \
-    --hash=sha256:684939db93e80ad3561392f47be0230743131560a41c5110684c16e21ade0a5c
+marshmallow==3.21.1 \
+    --hash=sha256:4e65e9e0d80fc9e609574b9983cf32579f305c718afb30d7233ab818571768c3 \
+    --hash=sha256:f085493f79efb0644f270a9bf2892843142d80d7174bbbd2f3713f2a589dc633
     # via
     #   -r requirements/requirements.in
     #   apispec
