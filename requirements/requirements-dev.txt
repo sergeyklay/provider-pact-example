@@ -170,7 +170,7 @@ coverage[toml]==7.5.1 \
     --hash=sha256:ef48e2707fb320c8f139424a596f5b69955a85b178f15af261bab871873bb987 \
     --hash=sha256:f152cbf5b88aaeb836127d920dd0f5e7edff5a66f10c079157306c4343d86c19 \
     --hash=sha256:fc0b4d8bfeabd25ea75e94632f5b6e047eef8adaed0c2161ada1e922e7f7cece
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 dill==0.3.6 \
     --hash=sha256:a07ffd2351b8c678dfc4a856a3005f8067aea51d6ba6c700796a4d9e280f39f0 \
     --hash=sha256:e5db55f3687856d8fbdab002ed78544e1c4559a130302693d839dfe8f93f2373
@@ -178,28 +178,28 @@ dill==0.3.6 \
 factory-boy==3.3.0 \
     --hash=sha256:a2cdbdb63228177aa4f1c52f4b6d83fab2b8623bf602c7dedd7eb83c0f69c04c \
     --hash=sha256:bc76d97d1a65bbd9842a6d722882098eb549ec8ee1081f9fb2e8ff29f0c300f1
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 faker==26.0.0 \
     --hash=sha256:0f60978314973de02c00474c2ae899785a42b2cf4f41b7987e93c132a2b8a4a9 \
     --hash=sha256:886ee28219be96949cd21ecc96c4c742ee1680e77f687b095202c8def1a08f06
     # via
-    #   -r requirements/requirements-dev.in
+    #   -r requirements-dev.in
     #   factory-boy
-fastapi==0.92.0 \
-    --hash=sha256:023a0f5bd2c8b2609014d3bba1e14a1d7df96c6abea0a73070621c9862b9a4de \
-    --hash=sha256:ae7b97c778e2f2ec3fb3cb4fb14162129411d99907fb71920f6d69a524340ebf
+fastapi==0.109.1 \
+    --hash=sha256:510042044906b17b6d9149135d90886ade170bf615efcfb5533f568ae6d88534 \
+    --hash=sha256:5402389843a3561918634eb327e86b9ae98645a9e7696bede9074449c48d610a
     # via pact-python
 flake8==6.1.0 \
     --hash=sha256:d5b3857f07c030bdb5bf41c7f53799571d75c4491748a3adcd47de929e34cd23 \
     --hash=sha256:ffdfce58ea94c6580c77888a86506937f9a1a227dfcd15f245d694ae20a6b6e5
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 flake8-blind-except==0.2.1 \
     --hash=sha256:f25a575a9dcb3eeb3c760bf9c22db60b8b5a23120224ed1faa9a43f75dd7dd16
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 flake8-import-order==0.18.2 \
     --hash=sha256:82ed59f1083b629b030ee9d3928d9e06b6213eb196fe745b3a7d4af2168130df \
     --hash=sha256:e23941f892da3e0c09d711babbb0c73bc735242e9b216b726616758a920d900e
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 h11==0.14.0 \
     --hash=sha256:8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d \
     --hash=sha256:e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761
@@ -279,7 +279,7 @@ packaging==23.0 \
     # via pytest
 pact-python==1.7.0 \
     --hash=sha256:840720efe8b379773478fce08a542b98de0e1cba4373b36318c12abc9f1a2e24
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 platformdirs==3.0.0 \
     --hash=sha256:8a1228abb1ef82d788f74139988b137e78692984ec7b08eaa6c65f1723af28f9 \
     --hash=sha256:b1d5eb14f221506f50d6604a561f4c5786d9e80355219694a1b244bcd96f4567
@@ -355,11 +355,11 @@ pyflakes==3.1.0 \
 pylint==2.17.5 \
     --hash=sha256:73995fb8216d3bed149c8d51bba25b2c52a8251a2c8ac846ec668ce38fab5413 \
     --hash=sha256:f7b601cbc06fef7e62a754e2b41294c2aa31f1cb659624b9a85bcba29eaf8252
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 pytest==8.2.2 \
     --hash=sha256:c434598117762e2bd304e526244f67bf66bbd7b5d6cf22138be51ff661980343 \
     --hash=sha256:de4bb8104e201939ccdc688b27a89a7be2079b22e2bd2b07f806b6ba71117977
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 python-dateutil==2.8.2 \
     --hash=sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86 \
     --hash=sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9
@@ -385,18 +385,20 @@ sniffio==1.3.0 \
     #   anyio
     #   httpcore
     #   httpx
-starlette==0.25.0 \
-    --hash=sha256:774f1df1983fd594b9b6fb3ded39c2aa1979d10ac45caac0f4255cbe2acb8628 \
-    --hash=sha256:854c71e73736c429c2bdb07801f2c76c9cba497e7c3cf4988fde5e95fe4cdb3c
+starlette==0.35.1 \
+    --hash=sha256:3e2639dac3520e4f58734ed22553f950d3f3cb1001cd2eaac4d57e8cdc5f66bc \
+    --hash=sha256:50bbbda9baa098e361f398fda0928062abbaf1f54f4fadcbe17c092a01eb9a25
     # via fastapi
 tomlkit==0.11.6 \
     --hash=sha256:07de26b0d8cfc18f871aec595fda24d95b08fef89d147caa861939f37230bf4b \
     --hash=sha256:71b952e5721688937fb02cf9d354dbcf0785066149d2855e44531ebdd2b65d73
     # via pylint
-typing-extensions==4.5.0 \
-    --hash=sha256:5cb5f4a79139d699607b3ef622a1dedafa84e115ab0024e0d9c044a9479ca7cb \
-    --hash=sha256:fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4
-    # via pydantic
+typing-extensions==4.12.2 \
+    --hash=sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d \
+    --hash=sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8
+    # via
+    #   fastapi
+    #   pydantic
 urllib3==1.26.19 \
     --hash=sha256:37a0344459b199fce0e80b0d3569837ec6b6937435c5244e7fd73fa6006830f3 \
     --hash=sha256:3e3d753a8618b86d7de333b4223005f68720bcd6a7d2bcb9fbd2229ec7c1e429
