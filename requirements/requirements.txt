@@ -173,9 +173,9 @@ markupsafe==2.1.2 \
     #   jinja2
     #   mako
     #   werkzeug
-marshmallow==3.21.1 \
-    --hash=sha256:4e65e9e0d80fc9e609574b9983cf32579f305c718afb30d7233ab818571768c3 \
-    --hash=sha256:f085493f79efb0644f270a9bf2892843142d80d7174bbbd2f3713f2a589dc633
+marshmallow==3.21.3 \
+    --hash=sha256:4f57c5e050a54d66361e826f94fba213eb10b67b2fdb02c3e0343ce207ba1662 \
+    --hash=sha256:86ce7fb914aa865001a4b2092c4c2872d13bc347f3d42673272cabfdbad386f1
     # via
     #   -r requirements/requirements.in
     #   apispec
