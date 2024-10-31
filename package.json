@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/sergeyklay/provider-pact-example#readme",
   "dependencies": {
-    "@redocly/cli": "^1.25.9"
+    "@redocly/cli": "^1.25.10"
   }
 }
