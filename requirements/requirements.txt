@@ -8,7 +8,7 @@ alembic==1.14.0 \
     --hash=sha256:99bd884ca390466db5e27ffccff1d179ec5c05c965cfefc0607e69f9e411cb25 \
     --hash=sha256:b00892b53b3642d0b8dbedba234dbf1924b69be83a9a769d5a624b01094e304b
     # via
-    #   -r requirements/requirements.in
+    #   -r requirements.in
     #   flask-migrate
 apispec[marshmallow]==6.2.0 \
     --hash=sha256:1a949a60bb4c42bee57aaaf5d43c184df3e2e96d9658e442e75dd4435cf60961 \
@@ -26,23 +26,23 @@ flask==3.0.3 \
     --hash=sha256:34e815dfaa43340d1d15a5c3a02b8476004037eb4840b34910c6e21679d288f3 \
     --hash=sha256:ceb27b0af3823ea2737928a4d99d125a06175b8512c445cbd9a9ce200ef76842
     # via
-    #   -r requirements/requirements.in
+    #   -r requirements.in
     #   flask-migrate
     #   flask-smorest
     #   flask-sqlalchemy
 flask-migrate==4.0.7 \
     --hash=sha256:5c532be17e7b43a223b7500d620edae33795df27c75811ddf32560f7d48ec617 \
     --hash=sha256:dff7dd25113c210b069af280ea713b883f3840c1e3455274745d7355778c8622
-    # via -r requirements/requirements.in
+    # via -r requirements.in
 flask-smorest==0.44.0 \
     --hash=sha256:13f6e39d807c8847a56dc40656c2bbc0a2b2a430d8a4bb4a21836046757f7cef \
     --hash=sha256:a35d088d0f62e9ff7e94ed996601e04fcc17cbacfb43b52543b596b933db4f72
-    # via -r requirements/requirements.in
+    # via -r requirements.in
 flask-sqlalchemy==3.1.1 \
     --hash=sha256:4ba4be7f419dc72f4efd8802d69974803c37259dd42f3913b0dcf75c9447e0a0 \
     --hash=sha256:e4b68bb881802dda1a7d878b2fc84c06d1ee57fb40b874d3dc97dabfa36b8312
     # via
-    #   -r requirements/requirements.in
+    #   -r requirements.in
     #   flask-migrate
 greenlet==2.0.2 \
     --hash=sha256:03a8f4f3430c3b3ff8d10a2a86028c660355ab637cee9333d63d66b56f09d52a \
@@ -110,9 +110,9 @@ itsdangerous==2.1.2 \
     --hash=sha256:2c2349112351b88699d8d4b6b075022c0808887cb7ad10069318a8b0bc88db44 \
     --hash=sha256:5dbbc68b317e5e42f327f9021763545dc3fc3bfe22e6deb96aaf1fc38874156a
     # via flask
-jinja2==3.1.4 \
-    --hash=sha256:4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369 \
-    --hash=sha256:bc5dd2abb727a5319567b7a813e6a2e7318c39f4f487cfe6c89c6f9c7d25197d
+jinja2==3.1.5 \
+    --hash=sha256:8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb \
+    --hash=sha256:aba0f4dc9ed8013c424088f68a5c226f7d6097ed89b246d7749c2ec4175c6adb
     # via flask
 mako==1.2.4 \
     --hash=sha256:c97c79c018b9165ac9922ae4f32da095ffd3c4e6872b45eded42926deea46818 \
@@ -177,7 +177,7 @@ marshmallow==3.26.1 \
     --hash=sha256:3350409f20a70a7e4e11a27661187b77cdcaeb20abca41c1454fe33636bea09c \
     --hash=sha256:e6d8affb6cb61d39d26402096dc0aee12d5a26d490a121f118d2e81dc0719dc6
     # via
-    #   -r requirements/requirements.in
+    #   -r requirements.in
     #   apispec
     #   flask-smorest
     #   webargs
@@ -191,7 +191,7 @@ packaging==23.0 \
 python-dotenv==1.0.1 \
     --hash=sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca \
     --hash=sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a
-    # via -r requirements/requirements.in
+    # via -r requirements.in
 sqlalchemy==2.0.23 \
     --hash=sha256:0666031df46b9badba9bed00092a1ffa3aa063a5e68fa244acd9f08070e936d3 \
     --hash=sha256:0a8c6aa506893e25a04233bc721c6b6cf844bafd7250535abb56cb6cc1368884 \
@@ -243,7 +243,7 @@ sqlalchemy==2.0.23 \
     --hash=sha256:f508ba8f89e0a5ecdfd3761f82dda2a3d7b678a626967608f4273e0dba8f07ac \
     --hash=sha256:fd54601ef9cc455a0c61e5245f690c8a3ad67ddb03d3b91c361d076def0b4c60
     # via
-    #   -r requirements/requirements.in
+    #   -r requirements.in
     #   alembic
     #   flask-sqlalchemy
 typing-extensions==4.5.0 \
@@ -260,6 +260,6 @@ werkzeug==3.0.6 \
     --hash=sha256:1bc0c2310d2fbb07b1dd1105eba2f7af72f322e1e455f2f93c993bee8c8a5f17 \
     --hash=sha256:a8dd59d4de28ca70471a34cba79bed5f7ef2e036a76b3ab0835474246eb41f8d
     # via
-    #   -r requirements/requirements.in
+    #   -r requirements.in
     #   flask
     #   flask-smorest
