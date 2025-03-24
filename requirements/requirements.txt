@@ -34,9 +34,9 @@ flask-migrate==4.0.7 \
     --hash=sha256:5c532be17e7b43a223b7500d620edae33795df27c75811ddf32560f7d48ec617 \
     --hash=sha256:dff7dd25113c210b069af280ea713b883f3840c1e3455274745d7355778c8622
     # via -r requirements/requirements.in
-flask-smorest==0.44.0 \
-    --hash=sha256:13f6e39d807c8847a56dc40656c2bbc0a2b2a430d8a4bb4a21836046757f7cef \
-    --hash=sha256:a35d088d0f62e9ff7e94ed996601e04fcc17cbacfb43b52543b596b933db4f72
+flask-smorest==0.45.0 \
+    --hash=sha256:1490291a59e572be5c02e0a769589584180eceba65bc1949456760856b3e990b \
+    --hash=sha256:2b11c1e9de16b651291b963661011781d7bf0de28990d5469c05c84d000f101e
     # via -r requirements/requirements.in
 flask-sqlalchemy==3.1.1 \
     --hash=sha256:4ba4be7f419dc72f4efd8802d69974803c37259dd42f3913b0dcf75c9447e0a0 \
