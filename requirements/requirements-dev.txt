@@ -180,7 +180,7 @@ coverage[toml]==7.6.4 \
     --hash=sha256:f3ddf056d3ebcf6ce47bdaf56142af51bb7fad09e4af310241e9db7a3a8022e1 \
     --hash=sha256:f8fe4984b431f8621ca53d9380901f62bfb54ff759a1348cd140490ada7b693c \
     --hash=sha256:fe439416eb6380de434886b00c859304338f8b19f6f54811984f3420a2e03858
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 dill==0.3.6 \
     --hash=sha256:a07ffd2351b8c678dfc4a856a3005f8067aea51d6ba6c700796a4d9e280f39f0 \
     --hash=sha256:e5db55f3687856d8fbdab002ed78544e1c4559a130302693d839dfe8f93f2373
@@ -188,12 +188,12 @@ dill==0.3.6 \
 factory-boy==3.3.3 \
     --hash=sha256:1c39e3289f7e667c4285433f305f8d506efc2fe9c73aaea4151ebd5cdea394fc \
     --hash=sha256:866862d226128dfac7f2b4160287e899daf54f2612778327dd03d0e2cb1e3d03
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 faker==30.8.2 \
     --hash=sha256:4a82b2908cd19f3bba1a4da2060cc4eb18a40410ccdf9350d071d79dc92fe3ce \
     --hash=sha256:aa31b52cdae3673d6a78b4857c7bcdc0e98f201a5cb77d7827fa9e6b5876da94
     # via
-    #   -r requirements/requirements-dev.in
+    #   -r requirements-dev.in
     #   factory-boy
 fastapi==0.92.0 \
     --hash=sha256:023a0f5bd2c8b2609014d3bba1e14a1d7df96c6abea0a73070621c9862b9a4de \
@@ -202,14 +202,14 @@ fastapi==0.92.0 \
 flake8==7.1.1 \
     --hash=sha256:049d058491e228e03e67b390f311bbf88fce2dbaa8fa673e7aea87b7198b8d38 \
     --hash=sha256:597477df7860daa5aa0fdd84bf5208a043ab96b8e96ab708770ae0364dd03213
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 flake8-blind-except==0.2.1 \
     --hash=sha256:f25a575a9dcb3eeb3c760bf9c22db60b8b5a23120224ed1faa9a43f75dd7dd16
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 flake8-import-order==0.18.2 \
     --hash=sha256:82ed59f1083b629b030ee9d3928d9e06b6213eb196fe745b3a7d4af2168130df \
     --hash=sha256:e23941f892da3e0c09d711babbb0c73bc735242e9b216b726616758a920d900e
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 h11==0.14.0 \
     --hash=sha256:8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d \
     --hash=sha256:e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761
@@ -289,7 +289,7 @@ packaging==23.0 \
     # via pytest
 pact-python==1.7.0 \
     --hash=sha256:840720efe8b379773478fce08a542b98de0e1cba4373b36318c12abc9f1a2e24
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 platformdirs==3.0.0 \
     --hash=sha256:8a1228abb1ef82d788f74139988b137e78692984ec7b08eaa6c65f1723af28f9 \
     --hash=sha256:b1d5eb14f221506f50d6604a561f4c5786d9e80355219694a1b244bcd96f4567
@@ -365,11 +365,11 @@ pyflakes==3.2.0 \
 pylint==2.17.5 \
     --hash=sha256:73995fb8216d3bed149c8d51bba25b2c52a8251a2c8ac846ec668ce38fab5413 \
     --hash=sha256:f7b601cbc06fef7e62a754e2b41294c2aa31f1cb659624b9a85bcba29eaf8252
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 pytest==8.3.3 \
     --hash=sha256:70b98107bd648308a7952b06e6ca9a50bc660be218d53c257cc1fc94fda10181 \
     --hash=sha256:a6853c7375b2663155079443d2e45de913a911a11d669df02a50814944db57b2
-    # via -r requirements/requirements-dev.in
+    # via -r requirements-dev.in
 python-dateutil==2.8.2 \
     --hash=sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86 \
     --hash=sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9
@@ -487,7 +487,7 @@ wrapt==1.14.1 \
     # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==70.0.0 \
-    --hash=sha256:54faa7f2e8d2d11bcd2c07bed282eef1046b5c080d1c32add737d7b5817b1ad4 \
-    --hash=sha256:f211a66637b8fa059bb28183da127d4e86396c991a942b028c6650d4319c3fd0
+setuptools==78.1.1 \
+    --hash=sha256:c3a9c4211ff4c309edb8b8c4f1cbfa7ae324c4ba9f91ff254e3d305b9fd54561 \
+    --hash=sha256:fcc17fd9cd898242f6b4adfaca46137a9edef687f43e6f78469692a5e70d851d
     # via flake8-import-order
