@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Detect current Git branch
         id: current-branch
@@ -92,7 +92,7 @@ jobs:
 
       - name: 'Checkout ${{ steps.current-branch.outputs.ref }} consumer brach'
         id: consumer-checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         continue-on-error: true
         with:
           repository: sergeyklay/consumer-pact-example
@@ -102,7 +102,7 @@ jobs:
       # Clone default branch, if the previous step failed.
       - name: Checkout default consumer brach
         id: consumer-checkout-default
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         if: ${{ steps.consumer-checkout.outcome == 'failure' }}
         with:
           repository: sergeyklay/consumer-pact-example
